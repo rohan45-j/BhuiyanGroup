@@ -1,0 +1,26 @@
+[
+  {
+    "id": "inq-1732104000000",
+    "name": "Engr. Tariqul Islam",
+    "organization": "Summit Power International",
+    "email": "tariqul.islam@summitpower.com",
+    "phone": "+880 1711-234567",
+    "subject": "33kV Substation Extension RFP",
+    "concern": "Bhuiyan Electric & Power",
+    "message": "We require a formal turnkey EPC proposal for 33/11kV 2x20/26MVA AIS substation engineering, equipment procurement, and commissioning at our Narayanganj facility.",
+    "status": "unread",
+    "createdAt": "2026-11-20T10:15:00.000Z"
+  },
+  {
+    "id": "inq-1732004000000",
+    "name": "Mahmudur Rahman",
+    "organization": "Apex Footwear Ltd.",
+    "email": "m.rahman@apexfootwear.com",
+    "phone": "+880 1819-876543",
+    "subject": "3.5MW Industrial Rooftop Solar EPC",
+    "concern": "Bhuiyan Renewable Energy",
+    "message": "Seeking net-metered rooftop solar turnkey engineering and installation for our Gazipur manufacturing complex. Please send corporate profile and preliminary feasibility assessment.",
+    "status": "read",
+    "createdAt": "2026-11-19T14:30:00.000Z"
+  }
+]

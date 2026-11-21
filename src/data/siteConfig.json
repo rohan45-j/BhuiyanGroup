@@ -1,0 +1,936 @@
+{
+  "theme": {
+    "primaryColor": "#0F2557",
+    "primaryDark": "#0A1B40",
+    "accentColor": "#F37021",
+    "accentHover": "#DE5F12",
+    "buttonColor": "#F37021",
+    "buttonHover": "#DE5F12",
+    "heroBgStart": "#0F2557",
+    "heroBgEnd": "#0A1B40",
+    "cardBg": "#FFFFFF",
+    "sectionBgLight": "#F8FAFC",
+    "footerBg": "#163125",
+    "borderColor": "#E2E8F0"
+  },
+  "branding": {
+    "logo": "/img/bhuiyan-group-logo-horizontal.png",
+    "favicon": "/uploads/favicon-icon-1795190152486.png",
+    "heroBanner": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+    "siteTitle": "Bhuiyan Group | Industrial Power, Renewables & Engineering Excellence",
+    "brochurePdf": ""
+  },
+  "general": {
+    "name": "Bhuiyan Group",
+    "shortName": "BG",
+    "tagline": "Powering Progress, Engineering Sustainable Futures",
+    "vision": "To be the premier diversified industrial and engineering conglomerate in Bangladesh, delivering sustainable power, clean water, renewable energy, and world-class products that drive national economic self-reliance.",
+    "mission": "Empower industries and communities across Bangladesh through relentless engineering excellence, turnkey power generation, green energy adoption, resilient electro-mechanical infrastructure, and high-standard consumer products.",
+    "overview": "Established as a cornerstone of Bangladeshi industrial growth, Bhuiyan Group (BG) operates across five strategic sectors: heavy power generation, renewable solar technology, electro-mechanical substation engineering, industrial water pump systems, and certified infant care essentials. With an established footprint across Dhaka, Chittagong, and major industrial hubs, Bhuiyan Group combines deep engineering expertise with steadfast corporate integrity.",
+    "hotline": "+880 1711-000000",
+    "whatsapp": "+880 1819-214436",
+    "phone": "+880 2 988-1234 / +880 2 988-5678",
+    "email": "info@bhuiyangroup.com.bd",
+    "supportEmail": "support@bhuiyangroup.com.bd",
+    "address": "Bhuiyan Corporate Tower, Level 7-9, 45 Gulshan South Avenue, Gulshan-1",
+    "city": "Dhaka-1212",
+    "country": "Bangladesh",
+    "workingHours": "Saturday - Thursday: 9:00 AM - 6:00 PM (BST)"
+  },
+  "hero": {
+    "backgroundType": "image",
+    "videoUrl": "https://login.bitopibd.com/uploads/sewing_factory_in_klaten_1080p_2025_08_05_00_15_26_utc_170318d437.mp4",
+    "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+    "videoOverlayOpacity": 0,
+    "showRibbon": false,
+    "badgeText": "",
+    "headline": "",
+    "subtitle": "",
+    "primaryCtaText": "",
+    "primaryCtaLink": "#sister-concerns",
+    "secondaryCtaText": "",
+    "secondaryCtaLink": "#corporate-contact",
+    "showSisterConcernsMarquee": true,
+    "marqueeBadgeText": "OUR SISTER CONCERNS & STRATEGIC SUBSIDIARIES",
+    "images": [
+      "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+      "/uploads/hero-image-shopping-sale-3d-background-design-copy-space-area-shopping-basket-pepper-bag-package-delivery-courier-photo-1795284078819.jpg"
+    ],
+    "autoSlideInterval": 5,
+    "videoSound": "sound",
+    "videoMuted": false
+  },
+  "adminAuth": {
+    "username": "admin",
+    "password": "password123",
+    "sessionDurationHours": 24
+  },
+  "smtp": {
+    "enabled": false,
+    "host": "smtp.gmail.com",
+    "port": "587",
+    "secure": false,
+    "user": "",
+    "pass": "",
+    "fromEmail": "info@bhuiyangroup.com.bd",
+    "fromName": "Bhuiyan Group Inquiries",
+    "receiverEmail": "info@bhuiyangroup.com.bd"
+  },
+  "groupStats": [
+    {
+      "value": "350+ MW",
+      "label": "Power Deployed",
+      "description": "Delivered standby & captive power across Bangladesh"
+    },
+    {
+      "value": "1,200+",
+      "label": "Engineering Projects",
+      "description": "Successfully executed nationwide turnkey installations"
+    },
+    {
+      "value": "5",
+      "label": "Sister Concerns",
+      "description": "Specialized subsidiaries serving critical market sectors"
+    },
+    {
+      "value": "99.8%",
+      "label": "Client Reliability",
+      "description": "Trusted by RMG, government, healthcare, and export sectors"
+    }
+  ],
+  "sisterConcerns": [
+    {
+      "id": "infant-zone",
+      "name": "Infant Zone",
+      "slug": "infant-zone",
+      "shortName": "Infant Zone",
+      "tagline": "Nurturing the Next Generation with Certified Purity & Care",
+      "sector": "Mother & Baby Healthcare & Nursery Essentials",
+      "description": "Trusted brand for premium baby care, pediatric-grade feeding essentials, sterile maternal care products, and certified nursery goods in Bangladesh.",
+      "longDescription": "Infant Zone brings uncompromising safety, clinical sterilization standards, and comfort to families across Bangladesh. From BPA-free newborn feeding accessories to ergonomic infant strollers and nursery hygiene gear, Infant Zone stands for pristine quality and parental peace of mind.",
+      "foundedYear": "2019",
+      "iconName": "HeartHandshake",
+      "logo": "/img/infant-zone-logo.png",
+      "keySpecialties": [
+        "BPA-Free Pediatric-Grade Baby Feeding Bottles & Nipples",
+        "Sterile Breast Pumps & Post-Natal Maternal Care Accessories",
+        "Organic Hygiene Wipes & Pediatric-Tested Skincare",
+        "Ergonomic Infant Strollers, Car Seats & High Chairs",
+        "Nationwide Mother & Child Retail and E-Commerce Distribution"
+      ],
+      "stats": [
+        {
+          "label": "Happy Parents Served",
+          "value": "250,000+"
+        },
+        {
+          "label": "Certified Safe Products",
+          "value": "120+ SKUs"
+        },
+        {
+          "label": "Retail Partner Outlets",
+          "value": "400+ Stores"
+        }
+      ],
+      "contactInfo": {
+        "email": "support@infantzone.com.bd",
+        "phone": "+880 1711-000005",
+        "office": "Bhuiyan Corporate Tower, Ground & 1st Floor, Gulshan-1, Dhaka"
+      },
+      "capabilities": [
+        {
+          "title": "Strict Safety & Material Testing",
+          "description": "Every product batch complies with EU Directive and FDA standards for non-toxic silicone, food-grade polypropylene, and zero phthalates."
+        },
+        {
+          "title": "Medical-Grade Sterilization Standards",
+          "description": "Supplying healthcare maternity wards and hospitals with clinically packaged nursing accessories and sterile infant feeding devices."
+        },
+        {
+          "title": "Nationwide Logistics & Express Delivery",
+          "description": "Dedicated climate-controlled central warehousing in Dhaka ensuring pristine condition and rapid distribution to all 64 districts."
+        }
+      ],
+      "galleryImages": [
+        {
+          "id": "iz-img-1",
+          "title": "Sterile Cleanroom Packaging Facility",
+          "imageUrl": "/img/infant-zone-logo.png",
+          "caption": "Class-1000 cleanroom packaging for medical-grade baby bottles & teats."
+        },
+        {
+          "id": "iz-img-2",
+          "title": "Nationwide Central Logistics Center",
+          "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+          "caption": "Automated racking and temperature-controlled storage in Dhaka."
+        },
+        {
+          "id": "iz-img-3",
+          "title": "BPA-Free Infant Feeding Essentials",
+          "imageUrl": "/img/infant-zone-logo.png",
+          "caption": "Certified food-grade silicone and PPSU clinical feeding accessories."
+        },
+        {
+          "id": "iz-img-4",
+          "title": "Hospital Maternity & Pediatric Distribution",
+          "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+          "caption": "Serving 400+ pharmacies, pediatric clinics, and retail superstores."
+        },
+        {
+          "id": "iz-img-5",
+          "title": "Quality Assurance & Microbiological Lab",
+          "imageUrl": "/img/infant-zone-logo.png",
+          "caption": "Batch testing for heavy metals, plasticizers, and microbiological purity."
+        }
+      ],
+      "galleryVideos": [
+        {
+          "id": "infant-zone-vid-1",
+          "title": "Infant Zone Project Showcase",
+          "videoUrl": "https://login.bitopibd.com/uploads/sewing_factory_in_klaten_1080p_2025_08_05_00_15_26_utc_170318d437.mp4",
+          "thumbnailUrl": "/img/infant-zone-logo.png",
+          "caption": "Field engineering, deployment, and live operational walkthrough."
+        }
+      ]
+    },
+    {
+      "id": "generex-power",
+      "name": "Generex Power",
+      "slug": "generex-power",
+      "shortName": "Generex",
+      "tagline": "Uncompromised Industrial Power & Energy Reliability",
+      "sector": "Power Generation & Energy Systems",
+      "description": "Leading provider of industrial diesel, gas, and dual-fuel generator sets ranging from 20 kVA to 3000 kVA, offering comprehensive EPC and 24/7 maintenance support.",
+      "longDescription": "Generex Power is the vanguard of industrial energy resilience in Bhuiyan Group. We supply, commission, and maintain heavy-duty power generation solutions engineered for continuous textile mill operations, pharmaceutical grade stability, commercial high-rises, and mission-critical telecommunications facilities across Bangladesh.",
+      "foundedYear": "2012",
+      "iconName": "Zap",
+      "logo": "/img/generex-power-square.png",
+      "keySpecialties": [
+        "Diesel & Gas Generator Sets (20 kVA - 3000 kVA)",
+        "Soundproof Canopy & Acoustic Enclosure Fabrication",
+        "Load Sharing & Automatic Synchronizing Panels",
+        "Genuine Spare Parts Supply (Perkins, Cummins, Stamford)",
+        "Nationwide 24/7 Rapid Emergency Maintenance Support"
+      ],
+      "stats": [
+        {
+          "label": "Generators Installed",
+          "value": "850+ Units"
+        },
+        {
+          "label": "Prime Power Delivered",
+          "value": "240+ MW"
+        },
+        {
+          "label": "SLA Response Time",
+          "value": "< 2 Hours"
+        }
+      ],
+      "contactInfo": {
+        "email": "generex@bhuiyangroup.com.bd",
+        "phone": "+880 1711-000001",
+        "office": "Bhuiyan Corporate Tower, Level 8, Gulshan-1, Dhaka"
+      },
+      "capabilities": [
+        {
+          "title": "Customized Acoustic Engineering",
+          "description": "Design and manufacturing of soundproof canopies strictly compliant with Bangladesh environmental noise thresholds for urban factories and healthcare institutions."
+        },
+        {
+          "title": "Intelligent Power Synchronization",
+          "description": "Multi-generator load sharing and automated main-failure (AMF) controls that safeguard production continuity with zero millisecond dropout."
+        },
+        {
+          "title": "Long-Term O&M Contracting",
+          "description": "Turnkey operation and maintenance packages ensuring maximum uptime and guaranteed operational life for industrial prime movers."
+        }
+      ],
+      "galleryImages": [
+        {
+          "id": "gen-img-1",
+          "title": "2500 kVA Perkins Continuous Diesel Unit",
+          "imageUrl": "/img/generex-power-square.png",
+          "caption": "Heavy Perkins-powered prime mover in heavy acoustic enclosure."
+        },
+        {
+          "id": "gen-img-2",
+          "title": "Automatic Mains Failure (AMF) & Sync Board",
+          "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+          "caption": "Multi-set synchronization with zero-break automatic transfer."
+        },
+        {
+          "id": "gen-img-3",
+          "title": "Acoustic Attenuation & Exhaust Silencer",
+          "imageUrl": "/img/generex-power-square.png",
+          "caption": "Hospital-grade sound baffling delivering under 68 dBA at 1 meter."
+        },
+        {
+          "id": "gen-img-4",
+          "title": "Fuel Storage & Automatic Delivery System",
+          "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+          "caption": "Dual-wall bulk diesel tanks with pneumatic shut-off valves."
+        }
+      ],
+      "galleryVideos": [
+        {
+          "id": "generex-power-vid-1",
+          "title": "Generex Power Project Showcase",
+          "videoUrl": "https://login.bitopibd.com/uploads/sewing_factory_in_klaten_1080p_2025_08_05_00_15_26_utc_170318d437.mp4",
+          "thumbnailUrl": "/img/generex-power-square.png",
+          "caption": "Field engineering, deployment, and live operational walkthrough."
+        }
+      ]
+    },
+    {
+      "id": "glory-energy-engineering",
+      "name": "Glory Energy Engineering",
+      "slug": "glory-energy-engineering",
+      "shortName": "Glory Energy",
+      "tagline": "Pioneering Fluid Mechanics & Water Pump Engineering",
+      "sector": "Industrial Water Systems & Fire Safety",
+      "description": "High-capacity industrial water pump solutions, submersible deep-well irrigation, municipal fluid management, and certified fire protection hydrant pump networks.",
+      "longDescription": "Glory Energy Engineering delivers heavy-duty fluid dynamics solutions engineered for Bangladesh’s demanding hydrological conditions. From deep extraction pumps for industrial wash plants to high-pressure UL/FM compliant fire-fighting skid pumps, we ensure continuous water security and life-safety compliance.",
+      "foundedYear": "2014",
+      "iconName": "Droplets",
+      "logo": "/uploads/concern-glory-energy-engineering-whatsapp-image-2026-11-20-at-10-21-46-pm-1795203754934.jpeg",
+      "keySpecialties": [
+        "End-Suction & Split-Case Centrifugal Water Pumps",
+        "Submersible Deep-Well & Borehole Pumping Systems",
+        "UL/FM Fire Protection Hydrant & Sprinkler Booster Sets",
+        "Effluent Treatment Plant (ETP) Pumping & Slurry Handling",
+        "Variable Frequency Drive (VFD) Pressure Booster Stations"
+      ],
+      "stats": [
+        {
+          "label": "Pump Installations",
+          "value": "1,500+ Sets"
+        },
+        {
+          "label": "Flow Rate Handled",
+          "value": "450k m³/hr"
+        },
+        {
+          "label": "Industrial Clients",
+          "value": "320+ Units"
+        }
+      ],
+      "contactInfo": {
+        "email": "glory@bhuiyangroup.com.bd",
+        "phone": "+880 1711-000003",
+        "office": "Bhuiyan Corporate Tower, Level 8, Gulshan-1, Dhaka"
+      },
+      "capabilities": [
+        {
+          "title": "Fire Safety Hydro-Pneumatics",
+          "description": "Custom engineered diesel and electric fire hydrant pump skids fully certified to NFPA and Bangladesh Fire Service & Civil Defence standards."
+        },
+        {
+          "title": "Deep Ground Water Extraction",
+          "description": "High-head submersible borehole pumps built with anti-corrosion stainless steel internals designed for harsh industrial water tables."
+        },
+        {
+          "title": "Smart Booster Hydro-Pneumatic Systems",
+          "description": "Energy-saving multi-pump variable speed sets that maintain razor-sharp constant pressure across high-rise residential and commercial towers."
+        }
+      ],
+      "galleryImages": [
+        {
+          "id": "glo-img-1",
+          "title": "UL/FM Certified Fire Hydrant Booster Set",
+          "imageUrl": "/uploads/concern-glory-energy-engineering-whatsapp-image-2026-11-20-at-10-21-46-pm-1795203754934.jpeg",
+          "caption": "NFPA-20 compliant diesel and electric dual fire pump system."
+        },
+        {
+          "id": "glo-img-2",
+          "title": "Deep-Well Submersible Borehole Pumps",
+          "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+          "caption": "Multi-stage stainless steel pumps for deep industrial groundwater extraction."
+        },
+        {
+          "id": "glo-img-3",
+          "title": "High-Pressure Hydro-Pneumatic Booster Skid",
+          "imageUrl": "/uploads/concern-glory-energy-engineering-whatsapp-image-2026-11-20-at-10-21-46-pm-1795203754934.jpeg",
+          "caption": "Constant water pressure distribution for commercial skyscraper complexes."
+        },
+        {
+          "id": "glo-img-4",
+          "title": "Industrial Effluent & Drainage Pumps",
+          "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+          "caption": "Clog-free vortex impeller pumps for heavy industrial wastewater handling."
+        }
+      ],
+      "galleryVideos": [
+        {
+          "id": "glory-energy-engineering-vid-1",
+          "title": "Glory Energy Engineering Project Showcase",
+          "videoUrl": "https://login.bitopibd.com/uploads/sewing_factory_in_klaten_1080p_2025_08_05_00_15_26_utc_170318d437.mp4",
+          "thumbnailUrl": "/uploads/concern-glory-energy-engineering-whatsapp-image-2026-11-20-at-10-21-46-pm-1795203754934.jpeg",
+          "caption": "Field engineering, deployment, and live operational walkthrough."
+        }
+      ]
+    },
+    {
+      "id": "radial-power-engineering",
+      "name": "Radial Power & Engineering",
+      "slug": "radial-power-engineering",
+      "shortName": "Radial Power",
+      "tagline": "Precision Electro-Mechanical Infrastructure & Substations",
+      "sector": "Substation & Electrical Switchgear Engineering",
+      "description": "Specialists in 11kV/33kV industrial electrical substations, high-voltage switchgear, power factor improvement (PFI) plants, and automated power distribution.",
+      "longDescription": "Radial Power & Engineering is the electro-mechanical backbone of Bhuiyan Group. Our engineering teams design, test, build, and certify heavy electrical distribution systems that power RMG factories, heavy chemical plants, cement works, and corporate IT parks with zero margin for electrical faults.",
+      "foundedYear": "2015",
+      "iconName": "Cpu",
+      "logo": "/img/radial-power-logo.jpg",
+      "keySpecialties": [
+        "11kV & 33kV Indoor/Outdoor Electrical Substations",
+        "HT & LT Switchgear Panel Design & Assembly",
+        "Automated Power Factor Improvement (PFI) Plants",
+        "Oil-Immersed & Dry-Type Cast Resin Transformers",
+        "Automatic Transfer Switches (ATS) & Busbar Trunking (BBT)"
+      ],
+      "stats": [
+        {
+          "label": "Substations Commissioned",
+          "value": "420+ Units"
+        },
+        {
+          "label": "Total MVA Managed",
+          "value": "650+ MVA"
+        },
+        {
+          "label": "Inspection Pass Rate",
+          "value": "100%"
+        }
+      ],
+      "contactInfo": {
+        "email": "radialpower@bhuiyangroup.com.bd",
+        "phone": "+880 1711-000004",
+        "office": "Bhuiyan Corporate Tower, Level 9, Gulshan-1, Dhaka"
+      },
+      "capabilities": [
+        {
+          "title": "Custom Switchgear Fabrication",
+          "description": "In-house precision sheet metal CNC fabrication, powder coating, and busbar engineering conforming to IEC 61439 switchgear standards."
+        },
+        {
+          "title": "Harmonic Filtration & PFI Plants",
+          "description": "Eliminate utility power factor penalties and clean harmonic distortions with intelligent micro-processor managed capacitor bank panels."
+        },
+        {
+          "title": "Electrical Safety Audits & Thermography",
+          "description": "Certified IR thermal imaging, insulation resistance testing, and load-balancing diagnostic services compliant with Accord/RSC safety guidelines."
+        }
+      ],
+      "galleryImages": [
+        {
+          "id": "rpe-img-1",
+          "title": "33kV Industrial Substation Yard",
+          "imageUrl": "/img/radial-power-logo.jpg",
+          "caption": "33kV/11kV outdoor substation with oil-immersed transformers."
+        },
+        {
+          "id": "rpe-img-2",
+          "title": "Custom HT/LT Switchgear Assembly",
+          "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+          "caption": "Fabricated sheet-steel enclosed vacuum circuit breaker (VCB) panels."
+        },
+        {
+          "id": "rpe-img-3",
+          "title": "Automatic Power Factor Correction (PFI) Panels",
+          "imageUrl": "/img/radial-power-logo.jpg",
+          "caption": "Heavy-duty micro-processor controlled capacitor banks maintaining PF > 0.98."
+        },
+        {
+          "id": "rpe-img-4",
+          "title": "Copper Busbar Trunking System (BBT)",
+          "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+          "caption": "Low impedance sand-cast copper busways for high-rise manufacturing facilities."
+        },
+        {
+          "id": "rpe-img-5",
+          "title": "Transformer Oil Testing & Calibration",
+          "imageUrl": "/img/radial-power-logo.jpg",
+          "caption": "Precision dielectric testing and breakdown voltage diagnostics."
+        }
+      ],
+      "galleryVideos": [
+        {
+          "id": "radial-power-engineering-vid-1",
+          "title": "Radial Power & Engineering Project Showcase",
+          "videoUrl": "https://login.bitopibd.com/uploads/sewing_factory_in_klaten_1080p_2025_08_05_00_15_26_utc_170318d437.mp4",
+          "thumbnailUrl": "/img/radial-power-logo.jpg",
+          "caption": "Field engineering, deployment, and live operational walkthrough."
+        }
+      ]
+    },
+    {
+      "id": "radial-renewable-technology",
+      "name": "Radial Renewable Technology Bangladesh",
+      "slug": "radial-renewable-technology",
+      "shortName": "Radial Solar",
+      "tagline": "Harnessing the Sun for an Eco-Resilient Bangladesh",
+      "sector": "Solar Photovoltaic & Clean Tech EPC",
+      "description": "Pioneering commercial & industrial (C&I) rooftop solar, solar irrigation systems, and smart microgrids aligned with national net-metering energy guidelines.",
+      "longDescription": "Radial Renewable Technology Bangladesh is driving corporate decarbonization through cutting-edge solar PV engineering. Specializing in high-yield Tier-1 monocrystalline installations and smart inverter ecosystems, we turn commercial rooftop expanses into self-funding, carbon-reducing clean power stations.",
+      "foundedYear": "2017",
+      "iconName": "SunMedium",
+      "logo": "/img/radial-renewable-logo.jpg",
+      "keySpecialties": [
+        "Turnkey C&I Rooftop Solar EPC (100 kWp - 10 MWp)",
+        "Net-Metering System Design & Regulatory Approvals",
+        "Solar Agricultural Irrigation & Water Pump Solutions",
+        "Hybrid Battery Energy Storage Systems (BESS)",
+        "Real-Time SCADA Solar Telemetry & Yield Optimization"
+      ],
+      "stats": [
+        {
+          "label": "Clean Energy Installed",
+          "value": "48+ MWp"
+        },
+        {
+          "label": "CO2 Offset Annually",
+          "value": "32,000 Tons"
+        },
+        {
+          "label": "Tier-1 Solar Efficiency",
+          "value": "22.8%"
+        }
+      ],
+      "contactInfo": {
+        "email": "renewable@bhuiyangroup.com.bd",
+        "phone": "+880 1711-000002",
+        "office": "Bhuiyan Corporate Tower, Level 7, Gulshan-1, Dhaka"
+      },
+      "capabilities": [
+        {
+          "title": "Turnkey Solar EPC & Permitting",
+          "description": "End-to-end feasibility, structural roof auditing, electrical engineering, SREDA compliance, and utility grid interconnection."
+        },
+        {
+          "title": "Industrial Net-Metering Solutions",
+          "description": "Enabling export-oriented manufacturing plants to sell excess midday solar yield back into the national grid under BPDB/BREB net-metering policies."
+        },
+        {
+          "title": "Remote Monitoring Systems",
+          "description": "Cloud-connected SCADA monitoring tracks module-level string performance, dirt degradation, and inverter efficiency 24 hours a day."
+        }
+      ],
+      "galleryImages": [
+        {
+          "id": "rrt-img-1",
+          "title": "3.2 MWp Industrial Rooftop Solar Array",
+          "imageUrl": "/img/radial-renewable-logo.jpg",
+          "caption": "Tier-1 monocrystalline half-cell modules on export textile mill roof."
+        },
+        {
+          "id": "rrt-img-2",
+          "title": "Huawei Smart String Inverters & SCADA",
+          "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+          "caption": "Distributed inverter skids with cloud-based performance monitoring."
+        },
+        {
+          "id": "rrt-img-3",
+          "title": "Net-Metering Bi-directional Substation",
+          "imageUrl": "/img/radial-renewable-logo.jpg",
+          "caption": "Grid-synchronous export/import metering integrated with national grid."
+        },
+        {
+          "id": "rrt-img-4",
+          "title": "Aluminum Rail Mounting Infrastructure",
+          "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+          "caption": "Anodized structural aluminum framework rated for 180 km/h wind gusts."
+        }
+      ],
+      "galleryVideos": [
+        {
+          "id": "radial-renewable-technology-vid-1",
+          "title": "Radial Renewable Technology Bangladesh Project Showcase",
+          "videoUrl": "https://login.bitopibd.com/uploads/sewing_factory_in_klaten_1080p_2025_08_05_00_15_26_utc_170318d437.mp4",
+          "thumbnailUrl": "/img/radial-renewable-logo.jpg",
+          "caption": "Field engineering, deployment, and live operational walkthrough."
+        }
+      ]
+    }
+  ],
+  "coreSectorsSection": {
+    "badgeText": "Industry Domains",
+    "headline": "Integrated Engineering Capabilities",
+    "description": "From heavy industry and energy infrastructure to consumer health, our divisions operate with uncompromising precision and international safety codes.",
+    "sectors": [
+      {
+        "id": "power-generation",
+        "title": "Heavy Power Generation & Diesel Generators",
+        "description": "Industrial standby, prime, and continuous power generation systems powered by Perkins, Cummins, and Baudouin engines for industrial factories, export zones, and commercial complexes.",
+        "concernSlug": "generex-power",
+        "concernName": "Generex Power",
+        "icon": "Zap"
+      },
+      {
+        "id": "renewable-solar",
+        "title": "Rooftop Solar & Renewable Clean Energy",
+        "description": "Turnkey commercial & industrial (C&I) solar photovoltaic systems, net-metering integration, solar water pumps, and utility-grade solar EPC solutions accelerating Bangladesh's green energy transition.",
+        "concernSlug": "radial-renewable-technology",
+        "concernName": "Radial Renewable Technology Bangladesh",
+        "icon": "SunMedium"
+      },
+      {
+        "id": "water-engineering",
+        "title": "Industrial Water Pumps & Hydrant Infrastructure",
+        "description": "High-performance centrifugal pumps, deep tube-well installations, industrial dewatering, wastewater handling, and NFPA-compliant fire-fighting pump systems.",
+        "concernSlug": "glory-energy-engineering",
+        "concernName": "Glory Energy Engineering",
+        "icon": "Droplets"
+      },
+      {
+        "id": "electromechanical-substations",
+        "title": "Electro-Mechanical & Substation Engineering",
+        "description": "Design, manufacturing, and commissioning of 11kV/33kV substations, HT/LT switchgear panels, PFI plants, dry & oil-type transformers, and automated synchronizing systems.",
+        "concernSlug": "radial-power-engineering",
+        "concernName": "Radial Power & Engineering",
+        "icon": "Cpu"
+      },
+      {
+        "id": "infant-care",
+        "title": "Certified Mother & Infant Essentials",
+        "description": "Import, distribution, and retail of medical-grade baby feeding, sterile mother care accessories, infant nutrition hygiene, and developmental nursery products.",
+        "concernSlug": "infant-zone",
+        "concernName": "Infant Zone",
+        "icon": "HeartHandshake"
+      }
+    ]
+  },
+  "milestonesSection": {
+    "badgeText": "Evolution & Heritage",
+    "headline": "A Decade of Engineering Milestones",
+    "description": "Tracing the strategic trajectory of Bhuiyan Group from industrial generation to comprehensive conglomerateship.",
+    "milestones": [
+      {
+        "year": "2012",
+        "title": "Genesis in Industrial Power Generation",
+        "desc": "Established Generex Power, deploying heavy-duty diesel generators for Bangladesh's burgeoning RMG export factories."
+      },
+      {
+        "year": "2014",
+        "title": "Hydraulic Fluid & Pump Engineering",
+        "desc": "Founded Glory Energy Engineering to provide industrial deep-well pumps, centrifugal systems, and NFPA fire hydrant skids."
+      },
+      {
+        "year": "2015",
+        "title": "High-Voltage Substation Infrastructure",
+        "desc": "Launched Radial Power & Engineering for 11kV/33kV substation manufacturing, HT/LT switchgears, and power factor plants."
+      },
+      {
+        "year": "2017",
+        "title": "National Solar Decarbonization Drive",
+        "desc": "Incorporated Radial Renewable Technology Bangladesh to lead commercial & industrial (C&I) rooftop solar PV net-metering EPC."
+      },
+      {
+        "year": "2019",
+        "title": "Healthcare & Mother-Child Wellness",
+        "desc": "Introduced Infant Zone to bring certified medical-grade baby essentials, clinical feeding gear, and infant hygiene nationwide."
+      }
+    ]
+  },
+  "videoGallery": {
+    "badgeText": "CORPORATE MEDIA & FIELD DOCUMENTATION",
+    "headline": "Industrial Video Gallery",
+    "description": "Explore high-definition footage of our turnkey power generation, rooftop solar EPC, high-voltage substations, and manufacturing facilities across Bangladesh.",
+    "videos": [
+      {
+        "id": "vid-1",
+        "title": "Industrial Heavy Power & Generator Commissioning Reel",
+        "description": "Synchronized multi-megawatt diesel power generation and load-testing for export industrial zones.",
+        "videoUrl": "https://login.bitopibd.com/uploads/sewing_factory_in_klaten_1080p_2025_08_05_00_15_26_utc_170318d437.mp4",
+        "thumbnailUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+        "category": "Power Generation",
+        "duration": "02:45"
+      },
+      {
+        "id": "vid-2",
+        "title": "Commercial & Industrial Rooftop Solar PV EPC Walkthrough",
+        "description": "Aerial inspection and commissioning of Tier-1 monocrystalline solar PV arrays with smart SCADA telemetry.",
+        "videoUrl": "https://login.bitopibd.com/uploads/sewing_factory_in_klaten_1080p_2025_08_05_00_15_26_utc_170318d437.mp4",
+        "thumbnailUrl": "/img/radial-renewable-logo.jpg",
+        "category": "Solar EPC",
+        "duration": "03:10"
+      },
+      {
+        "id": "vid-3",
+        "title": "33kV Substation & Automated Switchgear Engineering",
+        "description": "Complete high-voltage substation build, transformer installation, and PFI capacitor panel deployment.",
+        "videoUrl": "https://login.bitopibd.com/uploads/sewing_factory_in_klaten_1080p_2025_08_05_00_15_26_utc_170318d437.mp4",
+        "thumbnailUrl": "/img/radial-power-logo.jpg",
+        "category": "Substations",
+        "duration": "01:55"
+      },
+      {
+        "id": "vid-4",
+        "title": "High-Capacity Deep-Well Industrial Water Pump Skids",
+        "description": "NFPA-compliant fire protection hydrant pump tests and centrifugal borehole pumping station setup.",
+        "videoUrl": "https://login.bitopibd.com/uploads/sewing_factory_in_klaten_1080p_2025_08_05_00_15_26_utc_170318d437.mp4",
+        "thumbnailUrl": "/uploads/concern-glory-energy-engineering-whatsapp-image-2026-11-20-at-10-21-46-pm-1795203754934.jpeg",
+        "category": "Hydraulic Pumps",
+        "duration": "02:20"
+      }
+    ],
+    "defaultSound": "sound"
+  },
+  "imageGallery": {
+    "badgeText": "OPERATIONAL EXCELLENCE & INFRASTRUCTURE",
+    "headline": "Corporate & Project Photo Gallery",
+    "description": "A visual journey through our industrial power plants, solar installations, electrical substations, and manufacturing hubs across the nation.",
+    "images": [
+      {
+        "id": "img-1",
+        "title": "Mega Heavy Power Generation Station",
+        "description": "Heavy duty continuous diesel generator synchronized plant supplying prime industrial power.",
+        "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+        "category": "Power Generation"
+      },
+      {
+        "id": "img-2",
+        "title": "Commercial Rooftop Solar PV EPC Array",
+        "description": "Tier-1 monocrystalline half-cell solar arrays generating clean renewable megawatts annually.",
+        "imageUrl": "/img/radial-renewable-logo.jpg",
+        "category": "Solar EPC"
+      },
+      {
+        "id": "img-3",
+        "title": "33kV Industrial Substation & Switchgear Plant",
+        "description": "Precision engineered HT/LT switchgear panels, vacuum circuit breakers, and copper busways.",
+        "imageUrl": "/img/radial-power-logo.jpg",
+        "category": "Substations"
+      },
+      {
+        "id": "img-4",
+        "title": "UL/FM Certified Fire Hydrant Booster Skids",
+        "description": "NFPA-compliant high-pressure multi-stage booster sets safeguarding high-rise twin towers.",
+        "imageUrl": "/uploads/concern-glory-energy-engineering-whatsapp-image-2026-11-20-at-10-21-46-pm-1795203754934.jpeg",
+        "category": "Hydraulic Pumps"
+      },
+      {
+        "id": "img-5",
+        "title": "Class-1000 Cleanroom Infant Packaging Center",
+        "description": "Medical-grade sterile baby feeding accessories, BPA-free bottles, and infant clinical supplies.",
+        "imageUrl": "/img/infant-zone-logo.jpg",
+        "category": "Infant Care"
+      },
+      {
+        "id": "img-6",
+        "title": "Generex Emergency Power Deployment Unit",
+        "description": "Rapid mobile response generators with sound-attenuated acoustic silencers for continuous uptime.",
+        "imageUrl": "/img/generex-power-square.png",
+        "category": "Power Generation"
+      },
+      {
+        "id": "img-7",
+        "title": "Automatic Power Factor Correction (PFI) Assembly",
+        "description": "Heavy-duty micro-processor controlled capacitor banks maintaining optimal industrial power factor > 0.98.",
+        "imageUrl": "/img/radial-power-logo.jpg",
+        "category": "Substations"
+      },
+      {
+        "id": "img-8",
+        "title": "High-Rise Hydro-Pneumatic Water Pumping Skids",
+        "description": "Variable frequency drive automated water pressure distribution for commercial skyscraper complexes.",
+        "imageUrl": "/uploads/concern-glory-energy-engineering-whatsapp-image-2026-11-20-at-10-21-46-pm-1795203754934.jpeg",
+        "category": "Hydraulic Pumps"
+      },
+      {
+        "id": "img-9",
+        "title": "Industrial Rooftop Solar PV Inverter Station",
+        "description": "Huawei smart string inverters integrated with SCADA cloud telemetry and net-metering substation.",
+        "imageUrl": "/img/radial-renewable-logo.jpg",
+        "category": "Solar EPC"
+      },
+      {
+        "id": "img-10",
+        "title": "Nationwide Central Pharmaceutical Logistics Hub",
+        "description": "Automated racking, temperature-controlled pediatric storage, and nationwide delivery network.",
+        "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+        "category": "Infant Care"
+      },
+      {
+        "id": "img-11",
+        "title": "High-Capacity Deep-Well Borehole Pumping Plant",
+        "description": "Multi-stage stainless steel borehole extraction pumps delivering millions of gallons of clean groundwater.",
+        "imageUrl": "/uploads/concern-glory-energy-engineering-whatsapp-image-2026-11-20-at-10-21-46-pm-1795203754934.jpeg",
+        "category": "Hydraulic Pumps"
+      },
+      {
+        "id": "img-12",
+        "title": "Heavy Perkins Dual-Fuel Synchronization Plant",
+        "description": "Automated multi-generator load sharing and AMF synchronization with zero millisecond dropout.",
+        "imageUrl": "/img/generex-power-square.png",
+        "category": "Power Generation"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "proj-1",
+      "title": "12.5 MVA Industrial 33kV Substation & Synchronization System",
+      "status": "completed",
+      "sector": "Substation Engineering",
+      "concern": "Radial Power & Engineering",
+      "client": "Leading Export Knitwear & Dyeing Complex",
+      "location": "Gazipur Industrial Zone, Dhaka",
+      "specs": "33kV/11kV Substation, 4 x 2000 kVA Generators Synchronization, 4000A LT Panels, Intelligent PFI System.",
+      "year": "2024",
+      "progress": 100,
+      "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+      "pdfAttachment": "/docs/radial-power-substation-spec.pdf",
+      "pdfTitle": "Substation Technical Specifications & SLD (PDF)"
+    },
+    {
+      "id": "proj-2",
+      "title": "3.2 MWp Commercial Rooftop Solar PV EPC with Net-Metering",
+      "status": "completed",
+      "sector": "Solar Clean Energy",
+      "concern": "Radial Renewable Technology Bangladesh",
+      "client": "Major LEED-Platinum Certified Spinning Mill",
+      "location": "Narayanganj Industrial Hub",
+      "specs": "Tier-1 Mono PERC Bifacial Modules, Huawei 100KTL String Inverters, Real-time SCADA Telemetry, 3.8 GWh Annual Clean Yield.",
+      "year": "2024",
+      "progress": 100,
+      "imageUrl": "/img/radial-renewable-logo.jpg",
+      "pdfAttachment": "/docs/radial-solar-epc-summary.pdf",
+      "pdfTitle": "Solar EPC Project Brief & Environmental Audit (PDF)"
+    },
+    {
+      "id": "proj-3",
+      "title": "Dual-Fuel 2500 kVA Continuous Prime Power Plant",
+      "status": "completed",
+      "sector": "Power Generation",
+      "concern": "Generex Power",
+      "client": "State-of-the-Art Pharmaceutical Formulation Facility",
+      "location": "Tongi Industrial Area, Gazipur",
+      "specs": "Perkins Heavy Engine, Ultra-Quiet Soundproof Acoustic Enclosure (<68 dBA @ 1m), Synchronized Dual-Bus Automated Transfer.",
+      "year": "2023",
+      "progress": 100,
+      "imageUrl": "/img/generex-power-square.png",
+      "pdfAttachment": "/docs/generex-prime-power-datasheet.pdf",
+      "pdfTitle": "Dual-Fuel Generator Technical Datasheet (PDF)"
+    },
+    {
+      "id": "proj-4",
+      "title": "High-Pressure NFPA-20 Fire Hydrant & Water Booster Skid",
+      "status": "completed",
+      "sector": "Water Pump Systems",
+      "concern": "Glory Energy Engineering",
+      "client": "High-Rise Commercial Twin Towers",
+      "location": "Gulshan Avenue, Dhaka",
+      "specs": "UL/FM Certified Diesel & Electric Booster Sets, 1500 GPM @ 18 Bar Head, Microprocessor Jockey Control Skids.",
+      "year": "2024",
+      "progress": 100,
+      "imageUrl": "/uploads/concern-glory-energy-engineering-whatsapp-image-2026-11-20-at-10-21-46-pm-1795203754934.jpeg",
+      "pdfAttachment": "/docs/glory-fire-booster-system.pdf",
+      "pdfTitle": "NFPA Fire System Certification & Layout (PDF)"
+    },
+    {
+      "id": "proj-5",
+      "title": "5.5 MWp Utility-Scale Ground-Mounted & C&I Solar EPC",
+      "status": "ongoing",
+      "sector": "Solar Clean Energy",
+      "concern": "Radial Renewable Technology Bangladesh",
+      "client": "Prominent Composite Textile & Garments Conglomerate",
+      "location": "Kashimpur, Gazipur",
+      "specs": "7,800 Bifacial N-Type Panels, Zero-Export Grid Interconnection, High-Voltage Inverter Step-Up Substations.",
+      "year": "Target: Q3 2025",
+      "progress": 68,
+      "imageUrl": "/img/radial-renewable-logo.jpg",
+      "pdfAttachment": "/docs/radial-5.5mwp-project-overview.pdf",
+      "pdfTitle": "5.5 MWp Engineering Layout & Single Line Diagram (PDF)"
+    },
+    {
+      "id": "proj-6",
+      "title": "20 MVA 33kV Smart Automation Grid Substation & BBT System",
+      "status": "ongoing",
+      "sector": "Substation Engineering",
+      "concern": "Radial Power & Engineering",
+      "client": "Heavy Steel Re-Rolling Mill",
+      "location": "Sitakunda Industrial Zone, Chittagong",
+      "specs": "Digital Substation with IEC 61850 Communication, Vacuum Circuit Breakers, 5000A Sandwich Busbar Trunking.",
+      "year": "Target: Q4 2025",
+      "progress": 52,
+      "imageUrl": "/img/radial-power-logo.jpg",
+      "pdfAttachment": "/docs/radial-steel-substation-spec.pdf",
+      "pdfTitle": "20 MVA Substation Architecture & Bill of Quantities (PDF)"
+    },
+    {
+      "id": "proj-7",
+      "title": "Tri-Generation Captive Power & Waste Heat Recovery System",
+      "status": "ongoing",
+      "sector": "Power Generation",
+      "concern": "Generex Power",
+      "client": "Export Ceramics & Porcelain Industrial Facility",
+      "location": "Bhaluka, Mymensingh",
+      "specs": "High-efficiency gas & diesel generator sets coupled with exhaust heat recovery boilers delivering 4 tons/hr steam.",
+      "year": "Target: Q2 2025",
+      "progress": 80,
+      "imageUrl": "/img/generex-power-square.png",
+      "pdfAttachment": "",
+      "pdfTitle": ""
+    },
+    {
+      "id": "proj-8",
+      "title": "Automated Clinical Infant Formula Packaging & Distribution Hub",
+      "status": "ongoing",
+      "sector": "Mother & Baby Care",
+      "concern": "Infant Zone",
+      "client": "Nationwide Pediatric Hospital Network",
+      "location": "Tejgaon Industrial Area, Dhaka",
+      "specs": "ISO-Class 7 Cleanroom expansion, automated blenders, laser induction sealing, and temperature-controlled cold-chain.",
+      "year": "Target: Q3 2025",
+      "progress": 60,
+      "imageUrl": "/img/infant-zone-logo.png",
+      "pdfAttachment": "",
+      "pdfTitle": ""
+    },
+    {
+      "id": "proj-9",
+      "title": "10 MWp Floating & Canal-Top Solar PV Pilot Installation",
+      "status": "upcoming",
+      "sector": "Solar Clean Energy",
+      "concern": "Radial Renewable Technology Bangladesh",
+      "client": "Government Industrial Water Reservoir Authority",
+      "location": "Meghna Industrial Corridor",
+      "specs": "High-durability HDPE pontoons, corrosion-resistant marine inverters, zero-land footprint green power generation.",
+      "year": "Pipeline: 2026",
+      "progress": 15,
+      "imageUrl": "/img/radial-renewable-logo.jpg",
+      "pdfAttachment": "/docs/floating-solar-feasibility-study.pdf",
+      "pdfTitle": "Feasibility Study & Technical Proposal (PDF)"
+    },
+    {
+      "id": "proj-10",
+      "title": "66kV Extra-High-Voltage Industrial Transmission Substation",
+      "status": "upcoming",
+      "sector": "Substation Engineering",
+      "concern": "Radial Power & Engineering",
+      "client": "Special Economic Zone (EZ) Heavy Engineering Cluster",
+      "location": "Mirsarai Economic Zone, Chittagong",
+      "specs": "Gas-Insulated Switchgear (GIS), SCADA Master Control Room, 40 MVA step-down power transformers.",
+      "year": "Pipeline: 2026",
+      "progress": 10,
+      "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
+      "pdfAttachment": "",
+      "pdfTitle": ""
+    },
+    {
+      "id": "proj-11",
+      "title": "Smart Municipal & Heavy Industrial Deep-Well Pumping Stations",
+      "status": "upcoming",
+      "sector": "Water Pump Systems",
+      "concern": "Glory Energy Engineering",
+      "client": "Export Processing Zone (EPZ) Development Board",
+      "location": "Comilla EPZ",
+      "specs": "Automated telemetry-controlled 2000 GPM borehole pumps with VFD drives and remote ultrasonic level sensors.",
+      "year": "Pipeline: 2026",
+      "progress": 5,
+      "imageUrl": "/uploads/concern-glory-energy-engineering-whatsapp-image-2026-11-20-at-10-21-46-pm-1795203754934.jpeg",
+      "pdfAttachment": "",
+      "pdfTitle": ""
+    }
+  ]
+}
