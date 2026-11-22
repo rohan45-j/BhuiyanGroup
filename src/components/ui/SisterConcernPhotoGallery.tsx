@@ -216,38 +216,38 @@ export default function SisterConcernPhotoGallery({
           <div
             key={img.id || idx}
             onClick={() => setSelectedImageIdx(idx)}
-            className="group relative rounded-2xl overflow-hidden border border-slate-200/90 aspect-[16/11] w-[280px] sm:w-[340px] md:w-[380px] shrink-0 bg-slate-100 shadow-sm hover:shadow-xl hover:border-[#F37021]/60 transition-all duration-300 cursor-pointer"
+            className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 aspect-[16/10] w-[340px] sm:w-[440px] md:w-[500px] lg:w-[560px] shrink-0 bg-slate-100 shadow-md hover:shadow-2xl hover:border-[#F37021]/60 transition-all duration-300 cursor-pointer"
           >
             <Image
               src={img.imageUrl}
-              alt={img.title}
+              alt={img.title || "Gallery photo"}
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-500"
-              sizes="(max-width: 640px) 280px, (max-width: 1024px) 340px, 380px"
+              sizes="(max-width: 640px) 340px, (max-width: 1024px) 500px, 560px"
               unoptimized
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-80 group-hover:opacity-95 transition-opacity" />
 
             {/* Hover Expand Icon */}
-            <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all shadow-md">
+            <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all shadow-md">
               <Maximize2 className="w-4 h-4" />
             </div>
 
             {/* Bottom Caption Overlay */}
-            <div className="absolute bottom-0 inset-x-0 p-4 sm:p-5 text-white">
+            <div className="absolute bottom-0 inset-x-0 p-5 sm:p-6 text-white">
               {img.tag !== "" && (
-                <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-orange-300 mb-1">
-                  <Sparkles className="w-3 h-3 text-[#F37021]" />
+                <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-orange-300 mb-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-[#F37021]" />
                   <span>{img.tag || img.category || "Field Documentation"}</span>
                 </div>
               )}
               {img.title && (
-                <h3 className="font-bold text-sm sm:text-base text-white group-hover:text-orange-200 line-clamp-1 transition-colors">
+                <h3 className="font-bold text-base sm:text-lg text-white group-hover:text-orange-200 line-clamp-1 transition-colors">
                   {img.title}
                 </h3>
               )}
               {img.caption && (
-                <p className="text-xs text-slate-300 line-clamp-2 mt-1 leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-200 line-clamp-2 mt-1 leading-relaxed">
                   {img.caption}
                 </p>
               )}

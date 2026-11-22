@@ -211,37 +211,39 @@ export default function ImageGallerySection() {
               <div
                 key={`r1-${img.id || idx}-${idx}`}
                 onClick={() => setSelectedImage(img)}
-                className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 bg-white shadow-md hover:shadow-2xl hover:border-[#F37021]/60 transition-all duration-300 cursor-pointer w-[280px] sm:w-[340px] md:w-[390px] aspect-[16/11] shrink-0"
+                className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 bg-white shadow-md hover:shadow-2xl hover:border-[#F37021]/60 transition-all duration-300 cursor-pointer w-[340px] sm:w-[440px] md:w-[500px] lg:w-[560px] aspect-[16/10] shrink-0"
               >
                 <Image
                   src={img.imageUrl}
-                  alt={img.title}
+                  alt={img.title || "Gallery photo"}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 640px) 280px, (max-width: 1024px) 340px, 390px"
+                  sizes="(max-width: 640px) 340px, (max-width: 1024px) 500px, 560px"
                   unoptimized
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300" />
 
                 {/* Category Badge */}
-                <div className="absolute top-3 left-3 z-10">
-                  <span className="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md text-orange-300 border border-white/15">
+                <div className="absolute top-4 left-4 z-10">
+                  <span className="px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md text-orange-300 border border-white/15 shadow-sm">
                     {img.category || "Project"}
                   </span>
                 </div>
 
                 {/* Hover Expand Icon */}
-                <div className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
+                <div className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 shadow-md">
                   <Maximize2 className="w-4 h-4" />
                 </div>
 
                 {/* Bottom Caption Overlay */}
-                <div className="absolute bottom-0 inset-x-0 p-4 sm:p-5 z-10">
-                  <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-orange-200 transition-colors line-clamp-1">
-                    {img.title}
-                  </h3>
+                <div className="absolute bottom-0 inset-x-0 p-5 sm:p-6 z-10">
+                  {img.title && (
+                    <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-orange-200 transition-colors line-clamp-1">
+                      {img.title}
+                    </h3>
+                  )}
                   {img.description && (
-                    <p className="text-[11px] sm:text-xs text-slate-300 mt-1 line-clamp-2 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-slate-200 mt-1.5 line-clamp-2 leading-relaxed">
                       {img.description}
                     </p>
                   )}
@@ -262,37 +264,39 @@ export default function ImageGallerySection() {
               <div
                 key={`r2-${img.id || idx}-${idx}`}
                 onClick={() => setSelectedImage(img)}
-                className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 bg-white shadow-md hover:shadow-2xl hover:border-[#F37021]/60 transition-all duration-300 cursor-pointer w-[280px] sm:w-[340px] md:w-[390px] aspect-[16/11] shrink-0"
+                className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 bg-white shadow-md hover:shadow-2xl hover:border-[#F37021]/60 transition-all duration-300 cursor-pointer w-[340px] sm:w-[440px] md:w-[500px] lg:w-[560px] aspect-[16/10] shrink-0"
               >
                 <Image
                   src={img.imageUrl}
-                  alt={img.title}
+                  alt={img.title || "Gallery photo"}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 640px) 280px, (max-width: 1024px) 340px, 390px"
+                  sizes="(max-width: 640px) 340px, (max-width: 1024px) 500px, 560px"
                   unoptimized
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300" />
 
                 {/* Category Badge */}
-                <div className="absolute top-3 left-3 z-10">
-                  <span className="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md text-orange-300 border border-white/15">
+                <div className="absolute top-4 left-4 z-10">
+                  <span className="px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md text-orange-300 border border-white/15 shadow-sm">
                     {img.category || "Project"}
                   </span>
                 </div>
 
                 {/* Hover Expand Icon */}
-                <div className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
+                <div className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 shadow-md">
                   <Maximize2 className="w-4 h-4" />
                 </div>
 
                 {/* Bottom Caption Overlay */}
-                <div className="absolute bottom-0 inset-x-0 p-4 sm:p-5 z-10">
-                  <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-orange-200 transition-colors line-clamp-1">
-                    {img.title}
-                  </h3>
+                <div className="absolute bottom-0 inset-x-0 p-5 sm:p-6 z-10">
+                  {img.title && (
+                    <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-orange-200 transition-colors line-clamp-1">
+                      {img.title}
+                    </h3>
+                  )}
                   {img.description && (
-                    <p className="text-[11px] sm:text-xs text-slate-300 mt-1 line-clamp-2 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-slate-200 mt-1.5 line-clamp-2 leading-relaxed">
                       {img.description}
                     </p>
                   )}
