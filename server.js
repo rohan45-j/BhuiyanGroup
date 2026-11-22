@@ -1,4 +1,5 @@
-// Force production mode for cPanel Phusion Passenger
+// Force working directory to app root for cPanel Passenger
+process.chdir(__dirname);
 process.env.NODE_ENV = "production";
 
 const { createServer } = require("http");
