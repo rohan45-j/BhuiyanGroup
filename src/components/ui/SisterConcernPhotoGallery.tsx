@@ -10,6 +10,8 @@ export interface ConcernImage {
   title: string;
   imageUrl: string;
   caption?: string;
+  tag?: string;
+  category?: string;
 }
 
 interface SisterConcernPhotoGalleryProps {
@@ -233,13 +235,17 @@ export default function SisterConcernPhotoGallery({
 
             {/* Bottom Caption Overlay */}
             <div className="absolute bottom-0 inset-x-0 p-4 sm:p-5 text-white">
-              <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-orange-300 mb-1">
-                <Sparkles className="w-3 h-3 text-[#F37021]" />
-                <span>Field Documentation</span>
-              </div>
-              <h3 className="font-bold text-sm sm:text-base text-white group-hover:text-orange-200 line-clamp-1 transition-colors">
-                {img.title}
-              </h3>
+              {img.tag !== "" && (
+                <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-orange-300 mb-1">
+                  <Sparkles className="w-3 h-3 text-[#F37021]" />
+                  <span>{img.tag || img.category || "Field Documentation"}</span>
+                </div>
+              )}
+              {img.title && (
+                <h3 className="font-bold text-sm sm:text-base text-white group-hover:text-orange-200 line-clamp-1 transition-colors">
+                  {img.title}
+                </h3>
+              )}
               {img.caption && (
                 <p className="text-xs text-slate-300 line-clamp-2 mt-1 leading-relaxed">
                   {img.caption}

@@ -34,22 +34,26 @@ export default function VideoGallerySection() {
     setActiveVideo(vid);
   };
 
+  const validVideos = useMemo(() => {
+    return videos.filter((v) => v && v.videoUrl && v.videoUrl.trim() !== "");
+  }, [videos]);
+
   const categories = useMemo(() => {
     const cats = new Set<string>();
-    videos.forEach((v) => {
+    validVideos.forEach((v) => {
       if (v.category && v.category.trim()) {
         cats.add(v.category.trim());
       }
     });
     return ["All", ...Array.from(cats)];
-  }, [videos]);
+  }, [validVideos]);
 
   const filteredVideos = useMemo(() => {
-    if (activeCategory === "All") return videos;
-    return videos.filter((v) => v.category === activeCategory);
-  }, [videos, activeCategory]);
+    if (activeCategory === "All") return validVideos;
+    return validVideos.filter((v) => v.category === activeCategory);
+  }, [validVideos, activeCategory]);
 
-  if (!videos || videos.length === 0) return null;
+  if (!gallery || (gallery as any).enabled === false || validVideos.length === 0) return null;
 
   // Helper to determine if URL is a direct video file or embed
   const isDirectVideo = (url: string) => {

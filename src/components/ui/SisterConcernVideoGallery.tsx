@@ -32,7 +32,10 @@ export default function SisterConcernVideoGallery({
     setActiveVideo(vid);
   };
 
-  const hasVideos = galleryVideos && galleryVideos.length > 0;
+  const validVideos = (galleryVideos || []).filter(
+    (vid) => vid && vid.videoUrl && vid.videoUrl.trim() !== ""
+  );
+  const hasVideos = validVideos.length > 0;
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -44,7 +47,7 @@ export default function SisterConcernVideoGallery({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [activeVideo]);
 
-  if (!hasVideos) return null;
+  if (!hasVideos || validVideos.length === 0) return null;
 
   const isDirectVideo = (url: string) => {
     return (

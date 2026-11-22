@@ -363,17 +363,23 @@ export default async function SisterConcernPage({
         </div>
       )}
 
-      {/* Standalone Full-Width Video Gallery Section */}
-      {concern.galleryVideos && concern.galleryVideos.length > 0 && (
-        <div className="w-full bg-[#081530] border-t border-white/10 py-12 sm:py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <SisterConcernVideoGallery
-              galleryVideos={concern.galleryVideos}
-              concernName={concern.name}
-            />
+      {/* Standalone Full-Width Video Gallery Section - Only rendered if videos exist and have valid URLs */}
+      {(() => {
+        const validVideos = (concern.galleryVideos || []).filter(
+          (v: any) => v && v.videoUrl && v.videoUrl.trim() !== ""
+        );
+        if (validVideos.length === 0) return null;
+        return (
+          <div className="w-full bg-[#081530] border-t border-white/10 py-12 sm:py-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <SisterConcernVideoGallery
+                galleryVideos={validVideos}
+                concernName={concern.name}
+              />
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 }

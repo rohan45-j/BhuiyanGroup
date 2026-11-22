@@ -154,44 +154,36 @@
       "galleryImages": [
         {
           "id": "iz-img-1",
-          "title": "Sterile Cleanroom Packaging Facility",
+          "title": "",
           "imageUrl": "/img/infant-zone-logo.png",
-          "caption": "Class-1000 cleanroom packaging for medical-grade baby bottles & teats."
+          "caption": ""
         },
         {
           "id": "iz-img-2",
-          "title": "Nationwide Central Logistics Center",
+          "title": "",
           "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
-          "caption": "Automated racking and temperature-controlled storage in Dhaka."
+          "caption": ""
         },
         {
           "id": "iz-img-3",
-          "title": "BPA-Free Infant Feeding Essentials",
+          "title": "",
           "imageUrl": "/img/infant-zone-logo.png",
-          "caption": "Certified food-grade silicone and PPSU clinical feeding accessories."
+          "caption": ""
         },
         {
           "id": "iz-img-4",
-          "title": "Hospital Maternity & Pediatric Distribution",
+          "title": "",
           "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
-          "caption": "Serving 400+ pharmacies, pediatric clinics, and retail superstores."
+          "caption": ""
         },
         {
           "id": "iz-img-5",
-          "title": "Quality Assurance & Microbiological Lab",
+          "title": "",
           "imageUrl": "/img/infant-zone-logo.png",
-          "caption": "Batch testing for heavy metals, plasticizers, and microbiological purity."
+          "caption": ""
         }
       ],
-      "galleryVideos": [
-        {
-          "id": "infant-zone-vid-1",
-          "title": "Infant Zone Project Showcase",
-          "videoUrl": "https://login.bitopibd.com/uploads/sewing_factory_in_klaten_1080p_2025_08_05_00_15_26_utc_170318d437.mp4",
-          "thumbnailUrl": "/img/infant-zone-logo.png",
-          "caption": "Field engineering, deployment, and live operational walkthrough."
-        }
-      ]
+      "galleryVideos": []
     },
     {
       "id": "generex-power",
@@ -271,15 +263,7 @@
           "caption": "Dual-wall bulk diesel tanks with pneumatic shut-off valves."
         }
       ],
-      "galleryVideos": [
-        {
-          "id": "generex-power-vid-1",
-          "title": "Generex Power Project Showcase",
-          "videoUrl": "https://login.bitopibd.com/uploads/sewing_factory_in_klaten_1080p_2025_08_05_00_15_26_utc_170318d437.mp4",
-          "thumbnailUrl": "/img/generex-power-square.png",
-          "caption": "Field engineering, deployment, and live operational walkthrough."
-        }
-      ]
+      "galleryVideos": []
     },
     {
       "id": "glory-energy-engineering",
@@ -359,15 +343,7 @@
           "caption": "Clog-free vortex impeller pumps for heavy industrial wastewater handling."
         }
       ],
-      "galleryVideos": [
-        {
-          "id": "glory-energy-engineering-vid-1",
-          "title": "Glory Energy Engineering Project Showcase",
-          "videoUrl": "https://login.bitopibd.com/uploads/sewing_factory_in_klaten_1080p_2025_08_05_00_15_26_utc_170318d437.mp4",
-          "thumbnailUrl": "/uploads/concern-glory-energy-engineering-whatsapp-image-2026-11-20-at-10-21-46-pm-1795203754934.jpeg",
-          "caption": "Field engineering, deployment, and live operational walkthrough."
-        }
-      ]
+      "galleryVideos": []
     },
     {
       "id": "radial-power-engineering",
@@ -453,15 +429,7 @@
           "caption": "Precision dielectric testing and breakdown voltage diagnostics."
         }
       ],
-      "galleryVideos": [
-        {
-          "id": "radial-power-engineering-vid-1",
-          "title": "Radial Power & Engineering Project Showcase",
-          "videoUrl": "https://login.bitopibd.com/uploads/sewing_factory_in_klaten_1080p_2025_08_05_00_15_26_utc_170318d437.mp4",
-          "thumbnailUrl": "/img/radial-power-logo.jpg",
-          "caption": "Field engineering, deployment, and live operational walkthrough."
-        }
-      ]
+      "galleryVideos": []
     },
     {
       "id": "radial-renewable-technology",
@@ -541,15 +509,7 @@
           "caption": "Anodized structural aluminum framework rated for 180 km/h wind gusts."
         }
       ],
-      "galleryVideos": [
-        {
-          "id": "radial-renewable-technology-vid-1",
-          "title": "Radial Renewable Technology Bangladesh Project Showcase",
-          "videoUrl": "https://login.bitopibd.com/uploads/sewing_factory_in_klaten_1080p_2025_08_05_00_15_26_utc_170318d437.mp4",
-          "thumbnailUrl": "/img/radial-renewable-logo.jpg",
-          "caption": "Field engineering, deployment, and live operational walkthrough."
-        }
-      ]
+      "galleryVideos": []
     }
   ],
   "coreSectorsSection": {
@@ -676,90 +636,83 @@
     "defaultSound": "sound"
   },
   "imageGallery": {
-    "badgeText": "OPERATIONAL EXCELLENCE & INFRASTRUCTURE",
-    "headline": "Corporate & Project Photo Gallery",
-    "description": "A visual journey through our industrial power plants, solar installations, electrical substations, and manufacturing hubs across the nation.",
+    "badgeText": "",
+    "headline": "",
+    "description": "",
     "images": [
       {
         "id": "img-1",
-        "title": "Mega Heavy Power Generation Station",
-        "description": "Heavy duty continuous diesel generator synchronized plant supplying prime industrial power.",
+        "title": "",
+        "description": "",
         "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
         "category": "Power Generation"
       },
       {
         "id": "img-2",
-        "title": "Commercial Rooftop Solar PV EPC Array",
-        "description": "Tier-1 monocrystalline half-cell solar arrays generating clean renewable megawatts annually.",
+        "title": "",
+        "description": "",
         "imageUrl": "/img/radial-renewable-logo.jpg",
         "category": "Solar EPC"
       },
       {
         "id": "img-3",
-        "title": "33kV Industrial Substation & Switchgear Plant",
-        "description": "Precision engineered HT/LT switchgear panels, vacuum circuit breakers, and copper busways.",
+        "title": "",
+        "description": "",
         "imageUrl": "/img/radial-power-logo.jpg",
         "category": "Substations"
       },
       {
         "id": "img-4",
-        "title": "UL/FM Certified Fire Hydrant Booster Skids",
-        "description": "NFPA-compliant high-pressure multi-stage booster sets safeguarding high-rise twin towers.",
+        "title": "",
+        "description": "",
         "imageUrl": "/uploads/concern-glory-energy-engineering-whatsapp-image-2026-11-20-at-10-21-46-pm-1795203754934.jpeg",
         "category": "Hydraulic Pumps"
       },
       {
-        "id": "img-5",
-        "title": "Class-1000 Cleanroom Infant Packaging Center",
-        "description": "Medical-grade sterile baby feeding accessories, BPA-free bottles, and infant clinical supplies.",
-        "imageUrl": "/img/infant-zone-logo.jpg",
-        "category": "Infant Care"
-      },
-      {
         "id": "img-6",
-        "title": "Generex Emergency Power Deployment Unit",
-        "description": "Rapid mobile response generators with sound-attenuated acoustic silencers for continuous uptime.",
+        "title": "",
+        "description": "",
         "imageUrl": "/img/generex-power-square.png",
         "category": "Power Generation"
       },
       {
         "id": "img-7",
-        "title": "Automatic Power Factor Correction (PFI) Assembly",
-        "description": "Heavy-duty micro-processor controlled capacitor banks maintaining optimal industrial power factor > 0.98.",
+        "title": "",
+        "description": "",
         "imageUrl": "/img/radial-power-logo.jpg",
         "category": "Substations"
       },
       {
         "id": "img-8",
-        "title": "High-Rise Hydro-Pneumatic Water Pumping Skids",
-        "description": "Variable frequency drive automated water pressure distribution for commercial skyscraper complexes.",
+        "title": "",
+        "description": "",
         "imageUrl": "/uploads/concern-glory-energy-engineering-whatsapp-image-2026-11-20-at-10-21-46-pm-1795203754934.jpeg",
         "category": "Hydraulic Pumps"
       },
       {
         "id": "img-9",
-        "title": "Industrial Rooftop Solar PV Inverter Station",
-        "description": "Huawei smart string inverters integrated with SCADA cloud telemetry and net-metering substation.",
+        "title": "",
+        "description": "",
         "imageUrl": "/img/radial-renewable-logo.jpg",
         "category": "Solar EPC"
       },
       {
         "id": "img-10",
-        "title": "Nationwide Central Pharmaceutical Logistics Hub",
+        "title": "",
         "description": "Automated racking, temperature-controlled pediatric storage, and nationwide delivery network.",
         "imageUrl": "/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg",
         "category": "Infant Care"
       },
       {
         "id": "img-11",
-        "title": "High-Capacity Deep-Well Borehole Pumping Plant",
+        "title": "",
         "description": "Multi-stage stainless steel borehole extraction pumps delivering millions of gallons of clean groundwater.",
         "imageUrl": "/uploads/concern-glory-energy-engineering-whatsapp-image-2026-11-20-at-10-21-46-pm-1795203754934.jpeg",
         "category": "Hydraulic Pumps"
       },
       {
         "id": "img-12",
-        "title": "Heavy Perkins Dual-Fuel Synchronization Plant",
+        "title": "",
         "description": "Automated multi-generator load sharing and AMF synchronization with zero millisecond dropout.",
         "imageUrl": "/img/generex-power-square.png",
         "category": "Power Generation"

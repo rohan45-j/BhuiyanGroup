@@ -3336,6 +3336,20 @@ export default function AdminPage() {
                                         />
                                       </div>
                                       <div>
+                                        <label className="block text-[11px] font-bold text-slate-700 mb-0.5">Badge / Tag (Card Top Label, e.g. Field Documentation)</label>
+                                        <input
+                                          type="text"
+                                          value={img.tag !== undefined ? img.tag : (img.category || "Field Documentation")}
+                                          onChange={(e) => {
+                                            const updated = [...((sc as any).galleryImages || [])];
+                                            updated[gIdx] = { ...updated[gIdx], tag: e.target.value };
+                                            updateConcern({ galleryImages: updated } as any);
+                                          }}
+                                          placeholder="e.g. Field Documentation or Site Works"
+                                          className="w-full px-3 py-1.5 text-xs text-slate-700 border border-slate-300 rounded-lg bg-white"
+                                        />
+                                      </div>
+                                      <div>
                                         <label className="block text-[11px] font-bold text-slate-700 mb-0.5">Caption & Description</label>
                                         <input
                                           type="text"
@@ -4219,8 +4233,36 @@ export default function AdminPage() {
                   </button>
                 </div>
 
-                {/* Homepage Video Gallery Sound Setting */}
-                <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/70 space-y-2">
+                {/* Homepage Video Gallery Visibility & Sound Setting */}
+                <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/70 space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/60 pb-3">
+                    <div>
+                      <strong className="text-slate-800 text-xs sm:text-sm flex items-center gap-1.5">
+                        <Film className="w-4 h-4 text-[#F37021]" />
+                        <span>Homepage Video Section Visibility</span>
+                      </strong>
+                      <p className="text-[11px] text-slate-500 mt-0.5">
+                        Controls whether the Video Gallery is displayed on the homepage. If OFF or if all videos are removed, it will be completely hidden.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        updateSection("videoGallery" as any, {
+                          ...((config as any).videoGallery || {}),
+                          enabled: (config as any).videoGallery?.enabled === false ? true : false,
+                        })
+                      }
+                      className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        (config as any).videoGallery?.enabled !== false
+                          ? "bg-emerald-600 text-white shadow-xs"
+                          : "bg-slate-200 text-slate-600"
+                      }`}
+                    >
+                      {(config as any).videoGallery?.enabled !== false ? "✓ Section Visible" : "✕ Section Hidden"}
+                    </button>
+                  </div>
+
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
                       <strong className="text-slate-800 text-xs sm:text-sm flex items-center gap-1.5">
@@ -4642,34 +4684,57 @@ export default function AdminPage() {
                           </div>
 
                           <div className="space-y-2 flex-1 min-w-0 text-xs">
-                            <input
-                              type="text"
-                              value={img.title || ""}
-                              onChange={(e) => {
-                                const updated = [...((config as any).imageGallery?.images || [])];
-                                updated[iIdx] = { ...updated[iIdx], title: e.target.value };
-                                updateSection("imageGallery" as any, {
-                                  ...((config as any).imageGallery || {}),
-                                  images: updated,
-                                });
-                              }}
-                              placeholder="Photo Title..."
-                              className="w-full px-2.5 py-1 text-xs font-bold text-slate-900 border border-slate-300 rounded bg-white"
-                            />
-                            <input
-                              type="text"
-                              value={img.category || ""}
-                              onChange={(e) => {
-                                const updated = [...((config as any).imageGallery?.images || [])];
-                                updated[iIdx] = { ...updated[iIdx], category: e.target.value };
-                                updateSection("imageGallery" as any, {
-                                  ...((config as any).imageGallery || {}),
-                                  images: updated,
-                                });
-                              }}
-                              placeholder="Category / Tag..."
-                              className="w-full px-2.5 py-1 text-[11px] text-slate-700 border border-slate-300 rounded bg-white"
-                            />
+                            <div>
+                              <label className="block text-[10px] font-bold text-slate-700 mb-0.5">Photo Title</label>
+                              <input
+                                type="text"
+                                value={img.title || ""}
+                                onChange={(e) => {
+                                  const updated = [...((config as any).imageGallery?.images || [])];
+                                  updated[iIdx] = { ...updated[iIdx], title: e.target.value };
+                                  updateSection("imageGallery" as any, {
+                                    ...((config as any).imageGallery || {}),
+                                    images: updated,
+                                  });
+                                }}
+                                placeholder="Photo Title (optional)..."
+                                className="w-full px-2.5 py-1 text-xs font-bold text-slate-900 border border-slate-300 rounded bg-white"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-[10px] font-bold text-slate-700 mb-0.5">Category / Sector Tag</label>
+                              <input
+                                type="text"
+                                value={img.category || ""}
+                                onChange={(e) => {
+                                  const updated = [...((config as any).imageGallery?.images || [])];
+                                  updated[iIdx] = { ...updated[iIdx], category: e.target.value };
+                                  updateSection("imageGallery" as any, {
+                                    ...((config as any).imageGallery || {}),
+                                    images: updated,
+                                  });
+                                }}
+                                placeholder="e.g. Power Generation, Solar EPC..."
+                                className="w-full px-2.5 py-1 text-[11px] text-slate-700 border border-slate-300 rounded bg-white"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-[10px] font-bold text-slate-700 mb-0.5">Caption & Description (Shown on Card)</label>
+                              <textarea
+                                rows={2}
+                                value={img.description || ""}
+                                onChange={(e) => {
+                                  const updated = [...((config as any).imageGallery?.images || [])];
+                                  updated[iIdx] = { ...updated[iIdx], description: e.target.value };
+                                  updateSection("imageGallery" as any, {
+                                    ...((config as any).imageGallery || {}),
+                                    images: updated,
+                                  });
+                                }}
+                                placeholder="e.g. Heavy duty continuous diesel generator synchronized plant..."
+                                className="w-full px-2.5 py-1 text-[11px] text-slate-700 border border-slate-300 rounded bg-white"
+                              />
+                            </div>
                           </div>
                         </div>
 
