@@ -11,11 +11,6 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
   },
   experimental: {
     cpus: 1,
