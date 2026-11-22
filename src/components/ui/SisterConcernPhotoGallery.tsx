@@ -152,7 +152,7 @@ export default function SisterConcernPhotoGallery({
         </div>
 
         {/* Controls: Auto-scroll Toggle & Left/Right Navigation Arrows */}
-        <div className="flex items-center gap-2.5 self-start md:self-auto shrink-0 bg-slate-50 p-1.5 rounded-2xl border border-slate-200/80 shadow-2xs">
+        <div className="flex flex-wrap items-center gap-2 self-start md:self-auto shrink-0 bg-slate-50 p-1.5 rounded-2xl border border-slate-200/80 shadow-2xs">
           {/* Auto-scroll Toggle Button */}
           <button
             type="button"
@@ -160,7 +160,7 @@ export default function SisterConcernPhotoGallery({
               setIsAutoScrollEnabled(!isAutoScrollEnabled);
               setIsManualScrolling(false);
             }}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               isAutoScrollEnabled
                 ? "bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-2xs"
                 : "bg-white hover:bg-slate-200/80 text-slate-700 border border-slate-300 shadow-2xs"
@@ -185,7 +185,7 @@ export default function SisterConcernPhotoGallery({
           <button
             type="button"
             onClick={() => manualScroll("left")}
-            className="w-10 h-10 rounded-xl bg-[#0F2557] hover:bg-[#F37021] text-white flex items-center justify-center transition-all duration-200 shadow-xs active:scale-90 cursor-pointer"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#0F2557] hover:bg-[#F37021] text-white flex items-center justify-center transition-all duration-200 shadow-xs active:scale-90 cursor-pointer"
             aria-label="Scroll left"
             title="Slide Left"
           >
@@ -196,7 +196,7 @@ export default function SisterConcernPhotoGallery({
           <button
             type="button"
             onClick={() => manualScroll("right")}
-            className="w-10 h-10 rounded-xl bg-[#0F2557] hover:bg-[#F37021] text-white flex items-center justify-center transition-all duration-200 shadow-xs active:scale-90 cursor-pointer"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#0F2557] hover:bg-[#F37021] text-white flex items-center justify-center transition-all duration-200 shadow-xs active:scale-90 cursor-pointer"
             aria-label="Scroll right"
             title="Slide Right"
           >
@@ -210,20 +210,20 @@ export default function SisterConcernPhotoGallery({
         ref={scrollContainerRef}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="flex gap-5 sm:gap-6 overflow-x-auto pb-2 scroll-smooth cursor-grab active:cursor-grabbing select-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        className="flex gap-4 sm:gap-6 overflow-x-auto pb-2 scroll-smooth cursor-grab active:cursor-grabbing select-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
       >
         {galleryImages.map((img, idx) => (
           <div
             key={img.id || idx}
             onClick={() => setSelectedImageIdx(idx)}
-            className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 aspect-[16/10] w-[340px] sm:w-[440px] md:w-[500px] lg:w-[560px] shrink-0 bg-slate-100 shadow-md hover:shadow-2xl hover:border-[#F37021]/60 transition-all duration-300 cursor-pointer"
+            className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 aspect-[16/10] w-[280px] xs:w-[320px] sm:w-[440px] md:w-[500px] lg:w-[560px] shrink-0 bg-slate-100 shadow-md hover:shadow-2xl hover:border-[#F37021]/60 transition-all duration-300 cursor-pointer"
           >
             <Image
               src={img.imageUrl}
               alt={img.title || "Gallery photo"}
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-500"
-              sizes="(max-width: 640px) 340px, (max-width: 1024px) 500px, 560px"
+              sizes="(max-width: 640px) 320px, (max-width: 1024px) 500px, 560px"
               unoptimized
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-80 group-hover:opacity-95 transition-opacity" />

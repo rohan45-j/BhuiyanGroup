@@ -27,10 +27,10 @@ export default function FloatingContactWidget() {
   )}`;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end">
       {/* Expandable Menu Popover */}
       {isOpen && (
-        <div className="mb-3 w-72 sm:w-80 bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_16px_50px_rgba(15,37,87,0.25)] border border-slate-200/90 overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-200">
+        <div className="mb-3 w-[calc(100vw-32px)] max-w-xs sm:w-80 bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_16px_50px_rgba(15,37,87,0.25)] border border-slate-200/90 overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-200">
           {/* Header */}
           <div className="bg-gradient-to-r from-[#0F2557] to-[#0A1B40] text-white p-4 flex items-center justify-between border-b border-white/10">
             <div className="flex items-center gap-2">

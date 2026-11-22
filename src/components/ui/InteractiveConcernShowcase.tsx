@@ -58,8 +58,8 @@ export default function InteractiveConcernShowcase() {
   return (
     <div className="space-y-10 relative">
       {/* Bitopi-Inspired Floating Pill Navigation Filter */}
-      <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-4 scrollbar-none z-30 relative">
-        <div className="flex items-center gap-1.5 p-1.5 bg-white/95 backdrop-blur-xl border border-slate-200/90 rounded-full shadow-lg shadow-slate-200/50">
+      <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-4 scrollbar-none z-30 relative w-full max-w-full px-1">
+        <div className="flex items-center gap-1.5 p-1.5 bg-white/95 backdrop-blur-xl border border-slate-200/90 rounded-full shadow-lg shadow-slate-200/50 max-w-full overflow-x-auto">
           {filterTabs.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
@@ -96,8 +96,8 @@ export default function InteractiveConcernShowcase() {
           return (
             <div
               key={concern.id || concern.slug}
-              className={`sticky transition-all duration-300 ${
-                !isLast ? "mb-16 sm:mb-24 md:mb-28" : "mb-0"
+              className={`relative lg:sticky transition-all duration-300 ${
+                !isLast ? "mb-8 sm:mb-12 lg:mb-28" : "mb-0"
               }`}
               style={{
                 top: `${Math.min(72 + index * 16, 136)}px`,

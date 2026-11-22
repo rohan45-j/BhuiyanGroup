@@ -211,39 +211,39 @@ export default function ImageGallerySection() {
               <div
                 key={`r1-${img.id || idx}-${idx}`}
                 onClick={() => setSelectedImage(img)}
-                className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 bg-white shadow-md hover:shadow-2xl hover:border-[#F37021]/60 transition-all duration-300 cursor-pointer w-[340px] sm:w-[440px] md:w-[500px] lg:w-[560px] aspect-[16/10] shrink-0"
+                className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 bg-white shadow-md hover:shadow-2xl hover:border-[#F37021]/60 transition-all duration-300 cursor-pointer w-[280px] xs:w-[320px] sm:w-[440px] md:w-[500px] lg:w-[560px] aspect-[16/10] shrink-0"
               >
                 <Image
                   src={img.imageUrl}
                   alt={img.title || "Gallery photo"}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 640px) 340px, (max-width: 1024px) 500px, 560px"
+                  sizes="(max-width: 640px) 320px, (max-width: 1024px) 500px, 560px"
                   unoptimized
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300" />
 
                 {/* Category Badge */}
-                <div className="absolute top-4 left-4 z-10">
-                  <span className="px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md text-orange-300 border border-white/15 shadow-sm">
+                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10">
+                  <span className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md text-orange-300 border border-white/15 shadow-sm">
                     {img.category || "Project"}
                   </span>
                 </div>
 
                 {/* Hover Expand Icon */}
-                <div className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 shadow-md">
-                  <Maximize2 className="w-4 h-4" />
+                <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 shadow-md">
+                  <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
 
                 {/* Bottom Caption Overlay */}
-                <div className="absolute bottom-0 inset-x-0 p-5 sm:p-6 z-10">
+                <div className="absolute bottom-0 inset-x-0 p-4 sm:p-6 z-10">
                   {img.title && (
-                    <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-orange-200 transition-colors line-clamp-1">
+                    <h3 className="text-sm sm:text-lg font-bold text-white group-hover:text-orange-200 transition-colors line-clamp-1">
                       {img.title}
                     </h3>
                   )}
                   {img.description && (
-                    <p className="text-xs sm:text-sm text-slate-200 mt-1.5 line-clamp-2 leading-relaxed">
+                    <p className="text-[11px] sm:text-sm text-slate-200 mt-1 sm:mt-1.5 line-clamp-2 leading-relaxed">
                       {img.description}
                     </p>
                   )}
@@ -256,7 +256,7 @@ export default function ImageGallerySection() {
         {/* ROW 2: Auto-scrolling in the Reverse Direction (Right to Left) */}
         <div className="w-full overflow-hidden flex">
           <div
-            className={`animate-marquee-row-2 gap-5 sm:gap-6 ${
+            className={`animate-marquee-row-2 gap-4 sm:gap-6 ${
               isMarqueePaused ? "marquee-paused" : ""
             }`}
           >
@@ -264,39 +264,39 @@ export default function ImageGallerySection() {
               <div
                 key={`r2-${img.id || idx}-${idx}`}
                 onClick={() => setSelectedImage(img)}
-                className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 bg-white shadow-md hover:shadow-2xl hover:border-[#F37021]/60 transition-all duration-300 cursor-pointer w-[340px] sm:w-[440px] md:w-[500px] lg:w-[560px] aspect-[16/10] shrink-0"
+                className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 bg-white shadow-md hover:shadow-2xl hover:border-[#F37021]/60 transition-all duration-300 cursor-pointer w-[280px] xs:w-[320px] sm:w-[440px] md:w-[500px] lg:w-[560px] aspect-[16/10] shrink-0"
               >
                 <Image
                   src={img.imageUrl}
                   alt={img.title || "Gallery photo"}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 640px) 340px, (max-width: 1024px) 500px, 560px"
+                  sizes="(max-width: 640px) 320px, (max-width: 1024px) 500px, 560px"
                   unoptimized
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300" />
 
                 {/* Category Badge */}
-                <div className="absolute top-4 left-4 z-10">
-                  <span className="px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md text-orange-300 border border-white/15 shadow-sm">
+                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10">
+                  <span className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md text-orange-300 border border-white/15 shadow-sm">
                     {img.category || "Project"}
                   </span>
                 </div>
 
                 {/* Hover Expand Icon */}
-                <div className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 shadow-md">
-                  <Maximize2 className="w-4 h-4" />
+                <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 shadow-md">
+                  <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
 
                 {/* Bottom Caption Overlay */}
-                <div className="absolute bottom-0 inset-x-0 p-5 sm:p-6 z-10">
+                <div className="absolute bottom-0 inset-x-0 p-4 sm:p-6 z-10">
                   {img.title && (
-                    <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-orange-200 transition-colors line-clamp-1">
+                    <h3 className="text-sm sm:text-lg font-bold text-white group-hover:text-orange-200 transition-colors line-clamp-1">
                       {img.title}
                     </h3>
                   )}
                   {img.description && (
-                    <p className="text-xs sm:text-sm text-slate-200 mt-1.5 line-clamp-2 leading-relaxed">
+                    <p className="text-[11px] sm:text-sm text-slate-200 mt-1 sm:mt-1.5 line-clamp-2 leading-relaxed">
                       {img.description}
                     </p>
                   )}
@@ -321,10 +321,10 @@ export default function ImageGallerySection() {
             <button
               type="button"
               onClick={() => setSelectedImage(null)}
-              className="absolute top-5 right-5 text-white/80 hover:text-white p-2.5 rounded-full hover:bg-white/10 transition-colors z-20 cursor-pointer"
+              className="absolute top-4 right-4 sm:top-5 sm:right-5 text-white/80 hover:text-white p-2 sm:p-2.5 rounded-full hover:bg-white/10 transition-colors z-20 cursor-pointer"
               aria-label="Close image lightbox"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
             {/* Prev / Next Navigation Arrows */}
@@ -336,10 +336,10 @@ export default function ImageGallerySection() {
                     e.stopPropagation();
                     handlePrev();
                   }}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/30 text-white backdrop-blur-md flex items-center justify-center transition-all z-20 cursor-pointer"
+                  className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/30 text-white backdrop-blur-md flex items-center justify-center transition-all z-20 cursor-pointer"
                   aria-label="Previous image"
                 >
-                  <ChevronLeft className="w-6 h-6" />
+                  <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
                 <button
                   type="button"
@@ -347,10 +347,10 @@ export default function ImageGallerySection() {
                     e.stopPropagation();
                     handleNext();
                   }}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/30 text-white backdrop-blur-md flex items-center justify-center transition-all z-20 cursor-pointer"
+                  className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/30 text-white backdrop-blur-md flex items-center justify-center transition-all z-20 cursor-pointer"
                   aria-label="Next image"
                 >
-                  <ChevronRight className="w-6 h-6" />
+                  <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
               </>
             )}

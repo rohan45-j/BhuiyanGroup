@@ -245,7 +245,7 @@ export default function HomePage() {
                   const lastPart = words.slice(-2).join(" ");
                   const firstPart = words.slice(0, -2).join(" ");
                   return (
-                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[88px] font-black uppercase tracking-tight text-white leading-[1.08] sm:leading-[1.02] max-w-6xl mx-auto font-sans break-words px-2 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
+                    <h1 className="text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[88px] font-black uppercase tracking-tight text-white leading-[1.08] sm:leading-[1.02] max-w-6xl mx-auto font-sans break-words px-2 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
                       {firstPart} <br className="hidden sm:inline" />
                       <span className="text-transparent [-webkit-text-stroke:1.8px_white] sm:[-webkit-text-stroke:3px_white] block mt-1.5 sm:mt-4 drop-shadow-[0_0_20px_rgba(255,255,255,0.35)]">
                         {lastPart}
@@ -254,7 +254,7 @@ export default function HomePage() {
                   );
                 }
                 return (
-                  <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[88px] font-black uppercase tracking-tight text-white leading-[1.08] sm:leading-[1.02] max-w-6xl mx-auto font-sans break-words px-2 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
+                  <h1 className="text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[88px] font-black uppercase tracking-tight text-white leading-[1.08] sm:leading-[1.02] max-w-6xl mx-auto font-sans break-words px-2 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
                     {headline}
                   </h1>
                 );
@@ -396,7 +396,7 @@ export default function HomePage() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 text-center">
             {statsList.map((stat, idx) => (
               <div key={idx} className="space-y-1.5 group">
-                <div className="text-4xl sm:text-5xl lg:text-7xl font-black font-sans text-transparent [-webkit-text-stroke:1.5px_#0F2557] sm:[-webkit-text-stroke:2.5px_#0F2557] group-hover:[-webkit-text-stroke:2.5px_#F37021] transition-all duration-300">
+                <div className="text-3xl xs:text-4xl sm:text-5xl lg:text-7xl font-black font-sans text-transparent [-webkit-text-stroke:1.5px_#0F2557] sm:[-webkit-text-stroke:2.5px_#0F2557] group-hover:[-webkit-text-stroke:2.5px_#F37021] transition-all duration-300">
                   <AnimatedCounter value={stat.value} />
                 </div>
                 <div className="text-xs sm:text-base font-bold text-slate-900 tracking-tight">

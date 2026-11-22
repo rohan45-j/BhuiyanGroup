@@ -38,19 +38,19 @@ export default function SisterConcernsMarquee() {
       <div className="absolute inset-0 bg-gradient-to-r from-slate-100/70 via-white to-slate-100/70 pointer-events-none" />
 
       {/* Header Badge Row */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-3 sm:mb-4 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-3 sm:mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div className="flex items-center gap-2.5">
-          <span className="relative flex h-2.5 w-2.5">
+          <span className="relative flex h-2.5 w-2.5 shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F37021] opacity-75" />
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#F37021] shadow-[0_0_8px_#F37021]" />
           </span>
-          <span className="text-[11px] sm:text-xs font-black uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[#0F2557]">
+          <span className="text-[10px] xs:text-[11px] sm:text-xs font-black uppercase tracking-[0.16em] sm:tracking-[0.25em] text-[#0F2557] truncate">
             {tickerBadge}
           </span>
         </div>
         <a
           href="#sister-concerns"
-          className="text-xs sm:text-sm font-bold text-[#F37021] hover:text-[#DE5F12] inline-flex items-center gap-1.5 transition-colors group cursor-pointer"
+          className="text-xs sm:text-sm font-bold text-[#F37021] hover:text-[#DE5F12] inline-flex items-center gap-1.5 transition-colors group cursor-pointer self-start sm:self-auto"
         >
           <span>Explore All 5 Subsidiaries</span>
           <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -60,12 +60,12 @@ export default function SisterConcernsMarquee() {
       {/* Marquee Track with Left & Right Gradient Shadows */}
       <div className="relative w-full overflow-hidden group">
         {/* Left Gradient Shadow */}
-        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-36 bg-gradient-to-r from-slate-50 via-slate-50/90 to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-36 bg-gradient-to-r from-slate-50 via-slate-50/90 to-transparent z-10 pointer-events-none" />
         {/* Right Gradient Shadow */}
-        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-36 bg-gradient-to-l from-slate-50 via-slate-50/90 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-36 bg-gradient-to-l from-slate-50 via-slate-50/90 to-transparent z-10 pointer-events-none" />
 
         {/* Infinite Scrolling Track */}
-        <div className="flex items-center gap-5 sm:gap-7 animate-marquee w-max py-3 select-none">
+        <div className="flex items-center gap-4 sm:gap-7 animate-marquee w-max py-3 select-none">
           {marqueeItems.map((concern, idx) => {
             const icon = concernIcons[concern.slug] || <Zap className="w-4 h-4 text-[#F37021]" />;
             const logoSrc = concern.logo || "/img/bhuiyan-group-logo-horizontal.png";
@@ -74,7 +74,7 @@ export default function SisterConcernsMarquee() {
               <a
                 key={`${concern.id || concern.slug}-${idx}`}
                 href="#sister-concerns"
-                className="group/card flex items-center gap-4 sm:gap-5 px-5 sm:px-6 py-4 rounded-2xl bg-white border-2 border-slate-200/90 hover:border-[#F37021]/70 shadow-xs hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 active:scale-98 shrink-0 cursor-pointer min-w-[300px] sm:min-w-[360px]"
+                className="group/card flex items-center gap-3.5 sm:gap-5 px-4 sm:px-6 py-3.5 sm:py-4 rounded-2xl bg-white border-2 border-slate-200/90 hover:border-[#F37021]/70 shadow-xs hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 active:scale-98 shrink-0 cursor-pointer min-w-[270px] xs:min-w-[290px] sm:min-w-[360px]"
                 title={`Explore ${concern.name}`}
               >
                 {/* Big, Clear, Prominent Logo Box */}
