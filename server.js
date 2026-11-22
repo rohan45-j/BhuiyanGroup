@@ -1,9 +1,12 @@
+// Force production mode for cPanel Phusion Passenger
+process.env.NODE_ENV = "production";
+
 const { createServer } = require("http");
 const { parse } = require("url");
 const next = require("next");
 
-const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev });
+const dev = false;
+const app = next({ dev, dir: __dirname });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
@@ -12,7 +15,7 @@ app.prepare().then(() => {
       const parsedUrl = parse(req.url, true);
       await handle(req, res, parsedUrl);
     } catch (err) {
-      console.error("Error handling", req.url, err);
+      console.error("Error handling request:", req.url, err);
       res.statusCode = 500;
       res.end("Internal Server Error");
     }
@@ -26,7 +29,7 @@ app.prepare().then(() => {
   } else {
     server.listen(3000, (err) => {
       if (err) throw err;
-      console.log("> Ready on http://localhost:3000");
+      console.log("> Ready on http://localhost:3000 (Production Mode)");
     });
   }
 }).catch((err) => {
