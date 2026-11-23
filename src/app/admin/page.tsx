@@ -5737,24 +5737,36 @@ export default function AdminPage() {
                       Send a verification test email to your recipient address to confirm credentials and network connectivity.
                     </p>
                   </div>
-                  <button
-                    type="button"
-                    onClick={handleTestSmtp}
-                    disabled={smtpTesting}
-                    className="self-start sm:self-auto px-4 py-2 rounded-xl bg-[#0F2557] hover:bg-[#1A3978] text-white text-xs font-bold flex items-center gap-2 shadow-sm transition-all disabled:opacity-50 cursor-pointer"
-                  >
-                    {smtpTesting ? (
-                      <>
-                        <RefreshCw className="w-3.5 h-3.5 animate-spin text-orange-400" />
-                        <span>Connecting & Sending...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Send className="w-3.5 h-3.5 text-orange-400" />
-                        <span>Send Test Email</span>
-                      </>
-                    )}
-                  </button>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={handleTestSmtp}
+                      disabled={smtpTesting}
+                      className="px-4 py-2 rounded-xl bg-[#0F2557] hover:bg-[#1A3978] text-white text-xs font-bold flex items-center gap-2 shadow-sm transition-all disabled:opacity-50 cursor-pointer"
+                    >
+                      {smtpTesting ? (
+                        <>
+                          <RefreshCw className="w-3.5 h-3.5 animate-spin text-orange-400" />
+                          <span>Connecting & Sending...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-3.5 h-3.5 text-orange-400" />
+                          <span>Send Test Email</span>
+                        </>
+                      )}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleSave}
+                      disabled={isSaving}
+                      className="px-5 py-2 rounded-xl bg-[#F37021] hover:bg-[#DE5F12] text-white text-xs font-bold flex items-center gap-2 shadow-md shadow-[#F37021]/20 hover:shadow-lg transition-all disabled:opacity-50 cursor-pointer"
+                    >
+                      <Save className="w-3.5 h-3.5" />
+                      <span>{isSaving ? "Saving..." : "Save SMTP Settings"}</span>
+                    </button>
+                  </div>
                 </div>
 
                 {smtpTestResult && (

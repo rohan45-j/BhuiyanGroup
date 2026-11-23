@@ -77,38 +77,48 @@ export async function POST(request: Request) {
               pass: config.smtp.pass.trim(),
             },
             tls: { rejectUnauthorized: false },
+            connectionTimeout: 8000,
+            greetingTimeout: 8000,
           });
 
           const recipient = config.smtp.receiverEmail || config.general?.email || config.smtp.user;
           const sender = `"${config.smtp.fromName || "Bhuiyan Group Inquiries"}" <${config.smtp.fromEmail || config.smtp.user}>`;
 
-          transporter.sendMail({
-            from: sender,
-            to: recipient,
-            subject: `🔔 New Inquiry: ${newInquiry.subject} (${newInquiry.name})`,
-            html: `
-              <div style="font-family: Arial, sans-serif; max-width: 600px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
-                <div style="background: #0F2557; color: white; padding: 14px 20px; border-radius: 6px; margin-bottom: 16px;">
-                  <h3 style="margin: 0; font-size: 18px;">New Website Corporate Inquiry</h3>
-                  <p style="margin: 4px 0 0; font-size: 12px; color: #cbd5e1;">Received via Bhuiyan Group Portal</p>
+          try {
+            await transporter.sendMail({
+              from: sender,
+              to: recipient,
+              replyTo: newInquiry.email || undefined,
+              subject: `🔔 New Inquiry: ${newInquiry.subject} (${newInquiry.name})`,
+              html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                  <div style="background: #0F2557; color: white; padding: 14px 20px; border-radius: 6px; margin-bottom: 16px;">
+                    <h3 style="margin: 0; font-size: 18px;">New Website Corporate Inquiry</h3>
+                    <p style="margin: 4px 0 0; font-size: 12px; color: #cbd5e1;">Received via Bhuiyan Group Portal</p>
+                  </div>
+                  <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                    <tr><td style="padding: 8px 0; font-weight: bold; width: 130px;">Name:</td><td>${newInquiry.name}</td></tr>
+                    <tr><td style="padding: 8px 0; font-weight: bold;">Organization:</td><td>${newInquiry.organization || "N/A"}</td></tr>
+                    <tr><td style="padding: 8px 0; font-weight: bold;">Email:</td><td><a href="mailto:${newInquiry.email}">${newInquiry.email}</a></td></tr>
+                    <tr><td style="padding: 8px 0; font-weight: bold;">Phone:</td><td><a href="tel:${newInquiry.phone}">${newInquiry.phone}</a></td></tr>
+                    <tr><td style="padding: 8px 0; font-weight: bold;">Concern:</td><td>${newInquiry.concern}</td></tr>
+                    <tr><td style="padding: 8px 0; font-weight: bold;">Subject:</td><td>${newInquiry.subject}</td></tr>
+                    <tr><td style="padding: 8px 0; font-weight: bold; vertical-align: top;">Message:</td><td style="background: #f8fafc; padding: 10px; border-radius: 4px;">${newInquiry.message || "No message provided."}</td></tr>
+                    <tr><td style="padding: 8px 0; font-weight: bold;">Date / Time:</td><td>${new Date().toLocaleString()}</td></tr>
+                  </table>
                 </div>
-                <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
-                  <tr><td style="padding: 8px 0; font-weight: bold; width: 130px;">Name:</td><td>${newInquiry.name}</td></tr>
-                  <tr><td style="padding: 8px 0; font-weight: bold;">Organization:</td><td>${newInquiry.organization || "N/A"}</td></tr>
-                  <tr><td style="padding: 8px 0; font-weight: bold;">Email:</td><td><a href="mailto:${newInquiry.email}">${newInquiry.email}</a></td></tr>
-                  <tr><td style="padding: 8px 0; font-weight: bold;">Phone:</td><td><a href="tel:${newInquiry.phone}">${newInquiry.phone}</a></td></tr>
-                  <tr><td style="padding: 8px 0; font-weight: bold;">Concern:</td><td>${newInquiry.concern}</td></tr>
-                  <tr><td style="padding: 8px 0; font-weight: bold;">Subject:</td><td>${newInquiry.subject}</td></tr>
-                  <tr><td style="padding: 8px 0; font-weight: bold; vertical-align: top;">Message:</td><td style="background: #f8fafc; padding: 10px; border-radius: 4px;">${newInquiry.message || "No message provided."}</td></tr>
-                  <tr><td style="padding: 8px 0; font-weight: bold;">Date / Time:</td><td>${new Date().toLocaleString()}</td></tr>
-                </table>
-              </div>
-            `,
-          }).catch((err) => console.error("SMTP sending error:", err));
+              `,
+            });
+            console.log(`[SMTP] Successfully forwarded inquiry email to ${recipient}`);
+          } catch (mailErr) {
+            console.error("[SMTP] Error sending notification email:", mailErr);
+          }
+        } else {
+          console.log("[SMTP] Automated forwarding skipped - SMTP is disabled or credentials incomplete in siteConfig.json");
         }
       }
     } catch (e) {
-      console.error("SMTP check failed:", e);
+      console.error("[SMTP] Check failed:", e);
     }
 
     return NextResponse.json({ success: true, inquiry: newInquiry }, { status: 201 });
