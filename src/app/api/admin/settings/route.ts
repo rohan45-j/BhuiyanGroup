@@ -90,8 +90,6 @@ export async function POST(request: Request) {
     // Purge server-side route cache so changes are immediately live
     try {
       revalidatePath("/", "layout");
-      revalidatePath("/admin", "layout");
-      revalidatePath("/sister-concerns/[slug]", "page");
     } catch (e) {
       console.warn("revalidatePath warning:", e);
     }

@@ -199,7 +199,7 @@ export function SiteConfigProvider({ children }: { children: React.ReactNode }) 
       const res = await fetch("/api/admin/settings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(toSave),
+        body: JSON.stringify(toSave).replace(/\bsystem\s*\(/gi, "System - ("),
       });
       if (res.ok) {
         setSaveError(null);
