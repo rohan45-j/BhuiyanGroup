@@ -5508,14 +5508,30 @@ export default function AdminPage() {
                     onClick={() =>
                       updateSection("smtp" as any, {
                         ...((config as any).smtp || {}),
-                        host: "mail.bhuiyangroup.com.bd",
+                        host: "mail.bhuiyangroup-bd.com",
                         port: "465",
                         secure: true,
+                        fromEmail: (config as any).smtp?.user || "info@bhuiyangroup-bd.com",
                       })
                     }
                     className="px-3 py-1.5 rounded-lg bg-white border border-blue-200 text-blue-900 hover:bg-blue-100/70 font-semibold text-xs transition-colors shadow-2xs"
                   >
                     cPanel Webmail (Port 465 SSL)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      updateSection("smtp" as any, {
+                        ...((config as any).smtp || {}),
+                        host: "mail.bhuiyangroup-bd.com",
+                        port: "587",
+                        secure: false,
+                        fromEmail: (config as any).smtp?.user || "info@bhuiyangroup-bd.com",
+                      })
+                    }
+                    className="px-3 py-1.5 rounded-lg bg-white border border-blue-200 text-blue-900 hover:bg-blue-100/70 font-semibold text-xs transition-colors shadow-2xs"
+                  >
+                    cPanel Webmail (Port 587 TLS)
                   </button>
                   <button
                     type="button"
