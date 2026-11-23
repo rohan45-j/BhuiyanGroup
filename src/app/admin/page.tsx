@@ -214,7 +214,7 @@ function FileUploader({
 }
 
 export default function AdminPage() {
-  const { config, updateSection, saveChanges, resetToDefaults, isSaving, lastSaved } =
+  const { config, updateSection, saveChanges, resetToDefaults, isSaving, lastSaved, saveError } =
     useSiteConfig();
 
   // Authentication State with instant pre-auth check
@@ -695,8 +695,8 @@ export default function AdminPage() {
         </div>
       )}
       {saveStatus === "error" && (
-        <div className="bg-rose-600 text-white text-xs font-semibold py-2 px-4 text-center animate-in fade-in">
-          ✕ An error occurred while saving. Please check server logs.
+        <div className="bg-rose-600 text-white text-xs font-semibold py-2.5 px-4 text-center animate-in fade-in flex items-center justify-center gap-2">
+          <span>✕ {saveError ? `Save Failed: ${saveError}` : "An error occurred while saving. Please check server logs."}</span>
         </div>
       )}
 

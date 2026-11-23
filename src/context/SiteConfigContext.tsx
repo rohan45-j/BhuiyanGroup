@@ -14,6 +14,7 @@ interface SiteConfigContextType {
   isLoading: boolean;
   isSaving: boolean;
   lastSaved: string | null;
+  saveError: string | null;
 }
 
 const SiteConfigContext = createContext<SiteConfigContextType | undefined>(undefined);
@@ -23,6 +24,7 @@ const CONFIG_CACHE_KEY = "bhuiyan_live_site_config_v5";
 export function SiteConfigProvider({ children }: { children: React.ReactNode }) {
   // Always initialize with initialConfig to ensure 100% identical SSR and Client Hydration HTML
   const [config, setConfig] = useState<SiteConfigType>(initialConfig);
+  const [saveError, setSaveError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<string | null>(null);
@@ -200,12 +202,20 @@ export function SiteConfigProvider({ children }: { children: React.ReactNode }) 
         body: JSON.stringify(toSave),
       });
       if (res.ok) {
+        setSaveError(null);
         setLastSaved(new Date().toLocaleTimeString());
         setIsSaving(false);
         return true;
+      } else {
+        const errJson = await res.json().catch(() => null);
+        const errMsg = errJson?.error || `Server returned ${res.status}`;
+        console.error("Save error from server:", errMsg);
+        setSaveError(errMsg);
       }
     } catch (e) {
+      const errMsg = e instanceof Error ? e.message : "Network error";
       console.error("Save error:", e);
+      setSaveError(errMsg);
     }
     setIsSaving(false);
     return false;
@@ -232,6 +242,7 @@ export function SiteConfigProvider({ children }: { children: React.ReactNode }) 
         isLoading,
         isSaving,
         lastSaved,
+        saveError,
       }}
     >
       {children}
