@@ -594,18 +594,7 @@ export default function AdminPage() {
             </button>
           </form>
 
-          <div className="pt-2 border-t border-slate-100 flex flex-col items-center gap-3 text-center">
-            {((config as any)?.adminAuth?.password === "password123" || !(config as any)?.adminAuth?.password) ? (
-              <div className="bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200/80 text-[11px] text-slate-600">
-                Default Credentials: <strong className="text-slate-800 font-mono">admin</strong> / <strong className="text-slate-800 font-mono">password123</strong>
-              </div>
-            ) : (
-              <div className="bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200 text-[11px] text-emerald-800 flex items-center gap-1.5 font-medium">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Custom Administrator Credentials Protected</span>
-              </div>
-            )}
-
+          <div className="pt-2 border-t border-slate-100 flex flex-col items-center gap-2 text-center">
             <Link
               href="/"
               className="text-xs font-semibold text-slate-500 hover:text-[#0F2557] transition-colors"

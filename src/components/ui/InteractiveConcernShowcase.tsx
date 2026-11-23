@@ -96,11 +96,10 @@ export default function InteractiveConcernShowcase() {
           return (
             <div
               key={concern.id || concern.slug}
-              className={`sticky top-[var(--mobile-card-top)] sm:top-[var(--desktop-card-top)] transition-all duration-300 ${
-                !isLast ? "mb-36 sm:mb-28 md:mb-32" : "mb-8 sm:mb-12"
-              }`}
+              className={`relative lg:sticky transition-all duration-300 ${
+                !isLast ? "mb-8 sm:mb-12 lg:mb-32" : "mb-0 sm:mb-6"
+              } lg:top-[var(--desktop-card-top)]`}
               style={{
-                ["--mobile-card-top" as string]: `${Math.min(58 + index * 10, 98)}px`,
                 ["--desktop-card-top" as string]: `${Math.min(76 + index * 18, 148)}px`,
                 zIndex: index + 10,
               }}
@@ -109,7 +108,7 @@ export default function InteractiveConcernShowcase() {
                 className="group relative bg-white rounded-2xl sm:rounded-[28px] border-2 border-slate-200/90 shadow-[0_12px_45px_rgba(15,37,87,0.12)] hover:shadow-[0_20px_55px_rgba(243,112,33,0.18)] transition-all duration-500 overflow-hidden"
               >
                 {/* Top Deck Tab Banner (Always visible when stacked like indexed book tabs) */}
-                <div className="bg-gradient-to-r from-[#0F2557] via-[#112D6A] to-[#0A1B40] text-white px-3.5 sm:px-8 py-2 sm:py-3 flex items-center justify-between border-b border-white/10">
+                <div className="bg-gradient-to-r from-[#0F2557] via-[#112D6A] to-[#0A1B40] text-white px-3.5 sm:px-8 py-2.5 sm:py-3 flex items-center justify-between border-b border-white/10">
                   <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                     <span className="font-mono text-[10px] sm:text-xs font-black bg-[#F37021] text-white px-2 sm:px-2.5 py-0.5 rounded-full shadow-2xs shrink-0">
                       {serialNumber} / {filteredConcerns.length < 10 ? `0${filteredConcerns.length}` : filteredConcerns.length}
@@ -132,6 +131,13 @@ export default function InteractiveConcernShowcase() {
                     <span className="text-[11px] font-semibold text-emerald-300 hidden sm:inline">
                       Active Subsidiary
                     </span>
+                    <Link
+                      href={`/sister-concerns/${concern.slug}`}
+                      className="sm:hidden text-[11px] font-bold text-orange-300 bg-white/10 hover:bg-[#F37021] hover:text-white px-2.5 py-0.5 rounded-full flex items-center gap-1 transition-colors"
+                    >
+                      <span>Explore</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </Link>
                   </div>
                 </div>
 
