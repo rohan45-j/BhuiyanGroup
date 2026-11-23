@@ -594,6 +594,62 @@
       }
     ]
   },
+  "certificationsSection": {
+    "enabled": true,
+    "badgeText": "Statutory Compliance & Standards",
+    "headline": "Certified Quality & Regulatory Credentials",
+    "subtext": "Verified for Public Tenders & Private Industrial Turnkeys",
+    "items": [
+      {
+        "id": "iso-9001",
+        "tag": "Certified Quality",
+        "title": "ISO 9001:2015",
+        "subtitle": "Quality Management System",
+        "issuer": "Bureau Veritas / UKAS Certified",
+        "imageUrl": "/uploads/certifications-gemini_generated_image_qk8r5kqk8r5kqk8r-1795437953770.jfif"
+      },
+      {
+        "id": "bpdb-grade-a",
+        "tag": "National Enlistment",
+        "title": "BPDB Enlisted Grade-A",
+        "subtitle": "Turnkey Power EPC Contractor",
+        "issuer": "Bangladesh Power Dev Board",
+        "imageUrl": ""
+      },
+      {
+        "id": "breb-hv",
+        "tag": "Utility Grade",
+        "title": "BREB Approved EPC",
+        "subtitle": "33/11kV Substation & Line Works",
+        "issuer": "Rural Electrification Board",
+        "imageUrl": ""
+      },
+      {
+        "id": "iso-45001",
+        "tag": "Safety First",
+        "title": "ISO 45001:2018",
+        "subtitle": "Occupational Health & Safety",
+        "issuer": "Zero-Accident Safety Compliance",
+        "imageUrl": ""
+      },
+      {
+        "id": "sreda-solar",
+        "tag": "Green Energy",
+        "title": "SREDA Approved",
+        "subtitle": "Net-Metered Solar EPC Vendor",
+        "issuer": "Sustainable Energy Authority",
+        "imageUrl": ""
+      },
+      {
+        "id": "berc-license",
+        "tag": "Statutory License",
+        "title": "BERC Licensed",
+        "subtitle": "Electric Utility & Power Solutions",
+        "issuer": "Bangladesh Energy Reg Commission",
+        "imageUrl": ""
+      }
+    ]
+  },
   "videoGallery": {
     "badgeText": "CORPORATE MEDIA & FIELD DOCUMENTATION",
     "headline": "Industrial Video Gallery",

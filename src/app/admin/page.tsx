@@ -68,6 +68,7 @@ type AdminTab =
   | "gallery"
   | "sectors"
   | "milestones"
+  | "certifications"
   | "stats"
   | "smtp"
   | "security";
@@ -710,6 +711,7 @@ export default function AdminPage() {
               { id: "gallery", label: "Media & Galleries (Photo/Video)", icon: Film },
               { id: "sectors", label: "Industry Domains", icon: Briefcase },
               { id: "milestones", label: "Evolution & Heritage", icon: Award },
+              { id: "certifications", label: "Quality & Regulatory Certifications", icon: ShieldCheck },
               { id: "stats", label: "Key Stats & Metrics", icon: Sliders },
               { id: "smtp", label: "SMTP & Email Alerts", icon: Server },
               { id: "security", label: "Security & Credentials", icon: Lock },
@@ -5417,6 +5419,271 @@ export default function AdminPage() {
                                   updateSec({ milestones: updated });
                                 }}
                                 className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 bg-white"
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+          )}
+
+          {/* TAB: STATUTORY & QUALITY CERTIFICATIONS */}
+          {activeTab === "certifications" && (
+            <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 animate-in fade-in">
+              <div className="border-b border-slate-100 pb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#F37021]">
+                    Regulatory Compliance & Quality Standards
+                  </span>
+                  <h2 className="text-2xl font-black text-[#0F2557] mt-1">
+                    Certified Quality & Regulatory Credentials
+                  </h2>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Manage quality accreditations, statutory government enlistments, licenses, and upload certificate documents or badges.
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    const current = (config as any).certificationsSection || {
+                      enabled: true,
+                      badgeText: "Statutory Compliance & Standards",
+                      headline: "Certified Quality & Regulatory Credentials",
+                      subtext: "Verified for Public Tenders & Private Industrial Turnkeys",
+                      items: [],
+                    };
+                    const newCert = {
+                      id: "cert-" + Date.now(),
+                      tag: "Accreditation",
+                      title: "New Certificate Title",
+                      subtitle: "Quality & Safety Standard",
+                      issuer: "Issuing Authority or Government Body",
+                      imageUrl: "",
+                    };
+                    updateSection("certificationsSection" as any, {
+                      ...current,
+                      items: [...(current.items || []), newCert],
+                    });
+                  }}
+                  className="px-4 py-2 rounded-xl bg-[#F37021] hover:bg-[#DE5F12] text-white text-xs font-bold flex items-center gap-2 shadow-sm transition-all cursor-pointer"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Add New Certificate</span>
+                </button>
+              </div>
+
+              {(() => {
+                const sec = (config as any).certificationsSection || {
+                  enabled: true,
+                  badgeText: "Statutory Compliance & Standards",
+                  headline: "Certified Quality & Regulatory Credentials",
+                  subtext: "Verified for Public Tenders & Private Industrial Turnkeys",
+                  items: [],
+                };
+                const updateSec = (fields: any) => {
+                  updateSection("certificationsSection" as any, { ...sec, ...fields });
+                };
+
+                return (
+                  <div className="space-y-5 text-xs">
+                    {/* Master Section Visibility Toggle */}
+                    <div className="p-4 sm:p-5 rounded-xl border border-slate-200 bg-gradient-to-r from-slate-50 to-white flex items-center justify-between gap-4">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <label className="font-bold text-slate-800 text-xs sm:text-sm">
+                            Section Status on Homepage
+                          </label>
+                          <span
+                            className={`inline-flex items-center gap-1.5 text-[11px] font-extrabold px-2.5 py-0.5 rounded-full ${
+                              sec.enabled !== false
+                                ? "bg-emerald-100 text-emerald-800"
+                                : "bg-slate-200 text-slate-600"
+                            }`}
+                          >
+                            <span
+                              className={`w-2 h-2 rounded-full ${
+                                sec.enabled !== false ? "bg-emerald-500 animate-pulse" : "bg-slate-400"
+                              }`}
+                            />
+                            {sec.enabled !== false ? "ACTIVE & VISIBLE" : "INACTIVE & HIDDEN"}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          Toggle whether the entire &quot;Certified Quality &amp; Regulatory Credentials&quot; section appears on the public website.
+                        </p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer shrink-0">
+                        <input
+                          type="checkbox"
+                          checked={sec.enabled !== false}
+                          onChange={(e) => updateSec({ enabled: e.target.checked })}
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#0F2557]"></div>
+                      </label>
+                    </div>
+
+                    {/* Section Headers */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">
+                          Section Pill Badge
+                        </label>
+                        <input
+                          type="text"
+                          value={sec.badgeText || ""}
+                          onChange={(e) => updateSec({ badgeText: e.target.value })}
+                          placeholder="e.g. Statutory Compliance & Standards"
+                          className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 font-bold"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">
+                          Main Headline
+                        </label>
+                        <input
+                          type="text"
+                          value={sec.headline || ""}
+                          onChange={(e) => updateSec({ headline: e.target.value })}
+                          placeholder="e.g. Certified Quality & Regulatory Credentials"
+                          className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 font-bold"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-1">
+                        Subtitle / Trust Note (Right Side)
+                      </label>
+                      <input
+                        type="text"
+                        value={sec.subtext || ""}
+                        onChange={(e) => updateSec({ subtext: e.target.value })}
+                        placeholder="e.g. Verified for Public Tenders & Private Industrial Turnkeys"
+                        className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900"
+                      />
+                    </div>
+
+                    {/* Certificates List */}
+                    <div className="space-y-4 pt-4 border-t border-slate-100">
+                      <h3 className="font-bold text-slate-800 text-sm">
+                        Credential Badges & Certificates ({(sec.items || []).length})
+                      </h3>
+
+                      <div className="space-y-4">
+                        {(sec.items || []).map((cert: any, idx: number) => (
+                          <div
+                            key={cert.id || idx}
+                            className="p-5 rounded-2xl border border-slate-200 bg-slate-50/70 space-y-4 relative group"
+                          >
+                            <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+                              <span className="font-bold text-[#0F2557] text-xs font-mono">
+                                Certificate #{idx + 1}: {cert.title || "Untitled Credential"}
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  if (confirm(`Delete certificate "${cert.title}"?`)) {
+                                    const filtered = sec.items.filter((_: any, i: number) => i !== idx);
+                                    updateSec({ items: filtered });
+                                  }
+                                }}
+                                className="text-red-500 hover:text-red-700 p-1 rounded-lg hover:bg-red-50 transition-colors cursor-pointer"
+                                title="Delete this certificate"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                              <div>
+                                <label className="block font-bold text-slate-700 mb-1">
+                                  Tag (e.g. Certified Quality)
+                                </label>
+                                <input
+                                  type="text"
+                                  value={cert.tag || ""}
+                                  onChange={(e) => {
+                                    const updated = [...sec.items];
+                                    updated[idx] = { ...cert, tag: e.target.value };
+                                    updateSec({ items: updated });
+                                  }}
+                                  className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 bg-white font-medium"
+                                  placeholder="e.g. Certified Quality"
+                                />
+                              </div>
+
+                              <div>
+                                <label className="block font-bold text-slate-700 mb-1">
+                                  Certificate Title (e.g. ISO 9001:2015)
+                                </label>
+                                <input
+                                  type="text"
+                                  value={cert.title || ""}
+                                  onChange={(e) => {
+                                    const updated = [...sec.items];
+                                    updated[idx] = { ...cert, title: e.target.value };
+                                    updateSec({ items: updated });
+                                  }}
+                                  className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 bg-white font-bold"
+                                  placeholder="e.g. ISO 9001:2015"
+                                />
+                              </div>
+
+                              <div>
+                                <label className="block font-bold text-slate-700 mb-1">
+                                  Subtitle / Standard Name
+                                </label>
+                                <input
+                                  type="text"
+                                  value={cert.subtitle || ""}
+                                  onChange={(e) => {
+                                    const updated = [...sec.items];
+                                    updated[idx] = { ...cert, subtitle: e.target.value };
+                                    updateSec({ items: updated });
+                                  }}
+                                  className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 bg-white"
+                                  placeholder="e.g. Quality Management System"
+                                />
+                              </div>
+
+                              <div>
+                                <label className="block font-bold text-slate-700 mb-1">
+                                  Issuing Body / Authority
+                                </label>
+                                <input
+                                  type="text"
+                                  value={cert.issuer || ""}
+                                  onChange={(e) => {
+                                    const updated = [...sec.items];
+                                    updated[idx] = { ...cert, issuer: e.target.value };
+                                    updateSec({ items: updated });
+                                  }}
+                                  className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 bg-white"
+                                  placeholder="e.g. Bureau Veritas / UKAS"
+                                />
+                              </div>
+                            </div>
+
+                            {/* Certificate Image Upload */}
+                            <div className="pt-2 border-t border-slate-200/70">
+                              <FileUploader
+                                label="Upload Certificate Scan / Logo / PDF Document"
+                                value={cert.imageUrl || ""}
+                                onChange={(url) => {
+                                  const updated = [...sec.items];
+                                  updated[idx] = { ...cert, imageUrl: url };
+                                  updateSec({ items: updated });
+                                }}
+                                category="certifications"
+                                description="Upload a high-resolution image of the certificate (JPG, PNG, WEBP) or official verification document (PDF)."
+                                recommendedRatio="1:1 or 4:3"
+                                recommendedSize="Under 5MB"
                               />
                             </div>
                           </div>

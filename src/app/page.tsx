@@ -505,11 +505,13 @@ export default function HomePage() {
       </section>
 
       {/* Statutory Certifications & Badges */}
-      <section className="py-8 sm:py-12 bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <CertificationsBadges />
-        </div>
-      </section>
+      {(config as any)?.certificationsSection?.enabled !== false && (
+        <section className="py-8 sm:py-12 bg-white border-b border-slate-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <CertificationsBadges />
+          </div>
+        </section>
+      )}
 
       {/* 3. Core Sectors Deep Dive */}
       {coreSectorsSection?.enabled !== false && (
