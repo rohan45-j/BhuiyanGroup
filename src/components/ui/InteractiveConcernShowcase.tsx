@@ -96,11 +96,11 @@ export default function InteractiveConcernShowcase() {
           return (
             <div
               key={concern.id || concern.slug}
-              className={`relative lg:sticky transition-all duration-300 ${
-                !isLast ? "mb-8 sm:mb-12 lg:mb-28" : "mb-0"
+              className={`sticky transition-all duration-300 ${
+                !isLast ? "mb-14 sm:mb-20 md:mb-28" : "mb-0"
               }`}
               style={{
-                top: `${Math.min(72 + index * 16, 136)}px`,
+                top: `${Math.min(76 + index * 18, 148)}px`,
                 zIndex: index + 10,
               }}
             >
