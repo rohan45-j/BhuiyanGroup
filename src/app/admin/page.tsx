@@ -689,9 +689,9 @@ export default function AdminPage() {
       )}
 
       {/* Main Admin Body */}
-      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Sidebar Navigation */}
-        <aside className="lg:col-span-3 space-y-2">
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Sidebar Navigation - Sticky on desktop */}
+        <aside className="lg:col-span-3 space-y-3 lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-5.5rem)] lg:overflow-y-auto pr-1">
           <div className="bg-white rounded-2xl p-3 border border-slate-200 shadow-sm space-y-1">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-3 py-1 block">
               Admin Navigation
@@ -757,7 +757,7 @@ export default function AdminPage() {
         </aside>
 
         {/* Right Content Area */}
-        <main className="lg:col-span-9 space-y-6">
+        <main className="lg:col-span-9 min-w-0 space-y-6">
           {/* TAB 1: OVERVIEW DASHBOARD */}
           {activeTab === "dashboard" && (
             <div className="space-y-6 animate-in fade-in">
@@ -972,7 +972,7 @@ export default function AdminPage() {
               </div>
 
               {/* Inquiry Cards List */}
-              <div className="space-y-4">
+              <div className="space-y-4 max-h-[calc(100vh-280px)] overflow-y-auto pr-2 overscroll-contain">
                 {inquiries
                   .filter((inq) => {
                     if (inquiryFilter === "unread") return inq.status === "unread";
