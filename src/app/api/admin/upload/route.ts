@@ -15,10 +15,14 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Ensure uploads directory exists
-    const uploadsDir = path.join(process.cwd(), "public", "uploads");
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true });
+    // Resolve upload directories (handles both standard development & cPanel Passenger cwd mismatches)
+    const uploadDirs = [
+      path.join(process.cwd(), "public", "uploads"),
+    ];
+
+    const cpanelSubdir = path.join(process.cwd(), "bhuiyangroup-bd", "public", "uploads");
+    if (fs.existsSync(path.join(process.cwd(), "bhuiyangroup-bd"))) {
+      uploadDirs.push(cpanelSubdir);
     }
 
     // Clean filename
@@ -28,9 +32,22 @@ export async function POST(request: Request) {
       .toLowerCase()
       .replace(/[^a-z0-9_-]/g, "-");
     const uniqueFileName = `${category}-${baseName}-${Date.now()}${ext}`;
-    const destinationPath = path.join(uploadsDir, uniqueFileName);
 
-    fs.writeFileSync(destinationPath, buffer);
+    // Write to all resolved candidate upload directories
+    for (const dir of uploadDirs) {
+      if (!fs.existsSync(dir)) {
+        try {
+          fs.mkdirSync(dir, { recursive: true });
+        } catch (mkdirErr) {
+          console.warn(`Could not create directory ${dir}:`, mkdirErr);
+        }
+      }
+      try {
+        fs.writeFileSync(path.join(dir, uniqueFileName), buffer);
+      } catch (writeErr) {
+        console.warn(`Could not write to ${dir}:`, writeErr);
+      }
+    }
 
     const publicUrl = `/uploads/${uniqueFileName}`;
     return NextResponse.json({

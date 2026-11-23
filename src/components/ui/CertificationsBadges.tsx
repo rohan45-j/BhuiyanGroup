@@ -138,6 +138,7 @@ export default function CertificationsBadges() {
                           src={cert.imageUrl!}
                           alt={cert.title}
                           fill
+                          unoptimized
                           className="object-contain p-1"
                           sizes="80px"
                         />
@@ -242,6 +243,7 @@ export default function CertificationsBadges() {
                       src={activeModalItem.imageUrl}
                       alt={activeModalItem.title}
                       fill
+                      unoptimized
                       className="object-contain"
                       sizes="(max-width: 768px) 100vw, 800px"
                     />
