@@ -66,15 +66,15 @@
     "sessionDurationHours": 24
   },
   "smtp": {
-    "enabled": false,
-    "host": "smtp.gmail.com",
-    "port": "587",
-    "secure": false,
-    "user": "",
-    "pass": "",
-    "fromEmail": "info@bhuiyangroup.com.bd",
+    "enabled": true,
+    "host": "mail.bhuiyangroup-bd.com",
+    "port": "465",
+    "secure": true,
+    "user": "info@bhuiyangroup-bd.com",
+    "pass": "info@bhuiyangroup12345",
+    "fromEmail": "info@bhuiyangroup-bd.com",
     "fromName": "Bhuiyan Group Inquiries",
-    "receiverEmail": "info@bhuiyangroup.com.bd"
+    "receiverEmail": "info@bhuiyangroup-bd.com"
   },
   "groupStats": [
     {

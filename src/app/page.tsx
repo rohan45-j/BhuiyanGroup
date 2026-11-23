@@ -83,6 +83,7 @@ export default function HomePage() {
   const [homeInquiry, setHomeInquiry] = useState({
     organization: "",
     name: "",
+    email: "",
     phone: "",
     sector: "Generex Power (Industrial Generators)",
   });
@@ -103,11 +104,11 @@ export default function HomePage() {
         body: JSON.stringify({
           name: homeInquiry.name,
           organization: homeInquiry.organization,
-          email: "info@bhuiyangroup-bd.com",
+          email: homeInquiry.email,
           phone: homeInquiry.phone,
           concern: homeInquiry.sector,
           subject: `${homeInquiry.sector} - Corporate Inquiry`,
-          message: `Inquiry submitted via homepage portal.\nOrganization: ${homeInquiry.organization}\nContact Person: ${homeInquiry.name}\nPhone: ${homeInquiry.phone}\nSector: ${homeInquiry.sector}`,
+          message: `Inquiry submitted via homepage portal.\nOrganization: ${homeInquiry.organization}\nContact Person: ${homeInquiry.name}\nEmail: ${homeInquiry.email}\nPhone: ${homeInquiry.phone}\nSector: ${homeInquiry.sector}`,
         }),
       });
       if (!res.ok) {
@@ -117,6 +118,7 @@ export default function HomePage() {
       setHomeInquiry({
         organization: "",
         name: "",
+        email: "",
         phone: "",
         sector: "Generex Power (Industrial Generators)",
       });
@@ -706,6 +708,22 @@ export default function HomePage() {
                       </div>
                       <div>
                         <label className="block font-bold text-slate-700 mb-1">
+                          Official Email *
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={homeInquiry.email}
+                          onChange={(e) => setHomeInquiry({ ...homeInquiry, email: e.target.value })}
+                          placeholder="name@company.com"
+                          className="w-full px-3.5 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] text-slate-900 bg-white text-sm"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">
                           Phone Number *
                         </label>
                         <input
@@ -717,17 +735,15 @@ export default function HomePage() {
                           className="w-full px-3.5 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] text-slate-900 bg-white text-sm"
                         />
                       </div>
-                    </div>
-
-                    <div>
-                      <label className="block font-bold text-slate-700 mb-1">
-                        Sector of Interest
-                      </label>
-                      <select
-                        className="w-full px-3.5 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] text-slate-900 bg-white text-sm"
-                        value={homeInquiry.sector}
-                        onChange={(e) => setHomeInquiry({ ...homeInquiry, sector: e.target.value })}
-                      >
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">
+                          Sector of Interest
+                        </label>
+                        <select
+                          className="w-full px-3.5 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] text-slate-900 bg-white text-sm"
+                          value={homeInquiry.sector}
+                          onChange={(e) => setHomeInquiry({ ...homeInquiry, sector: e.target.value })}
+                        >
                         <option value="Generex Power (Industrial Generators)">
                           Generex Power (Industrial Generators)
                         </option>
@@ -745,6 +761,7 @@ export default function HomePage() {
                         </option>
                       </select>
                     </div>
+                  </div>
 
                     {homeInquiryError && (
                       <p className="text-xs font-semibold text-rose-600">

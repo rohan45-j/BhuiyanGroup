@@ -2,14 +2,26 @@ import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
-const inquiriesFilePath = path.join(process.cwd(), "src", "data", "inquiries.json");
+function resolveDataPath(filename: string): string {
+  const candidates = [
+    path.join(process.cwd(), "src", "data", filename),
+    path.join(process.cwd(), "bhuiyangroup-bd", "src", "data", filename),
+    path.resolve(process.cwd(), "src/data", filename),
+  ];
+
+  for (const c of candidates) {
+    if (fs.existsSync(c)) return c;
+  }
+  return candidates[0];
+}
 
 function readInquiries() {
   try {
-    if (!fs.existsSync(inquiriesFilePath)) {
+    const filePath = resolveDataPath("inquiries.json");
+    if (!fs.existsSync(filePath)) {
       return [];
     }
-    const fileContent = fs.readFileSync(inquiriesFilePath, "utf8");
+    const fileContent = fs.readFileSync(filePath, "utf8");
     return JSON.parse(fileContent);
   } catch (error) {
     console.error("Failed to read inquiries:", error);
@@ -19,7 +31,12 @@ function readInquiries() {
 
 function writeInquiries(data: unknown[]) {
   try {
-    fs.writeFileSync(inquiriesFilePath, JSON.stringify(data, null, 2), "utf8");
+    const filePath = resolveDataPath("inquiries.json");
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf8");
     return true;
   } catch (error) {
     console.error("Failed to write inquiries:", error);
@@ -61,9 +78,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Failed to save inquiry" }, { status: 500 });
     }
 
-    // Attempt SMTP Notification asynchronously if enabled
+    // Attempt SMTP Notification if configured
     try {
-      const configPath = path.join(process.cwd(), "src", "data", "siteConfig.json");
+      const configPath = resolveDataPath("siteConfig.json");
       if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
         const hasCredentials = Boolean(
@@ -74,17 +91,20 @@ export async function POST(request: Request) {
 
         if (hasCredentials) {
           const nodemailer = await import("nodemailer");
+          const port = Number(config.smtp.port) || 587;
+          const isSecure = Boolean(config.smtp.secure) || port === 465;
+
           const transporter = nodemailer.createTransport({
             host: config.smtp.host.trim(),
-            port: Number(config.smtp.port) || 587,
-            secure: Boolean(config.smtp.secure) || Number(config.smtp.port) === 465,
+            port: port,
+            secure: isSecure,
             auth: {
               user: config.smtp.user.trim(),
               pass: config.smtp.pass.trim(),
             },
             tls: { rejectUnauthorized: false },
-            connectionTimeout: 8000,
-            greetingTimeout: 8000,
+            connectionTimeout: 12000,
+            greetingTimeout: 12000,
           });
 
           const recipient = config.smtp.receiverEmail || config.general?.email || config.smtp.user;
@@ -95,7 +115,7 @@ export async function POST(request: Request) {
               from: sender,
               to: recipient,
               replyTo: newInquiry.email || undefined,
-              subject: `🔔 New Inquiry: ${newInquiry.subject} (${newInquiry.name})`,
+              subject: `🔔 New Corporate Inquiry: ${newInquiry.subject} (${newInquiry.name})`,
               html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
                   <div style="background: #0F2557; color: white; padding: 14px 20px; border-radius: 6px; margin-bottom: 16px;">
@@ -109,7 +129,7 @@ export async function POST(request: Request) {
                     <tr><td style="padding: 8px 0; font-weight: bold;">Phone:</td><td><a href="tel:${newInquiry.phone}">${newInquiry.phone}</a></td></tr>
                     <tr><td style="padding: 8px 0; font-weight: bold;">Concern:</td><td>${newInquiry.concern}</td></tr>
                     <tr><td style="padding: 8px 0; font-weight: bold;">Subject:</td><td>${newInquiry.subject}</td></tr>
-                    <tr><td style="padding: 8px 0; font-weight: bold; vertical-align: top;">Message:</td><td style="background: #f8fafc; padding: 10px; border-radius: 4px;">${newInquiry.message || "No message provided."}</td></tr>
+                    <tr><td style="padding: 8px 0; font-weight: bold; vertical-align: top;">Message:</td><td style="background: #f8fafc; padding: 10px; border-radius: 4px; white-space: pre-wrap;">${newInquiry.message || "No message provided."}</td></tr>
                     <tr><td style="padding: 8px 0; font-weight: bold;">Date / Time:</td><td>${new Date().toLocaleString()}</td></tr>
                   </table>
                 </div>
@@ -120,8 +140,10 @@ export async function POST(request: Request) {
             console.error("[SMTP] Error sending notification email:", mailErr);
           }
         } else {
-          console.log("[SMTP] Automated forwarding skipped - SMTP is disabled or credentials incomplete in siteConfig.json");
+          console.log("[SMTP] Automated forwarding skipped - SMTP credentials incomplete in siteConfig.json");
         }
+      } else {
+        console.warn(`[SMTP] configPath not found: ${configPath}`);
       }
     } catch (e) {
       console.error("[SMTP] Check failed:", e);
