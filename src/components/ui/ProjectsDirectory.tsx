@@ -149,15 +149,21 @@ export default function ProjectsDirectory({
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+            <span className={`text-xs font-bold uppercase tracking-wider ${
+              selectedStatus === "completed" ? "text-emerald-200" : "text-emerald-600"
+            }`}>
               Completed Projects
             </span>
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+            <CheckCircle2 className={`w-4 h-4 ${selectedStatus === "completed" ? "text-emerald-300" : "text-emerald-500"}`} />
           </div>
-          <div className="text-2xl sm:text-3xl font-black mt-2 text-emerald-700 dark:text-white">
+          <div className={`text-2xl sm:text-3xl font-black mt-2 ${
+            selectedStatus === "completed" ? "text-white" : "text-emerald-700"
+          }`}>
             {stats.completed}
           </div>
-          <p className="text-[11px] text-slate-500 mt-1">Successfully Delivered</p>
+          <p className={`text-[11px] mt-1 ${selectedStatus === "completed" ? "text-emerald-100" : "text-slate-500"}`}>
+            Successfully Delivered
+          </p>
         </button>
 
         <button
@@ -170,7 +176,9 @@ export default function ProjectsDirectory({
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-600">
+            <span className={`text-xs font-bold uppercase tracking-wider ${
+              selectedStatus === "ongoing" ? "text-amber-200" : "text-amber-600"
+            }`}>
               On-Going Projects
             </span>
             <span className="relative flex h-2.5 w-2.5">
@@ -178,10 +186,14 @@ export default function ProjectsDirectory({
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
             </span>
           </div>
-          <div className="text-2xl sm:text-3xl font-black mt-2 text-amber-700 dark:text-white">
+          <div className={`text-2xl sm:text-3xl font-black mt-2 ${
+            selectedStatus === "ongoing" ? "text-white" : "text-amber-700"
+          }`}>
             {stats.ongoing}
           </div>
-          <p className="text-[11px] text-slate-500 mt-1">Active Site Works</p>
+          <p className={`text-[11px] mt-1 ${selectedStatus === "ongoing" ? "text-amber-100" : "text-slate-500"}`}>
+            Active Site Works
+          </p>
         </button>
 
         <button
@@ -194,15 +206,21 @@ export default function ProjectsDirectory({
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-sky-600">
+            <span className={`text-xs font-bold uppercase tracking-wider ${
+              selectedStatus === "upcoming" ? "text-sky-200" : "text-sky-600"
+            }`}>
               Upcoming Projects
             </span>
-            <Clock className="w-4 h-4 text-sky-500" />
+            <Clock className={`w-4 h-4 ${selectedStatus === "upcoming" ? "text-sky-300" : "text-sky-500"}`} />
           </div>
-          <div className="text-2xl sm:text-3xl font-black mt-2 text-sky-700 dark:text-white">
+          <div className={`text-2xl sm:text-3xl font-black mt-2 ${
+            selectedStatus === "upcoming" ? "text-white" : "text-sky-700"
+          }`}>
             {stats.upcoming}
           </div>
-          <p className="text-[11px] text-slate-500 mt-1">Engineering Pipeline</p>
+          <p className={`text-[11px] mt-1 ${selectedStatus === "upcoming" ? "text-sky-100" : "text-slate-500"}`}>
+            Engineering Pipeline
+          </p>
         </button>
       </div>
 
@@ -266,7 +284,7 @@ export default function ProjectsDirectory({
             <select
               value={selectedConcern}
               onChange={(e) => setSelectedConcern(e.target.value)}
-              className="w-full sm:w-48 appearance-none bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold rounded-xl px-3.5 py-2.5 pr-8 focus:outline-none focus:ring-2 focus:ring-[#0F2557]"
+              className="w-full sm:w-48 appearance-none bg-white border border-slate-300 text-slate-900 text-xs font-semibold rounded-xl px-3.5 py-2.5 pr-8 focus:outline-none focus:ring-2 focus:ring-[#0F2557] shadow-xs"
             >
               <option value="all">All Subsidiaries</option>
               {concernsList.map((c) => (
@@ -275,7 +293,7 @@ export default function ProjectsDirectory({
                 </option>
               ))}
             </select>
-            <Filter className="w-3.5 h-3.5 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <Filter className="w-3.5 h-3.5 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>
 
           {/* Search Box */}
@@ -285,7 +303,7 @@ export default function ProjectsDirectory({
               placeholder="Search projects..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 text-slate-800 text-xs rounded-xl pl-9 pr-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#0F2557]"
+              className="w-full bg-white border border-slate-300 text-slate-900 placeholder:text-slate-400 text-xs rounded-xl pl-9 pr-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#0F2557] shadow-xs"
             />
             <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             {searchQuery && (

@@ -643,7 +643,7 @@ export default function HomePage() {
                         type="text"
                         required
                         placeholder="e.g. Apex Textiles / Square Hospital"
-                        className="w-full px-3.5 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] text-slate-900 text-sm"
+                        className="w-full px-3.5 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] text-slate-900 bg-white text-sm"
                       />
                     </div>
 
@@ -656,7 +656,7 @@ export default function HomePage() {
                           type="text"
                           required
                           placeholder="Your Name"
-                          className="w-full px-3.5 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] text-slate-900 text-sm"
+                          className="w-full px-3.5 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] text-slate-900 bg-white text-sm"
                         />
                       </div>
                       <div>
@@ -667,7 +667,7 @@ export default function HomePage() {
                           type="tel"
                           required
                           placeholder="+880 1..."
-                          className="w-full px-3.5 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] text-slate-900 text-sm"
+                          className="w-full px-3.5 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] text-slate-900 bg-white text-sm"
                         />
                       </div>
                     </div>

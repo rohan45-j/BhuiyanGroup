@@ -3705,7 +3705,11 @@ export default function AdminPage() {
                           : "bg-emerald-50/60 text-emerald-800 border-emerald-200 hover:bg-emerald-100/60"
                       }`}
                     >
-                      <span className="text-[11px] font-bold block uppercase tracking-wider text-emerald-600 dark:text-white">Completed</span>
+                      <span className={`text-[11px] font-bold block uppercase tracking-wider ${
+                        projectStatusFilter === "completed" ? "text-white/90" : "text-emerald-700"
+                      }`}>
+                        Completed
+                      </span>
                       <strong className="text-xl font-black mt-1 block">{cCount}</strong>
                     </button>
 
@@ -3718,7 +3722,11 @@ export default function AdminPage() {
                           : "bg-amber-50/60 text-amber-800 border-amber-200 hover:bg-amber-100/60"
                       }`}
                     >
-                      <span className="text-[11px] font-bold block uppercase tracking-wider text-amber-600 dark:text-white">On-Going</span>
+                      <span className={`text-[11px] font-bold block uppercase tracking-wider ${
+                        projectStatusFilter === "ongoing" ? "text-white/90" : "text-amber-700"
+                      }`}>
+                        On-Going
+                      </span>
                       <strong className="text-xl font-black mt-1 block">{oCount}</strong>
                     </button>
 
@@ -3731,7 +3739,11 @@ export default function AdminPage() {
                           : "bg-sky-50/60 text-sky-800 border-sky-200 hover:bg-sky-100/60"
                       }`}
                     >
-                      <span className="text-[11px] font-bold block uppercase tracking-wider text-sky-600 dark:text-white">Upcoming</span>
+                      <span className={`text-[11px] font-bold block uppercase tracking-wider ${
+                        projectStatusFilter === "upcoming" ? "text-white/90" : "text-sky-700"
+                      }`}>
+                        Upcoming
+                      </span>
                       <strong className="text-xl font-black mt-1 block">{uCount}</strong>
                     </button>
                   </div>

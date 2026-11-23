@@ -250,7 +250,7 @@ export default function ContactPage() {
                         onChange={handleChange}
                         required
                         placeholder="e.g. Engr. Tanvir Ahmed"
-                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] focus:ring-2 focus:ring-[#0F2557]/10"
+                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] focus:ring-2 focus:ring-[#0F2557]/10 bg-white text-slate-900 placeholder:text-slate-400"
                       />
                     </div>
                     <div>
@@ -264,7 +264,7 @@ export default function ContactPage() {
                         onChange={handleChange}
                         required
                         placeholder="e.g. Meghna Group / BPDB"
-                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] focus:ring-2 focus:ring-[#0F2557]/10"
+                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] focus:ring-2 focus:ring-[#0F2557]/10 bg-white text-slate-900 placeholder:text-slate-400"
                       />
                     </div>
                   </div>
@@ -281,7 +281,7 @@ export default function ContactPage() {
                         onChange={handleChange}
                         required
                         placeholder="name@company.com"
-                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] focus:ring-2 focus:ring-[#0F2557]/10"
+                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] focus:ring-2 focus:ring-[#0F2557]/10 bg-white text-slate-900 placeholder:text-slate-400"
                       />
                     </div>
                     <div>
@@ -295,7 +295,7 @@ export default function ContactPage() {
                         onChange={handleChange}
                         required
                         placeholder="+880 1..."
-                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] focus:ring-2 focus:ring-[#0F2557]/10"
+                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] focus:ring-2 focus:ring-[#0F2557]/10 bg-white text-slate-900 placeholder:text-slate-400"
                       />
                     </div>
                   </div>
@@ -308,7 +308,7 @@ export default function ContactPage() {
                       name="concern"
                       value={formData.concern}
                       onChange={handleChange}
-                      className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] bg-white font-medium"
+                      className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] bg-white text-slate-900 font-medium"
                     >
                       <option value="Bhuiyan Group Corporate Management">Bhuiyan Group Corporate Management</option>
                       {concernsList.map((sc) => (
@@ -330,7 +330,7 @@ export default function ContactPage() {
                       rows={4}
                       required
                       placeholder="Describe your power rating, substation specs, rooftop area, pump requirements, or project scope..."
-                      className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] focus:ring-2 focus:ring-[#0F2557]/10"
+                      className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] focus:ring-2 focus:ring-[#0F2557]/10 bg-white text-slate-900 placeholder:text-slate-400"
                     />
                   </div>
 
