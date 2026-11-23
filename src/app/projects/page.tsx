@@ -11,17 +11,16 @@ export const metadata = {
     "Explore Bhuiyan Group's landmark completed, ongoing, and upcoming engineering projects across industrial power plants, solar rooftops, deep-well water distribution, and 33kV substations.",
 };
 
+import { getMergedSiteConfig } from "@/lib/runtimeConfig";
+
 function getProjects(): ProjectItem[] {
   try {
-    const configPath = path.join(process.cwd(), "src", "data", "siteConfig.json");
-    if (fs.existsSync(configPath)) {
-      const data = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-      if (data.projects && Array.isArray(data.projects) && data.projects.length > 0) {
-        return data.projects;
-      }
+    const data = getMergedSiteConfig();
+    if (data.projects && Array.isArray(data.projects) && data.projects.length > 0) {
+      return data.projects as unknown as ProjectItem[];
     }
   } catch (e) {
-    console.error("Error reading projects from siteConfig.json:", e);
+    console.error("Error reading projects:", e);
   }
   return [];
 }

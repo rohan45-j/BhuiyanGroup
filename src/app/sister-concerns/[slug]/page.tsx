@@ -24,13 +24,12 @@ import { companyData } from "@/data/companyData";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
 import SisterConcernPhotoGallery from "@/components/ui/SisterConcernPhotoGallery";
 import SisterConcernVideoGallery from "@/components/ui/SisterConcernVideoGallery";
+import { getMergedSiteConfig } from "@/lib/runtimeConfig";
 
 function getSisterConcerns() {
   try {
-    const configPath = path.join(process.cwd(), "src", "data", "siteConfig.json");
-    if (fs.existsSync(configPath)) {
-      const data = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-      if (data.sisterConcerns && data.sisterConcerns.length > 0) {
+    const data = getMergedSiteConfig();
+    if (data.sisterConcerns && data.sisterConcerns.length > 0) {
         return data.sisterConcerns.map((sc: any) => {
           const base =
             companyData.sisterConcerns.find(
@@ -60,7 +59,6 @@ function getSisterConcerns() {
           };
         });
       }
-    }
   } catch (e) {
     console.warn("Falling back to static companyData", e);
   }

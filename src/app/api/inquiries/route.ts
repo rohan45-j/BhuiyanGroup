@@ -15,33 +15,14 @@ function resolveDataPath(filename: string): string {
   return candidates[0];
 }
 
+import { getRuntimeInquiries, saveRuntimeInquiries } from "@/lib/runtimeConfig";
+
 function readInquiries() {
-  try {
-    const filePath = resolveDataPath("inquiries.json");
-    if (!fs.existsSync(filePath)) {
-      return [];
-    }
-    const fileContent = fs.readFileSync(filePath, "utf8");
-    return JSON.parse(fileContent);
-  } catch (error) {
-    console.error("Failed to read inquiries:", error);
-    return [];
-  }
+  return getRuntimeInquiries();
 }
 
 function writeInquiries(data: unknown[]) {
-  try {
-    const filePath = resolveDataPath("inquiries.json");
-    const dir = path.dirname(filePath);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf8");
-    return true;
-  } catch (error) {
-    console.error("Failed to write inquiries:", error);
-    return false;
-  }
+  return saveRuntimeInquiries(data as any[]);
 }
 
 export async function GET() {

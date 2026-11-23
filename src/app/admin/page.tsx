@@ -639,6 +639,59 @@ export default function AdminPage() {
               </span>
             )}
 
+            {/* Backup / Export Live Config */}
+            <button
+              type="button"
+              onClick={() => {
+                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(config, null, 2));
+                const downloadAnchor = document.createElement("a");
+                downloadAnchor.setAttribute("href", dataStr);
+                downloadAnchor.setAttribute("download", `bhuiyan_live_backup_${new Date().toISOString().slice(0, 10)}.json`);
+                document.body.appendChild(downloadAnchor);
+                downloadAnchor.click();
+                downloadAnchor.remove();
+              }}
+              className="px-3 py-2 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 text-xs font-semibold flex items-center gap-1.5 transition-colors border border-emerald-500/30 cursor-pointer"
+              title="Download full backup of live website configuration"
+            >
+              <Download className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Backup</span>
+            </button>
+
+            {/* Restore / Import Config */}
+            <label
+              className="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-colors border border-white/10 cursor-pointer"
+              title="Restore / Import configuration from JSON backup"
+            >
+              <Upload className="w-3.5 h-3.5 text-sky-400" />
+              <span>Restore</span>
+              <input
+                type="file"
+                accept=".json"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  const reader = new FileReader();
+                  reader.onload = async (event) => {
+                    try {
+                      const parsed = JSON.parse(event.target?.result as string);
+                      if (parsed && typeof parsed === "object") {
+                        if (confirm("Are you sure you want to restore settings from this backup file?")) {
+                          await saveChanges(parsed);
+                          alert("Backup restored and saved successfully!");
+                          window.location.reload();
+                        }
+                      }
+                    } catch {
+                      alert("Invalid JSON backup file");
+                    }
+                  };
+                  reader.readAsText(file);
+                }}
+              />
+            </label>
+
             <button
               onClick={handleReset}
               className="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-colors border border-white/10"

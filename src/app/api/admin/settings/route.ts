@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import fs from "fs";
 import path from "path";
+import { getMergedSiteConfig, saveRuntimeConfig } from "@/lib/runtimeConfig";
 
 const noCacheHeaders = {
   "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",
@@ -9,32 +10,12 @@ const noCacheHeaders = {
   Expires: "0",
 };
 
-function resolveConfigFilePath(): string {
-  const candidates = [
-    path.join(process.cwd(), "src", "data", "siteConfig.json"),
-    path.join(process.cwd(), "bhuiyangroup-bd", "src", "data", "siteConfig.json"),
-    path.resolve(process.cwd(), "src/data/siteConfig.json"),
-  ];
-
-  for (const c of candidates) {
-    if (fs.existsSync(c)) return c;
-  }
-  return candidates[0];
-}
-
 export async function GET() {
   try {
-    const configFilePath = resolveConfigFilePath();
-    if (fs.existsSync(configFilePath)) {
-      const fileData = fs.readFileSync(configFilePath, "utf-8");
-      return NextResponse.json(JSON.parse(fileData), {
-        headers: noCacheHeaders,
-      });
-    }
-    return NextResponse.json(
-      { error: "Config file not found" },
-      { status: 404, headers: noCacheHeaders }
-    );
+    const config = getMergedSiteConfig();
+    return NextResponse.json(config, {
+      headers: noCacheHeaders,
+    });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Internal error";
     return NextResponse.json(
@@ -54,25 +35,31 @@ export async function POST(request: Request) {
       );
     }
 
-    const targetFile = resolveConfigFilePath();
-    const targetDir = path.dirname(targetFile);
-
-    if (!fs.existsSync(targetDir)) {
-      fs.mkdirSync(targetDir, { recursive: true });
+    // 1. Save to persistent runtime config (siteConfig.runtime.json)
+    // This file is in .gitignore, so Git Pull will NEVER overwrite or touch live user data!
+    const runtimeSaved = saveRuntimeConfig(updatedConfig);
+    if (!runtimeSaved) {
+      console.warn("Could not save to runtime config file, continuing...");
     }
 
-    // Try setting write permission if file exists
-    if (fs.existsSync(targetFile)) {
-      try {
-        fs.chmodSync(targetFile, 0o666);
-      } catch (e) {
-        // ignore chmod warnings
+    // 2. Also try updating base siteConfig.json if writable
+    try {
+      const candidates = [
+        path.join(process.cwd(), "src", "data", "siteConfig.json"),
+        path.join(process.cwd(), "bhuiyangroup-bd", "src", "data", "siteConfig.json"),
+      ];
+      for (const targetFile of candidates) {
+        if (fs.existsSync(path.dirname(targetFile))) {
+          try {
+            fs.writeFileSync(targetFile, JSON.stringify(updatedConfig, null, 2), "utf-8");
+          } catch {}
+        }
       }
+    } catch (e) {
+      console.warn("Base siteConfig.json sync skipped (runtime config took precedence):", e);
     }
 
-    fs.writeFileSync(targetFile, JSON.stringify(updatedConfig, null, 2), "utf-8");
-
-    // If favicon is configured, sync it to root favicon.ico locations
+    // 3. If favicon is configured, sync it to root favicon locations
     try {
       if (updatedConfig?.branding?.favicon) {
         const cleanPath = updatedConfig.branding.favicon.split("?")[0];
@@ -87,7 +74,7 @@ export async function POST(request: Request) {
       console.warn("Favicon sync warning:", e);
     }
 
-    // Purge server-side route cache so changes are immediately live
+    // 4. Purge server-side route cache so changes are immediately live
     try {
       revalidatePath("/", "layout");
     } catch (e) {
