@@ -166,17 +166,17 @@ export default function HomePage() {
   const heroVideo = config?.hero?.videoUrl || "https://login.bitopibd.com/uploads/sewing_factory_in_klaten_1080p_2025_08_05_00_15_26_utc_170318d437.mp4";
   const backgroundType = config?.hero?.backgroundType || "video";
   const coreSectorsSection = (config as any)?.coreSectorsSection || {
-    badgeText: "Industry Domains",
-    headline: "Integrated Engineering Capabilities",
+    badgeText: "Business Sectors",
+    headline: "Our Core Business Sectors",
     description:
-      "From heavy industry and energy infrastructure to consumer health, our divisions operate with uncompromising precision and international safety codes.",
+      "Comprehensive engineering solutions across power generation, clean energy, and industrial systems.",
     sectors: companyData.coreSectors,
   };
   const milestonesSection = (config as any)?.milestonesSection || {
-    badgeText: "Evolution & Heritage",
-    headline: "A Decade of Engineering Milestones",
+    badgeText: "Growth & Heritage",
+    headline: "Our Journey & Milestones",
     description:
-      "Tracing the strategic trajectory of Bhuiyan Group from industrial generation to comprehensive conglomerateship.",
+      "Key milestones and achievements across our journey of industrial excellence and engineering innovation.",
     milestones: timelineMilestones,
   };
 
@@ -437,25 +437,27 @@ export default function HomePage() {
       <SisterConcernsMarquee />
 
       {/* Bitopi-Inspired Large Hollow Outline Numbers Stats Ribbon */}
-      <section className="bg-white py-10 sm:py-16 lg:py-20 border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 text-center">
-            {statsList.map((stat, idx) => (
-              <div key={idx} className="space-y-1.5 group">
-                <div className="text-3xl xs:text-4xl sm:text-5xl lg:text-7xl font-black font-sans text-transparent [-webkit-text-stroke:1.5px_#0F2557] sm:[-webkit-text-stroke:2.5px_#0F2557] group-hover:[-webkit-text-stroke:2.5px_#F37021] transition-all duration-300">
-                  <AnimatedCounter value={stat.value} />
+      {(config as any)?.showGroupStats !== false && (
+        <section className="bg-white py-10 sm:py-16 lg:py-20 border-b border-slate-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 text-center">
+              {statsList.map((stat, idx) => (
+                <div key={idx} className="space-y-1.5 group">
+                  <div className="text-3xl xs:text-4xl sm:text-5xl lg:text-7xl font-black font-sans text-transparent [-webkit-text-stroke:1.5px_#0F2557] sm:[-webkit-text-stroke:2.5px_#0F2557] group-hover:[-webkit-text-stroke:2.5px_#F37021] transition-all duration-300">
+                    <AnimatedCounter value={stat.value} />
+                  </div>
+                  <div className="text-xs sm:text-base font-bold text-slate-900 tracking-tight">
+                    {stat.label}
+                  </div>
+                  <div className="text-[11px] sm:text-xs text-slate-500 max-w-xs mx-auto leading-relaxed hidden sm:block">
+                    {stat.description}
+                  </div>
                 </div>
-                <div className="text-xs sm:text-base font-bold text-slate-900 tracking-tight">
-                  {stat.label}
-                </div>
-                <div className="text-[11px] sm:text-xs text-slate-500 max-w-xs mx-auto leading-relaxed hidden sm:block">
-                  {stat.description}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* 2. Interactive Sister Concerns Showcase */}
       <section
@@ -510,62 +512,63 @@ export default function HomePage() {
       </section>
 
       {/* 3. Core Sectors Deep Dive */}
-      <section id="core-sectors" className="py-14 sm:py-24 bg-[#F8FAFC] border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
-            <span className="text-xs font-extrabold uppercase tracking-widest text-[#F37021] bg-[#FFF4EC] px-3.5 py-1.5 rounded-md inline-block">
-              {coreSectorsSection.badgeText || "Industry Domains"}
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#0F2557] tracking-tight">
-              {coreSectorsSection.headline || "Integrated Engineering Capabilities"}
-            </h2>
-            <p className="text-slate-600 text-xs sm:text-base">
-              {coreSectorsSection.description}
-            </p>
-          </div>
+      {coreSectorsSection?.enabled !== false && (
+        <section id="core-sectors" className="py-14 sm:py-24 bg-[#F8FAFC] border-b border-slate-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
+              <span className="text-xs font-extrabold uppercase tracking-widest text-[#F37021] bg-[#FFF4EC] px-3.5 py-1.5 rounded-md inline-block">
+                {coreSectorsSection.badgeText || "Business Sectors"}
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-[#0F2557] tracking-tight">
+                {coreSectorsSection.headline || "Our Core Business Sectors"}
+              </h2>
+              <p className="text-slate-600 text-xs sm:text-base">
+                {coreSectorsSection.description}
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
-            {(coreSectorsSection.sectors || companyData.coreSectors).map((sector: any) => (
-              <motion.div
-                key={sector.id}
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
-                className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 hover:border-[#0F2557]/40 transition-all duration-300 hover:shadow-xl group flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center mb-5 group-hover:bg-[#0F2557] group-hover:text-white transition-colors shadow-xs">
-                    {iconMap[sector.icon] || (
-                      <Zap className="w-6 h-6 text-[#F37021]" />
-                    )}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
+              {(coreSectorsSection.sectors || companyData.coreSectors).map((sector: any) => (
+                <motion.div
+                  key={sector.id}
+                  whileHover={{ y: -5 }}
+                  transition={{ duration: 0.2 }}
+                  className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 hover:border-[#0F2557]/40 transition-all duration-300 hover:shadow-xl group flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center mb-5 group-hover:bg-[#0F2557] group-hover:text-white transition-colors shadow-xs">
+                      {iconMap[sector.icon] || (
+                        <Zap className="w-6 h-6 text-[#F37021]" />
+                      )}
+                    </div>
+
+                    <h3 className="text-base sm:text-lg font-bold text-[#0F2557] mb-2 group-hover:text-[#F37021] transition-colors">
+                      {sector.title}
+                    </h3>
+
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
+                      {sector.description}
+                    </p>
                   </div>
 
-                  <h3 className="text-base sm:text-lg font-bold text-[#0F2557] mb-2 group-hover:text-[#F37021] transition-colors">
-                    {sector.title}
-                  </h3>
-
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
-                    {sector.description}
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                  <span className="font-semibold text-slate-500">
-                    Lead Concern:
-                  </span>
-                  <Link
-                    href={`/sister-concerns/${sector.concernSlug}`}
-                    className="font-bold text-[#0F2557] hover:text-[#F37021] transition-colors flex items-center gap-1"
-                  >
-                    <span>{sector.concernName}</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
+                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <span className="font-semibold text-slate-500">
+                      Lead Concern:
+                    </span>
+                    <Link
+                      href={`/sister-concerns/${sector.concernSlug}`}
+                      className="font-bold text-[#0F2557] hover:text-[#F37021] transition-colors flex items-center gap-1"
+                    >
+                      <span>{sector.concernName}</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-
+        </section>
+      )}
 
       {/* 3.5 Video Gallery Section */}
       <VideoGallerySection />
@@ -574,42 +577,44 @@ export default function HomePage() {
       <ImageGallerySection />
 
       {/* 4. Journey & Milestones Timeline */}
-      <section className="py-14 sm:py-24 bg-[#0A1B40] text-white relative overflow-hidden border-b border-white/10">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#F37021]/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#F37021] bg-white/10 px-3.5 py-1.5 rounded-md inline-block">
-              {milestonesSection.badgeText || "Evolution & Heritage"}
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-              {milestonesSection.headline || "A Decade of Engineering Milestones"}
-            </h2>
-            <p className="text-slate-300 text-xs sm:text-base">
-              {milestonesSection.description}
-            </p>
-          </div>
+      {milestonesSection?.enabled !== false && (
+        <section className="py-14 sm:py-24 bg-[#0A1B40] text-white relative overflow-hidden border-b border-white/10">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#F37021]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
+              <span className="text-xs font-bold uppercase tracking-widest text-[#F37021] bg-white/10 px-3.5 py-1.5 rounded-md inline-block">
+                {milestonesSection.badgeText || "Growth & Heritage"}
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+                {milestonesSection.headline || "Our Journey & Milestones"}
+              </h2>
+              <p className="text-slate-300 text-xs sm:text-base">
+                {milestonesSection.description}
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
-            {(milestonesSection.milestones || timelineMilestones).map((item: any, idx: number) => (
-              <motion.div
-                key={idx}
-                whileHover={{ y: -6 }}
-                className="bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-6 backdrop-blur-sm relative group hover:border-[#F37021]/50 transition-all"
-              >
-                <div className="text-2xl font-black text-[#F37021] mb-2 font-mono">
-                  {item.year}
-                </div>
-                <h4 className="text-base font-bold text-white mb-2 group-hover:text-orange-200 transition-colors">
-                  {item.title}
-                </h4>
-                <p className="text-xs text-slate-300 leading-relaxed">
-                  {item.desc}
-                </p>
-              </motion.div>
-            ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
+              {(milestonesSection.milestones || timelineMilestones).map((item: any, idx: number) => (
+                <motion.div
+                  key={idx}
+                  whileHover={{ y: -6 }}
+                  className="bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-6 backdrop-blur-sm relative group hover:border-[#F37021]/50 transition-all"
+                >
+                  <div className="text-2xl font-black text-[#F37021] mb-2 font-mono">
+                    {item.year}
+                  </div>
+                  <h4 className="text-base font-bold text-white mb-2 group-hover:text-orange-200 transition-colors">
+                    {item.title}
+                  </h4>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* 5. Corporate Contact & Consultation */}
       <section id="corporate-contact" className="py-14 sm:py-24 bg-[#F8FAFC]">

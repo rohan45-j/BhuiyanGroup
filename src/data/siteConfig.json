@@ -512,10 +512,12 @@
       "galleryVideos": []
     }
   ],
+  "showGroupStats": true,
   "coreSectorsSection": {
-    "badgeText": "Industry Domains",
-    "headline": "Integrated Engineering Capabilities",
-    "description": "From heavy industry and energy infrastructure to consumer health, our divisions operate with uncompromising precision and international safety codes.",
+    "enabled": true,
+    "badgeText": "Business Sectors",
+    "headline": "Our Core Business Sectors",
+    "description": "Comprehensive engineering solutions across power generation, clean energy, and industrial systems.",
     "sectors": [
       {
         "id": "power-generation",
@@ -560,9 +562,10 @@
     ]
   },
   "milestonesSection": {
-    "badgeText": "Evolution & Heritage",
-    "headline": "A Decade of Engineering Milestones",
-    "description": "Tracing the strategic trajectory of Bhuiyan Group from industrial generation to comprehensive conglomerateship.",
+    "enabled": true,
+    "badgeText": "Growth & Heritage",
+    "headline": "Our Journey & Milestones",
+    "description": "Key milestones and achievements across our journey of industrial excellence and engineering innovation.",
     "milestones": [
       {
         "year": "2012",

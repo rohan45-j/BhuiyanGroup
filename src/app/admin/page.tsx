@@ -4979,9 +4979,10 @@ export default function AdminPage() {
               {/* Section Header Inputs */}
               {(() => {
                 const sec = (config as any).coreSectorsSection || {
-                  badgeText: "Industry Domains",
-                  headline: "Integrated Engineering Capabilities",
-                  description: "From heavy industry and energy infrastructure to consumer health, our divisions operate with uncompromising precision and international safety codes.",
+                  enabled: true,
+                  badgeText: "Business Sectors",
+                  headline: "Our Core Business Sectors",
+                  description: "Comprehensive engineering solutions across power generation, clean energy, and industrial systems.",
                   sectors: [],
                 };
                 const updateSec = (fields: any) => {
@@ -4990,26 +4991,65 @@ export default function AdminPage() {
 
                 return (
                   <div className="space-y-4 text-xs">
+                    {/* Master Section Visibility Toggle */}
+                    <div className="p-4 sm:p-5 rounded-xl border border-slate-200 bg-gradient-to-r from-slate-50 to-white flex items-center justify-between gap-4">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <label className="font-bold text-slate-800 text-xs sm:text-sm">
+                            Section Status on Homepage
+                          </label>
+                          <span
+                            className={`inline-flex items-center gap-1.5 text-[11px] font-extrabold px-2.5 py-0.5 rounded-full ${
+                              sec.enabled !== false
+                                ? "bg-emerald-100 text-emerald-800"
+                                : "bg-slate-200 text-slate-600"
+                            }`}
+                          >
+                            <span
+                              className={`w-2 h-2 rounded-full ${
+                                sec.enabled !== false ? "bg-emerald-500 animate-pulse" : "bg-slate-400"
+                              }`}
+                            />
+                            {sec.enabled !== false ? "ACTIVE & VISIBLE" : "INACTIVE & HIDDEN"}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          Toggle whether this entire &quot;Core Business Sectors&quot; section appears on the public website.
+                        </p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer shrink-0">
+                        <input
+                          type="checkbox"
+                          checked={sec.enabled !== false}
+                          onChange={(e) => updateSec({ enabled: e.target.checked })}
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#0F2557]"></div>
+                      </label>
+                    </div>
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block font-bold text-slate-700 mb-1">
-                          Section Pill Badge (e.g. Industry Domains)
+                          Section Pill Badge (e.g. Business Sectors)
                         </label>
                         <input
                           type="text"
                           value={sec.badgeText || ""}
                           onChange={(e) => updateSec({ badgeText: e.target.value })}
+                          placeholder="e.g. Business Sectors"
                           className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 font-bold"
                         />
                       </div>
                       <div>
                         <label className="block font-bold text-slate-700 mb-1">
-                          Main Headline (e.g. Integrated Engineering Capabilities)
+                          Main Headline (e.g. Our Core Business Sectors)
                         </label>
                         <input
                           type="text"
                           value={sec.headline || ""}
                           onChange={(e) => updateSec({ headline: e.target.value })}
+                          placeholder="e.g. Our Core Business Sectors"
                           className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 font-bold"
                         />
                       </div>
@@ -5023,6 +5063,7 @@ export default function AdminPage() {
                         rows={2}
                         value={sec.description || ""}
                         onChange={(e) => updateSec({ description: e.target.value })}
+                        placeholder="Section description..."
                         className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900"
                       />
                     </div>
@@ -5222,26 +5263,65 @@ export default function AdminPage() {
 
                 return (
                   <div className="space-y-4 text-xs">
+                    {/* Master Section Visibility Toggle */}
+                    <div className="p-4 sm:p-5 rounded-xl border border-slate-200 bg-gradient-to-r from-slate-50 to-white flex items-center justify-between gap-4">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <label className="font-bold text-slate-800 text-xs sm:text-sm">
+                            Section Status on Homepage
+                          </label>
+                          <span
+                            className={`inline-flex items-center gap-1.5 text-[11px] font-extrabold px-2.5 py-0.5 rounded-full ${
+                              sec.enabled !== false
+                                ? "bg-emerald-100 text-emerald-800"
+                                : "bg-slate-200 text-slate-600"
+                            }`}
+                          >
+                            <span
+                              className={`w-2 h-2 rounded-full ${
+                                sec.enabled !== false ? "bg-emerald-500 animate-pulse" : "bg-slate-400"
+                              }`}
+                            />
+                            {sec.enabled !== false ? "ACTIVE & VISIBLE" : "INACTIVE & HIDDEN"}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          Toggle whether this entire &quot;Journey &amp; Milestones&quot; section appears on the public website.
+                        </p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer shrink-0">
+                        <input
+                          type="checkbox"
+                          checked={sec.enabled !== false}
+                          onChange={(e) => updateSec({ enabled: e.target.checked })}
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#0F2557]"></div>
+                      </label>
+                    </div>
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block font-bold text-slate-700 mb-1">
-                          Section Pill Badge (e.g. Evolution & Heritage)
+                          Section Pill Badge (e.g. Growth & Heritage)
                         </label>
                         <input
                           type="text"
                           value={sec.badgeText || ""}
                           onChange={(e) => updateSec({ badgeText: e.target.value })}
+                          placeholder="e.g. Growth & Heritage"
                           className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 font-bold"
                         />
                       </div>
                       <div>
                         <label className="block font-bold text-slate-700 mb-1">
-                          Main Headline (e.g. A Decade of Engineering Milestones)
+                          Main Headline (e.g. Our Journey & Milestones)
                         </label>
                         <input
                           type="text"
                           value={sec.headline || ""}
                           onChange={(e) => updateSec({ headline: e.target.value })}
+                          placeholder="e.g. Our Journey & Milestones"
                           className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-slate-900 font-bold"
                         />
                       </div>
@@ -5362,6 +5442,43 @@ export default function AdminPage() {
                 <p className="text-xs text-slate-500 mt-1">
                   Adjust the 4 live count-up stats displayed on the hero banner.
                 </p>
+              </div>
+
+              {/* Master Stats Visibility Toggle */}
+              <div className="p-4 sm:p-5 rounded-xl border border-slate-200 bg-gradient-to-r from-slate-50 to-white flex items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <label className="font-bold text-slate-800 text-xs sm:text-sm">
+                      Section Status on Homepage
+                    </label>
+                    <span
+                      className={`inline-flex items-center gap-1.5 text-[11px] font-extrabold px-2.5 py-0.5 rounded-full ${
+                        (config as any).showGroupStats !== false
+                          ? "bg-emerald-100 text-emerald-800"
+                          : "bg-slate-200 text-slate-600"
+                      }`}
+                    >
+                      <span
+                        className={`w-2 h-2 rounded-full ${
+                          (config as any).showGroupStats !== false ? "bg-emerald-500 animate-pulse" : "bg-slate-400"
+                        }`}
+                      />
+                      {(config as any).showGroupStats !== false ? "ACTIVE & VISIBLE" : "INACTIVE & HIDDEN"}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Toggle whether the 4 count-up statistics ribbon appears on the public website.
+                  </p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer shrink-0">
+                  <input
+                    type="checkbox"
+                    checked={(config as any).showGroupStats !== false}
+                    onChange={(e) => updateSection("showGroupStats" as any, e.target.checked)}
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#0F2557]"></div>
+                </label>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
