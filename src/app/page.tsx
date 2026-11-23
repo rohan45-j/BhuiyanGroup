@@ -570,11 +570,11 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* 3.5 Video Gallery Section */}
-      <VideoGallerySection />
-
-      {/* 3.6 Image Gallery Section */}
+      {/* 3.5 Image Gallery Section */}
       <ImageGallerySection />
+
+      {/* 3.6 Video Gallery Section */}
+      <VideoGallerySection />
 
       {/* 4. Journey & Milestones Timeline */}
       {milestonesSection?.enabled !== false && (

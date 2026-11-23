@@ -97,7 +97,7 @@ export default function ImageGallerySection() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [selectedImage, handleNext, handlePrev]);
 
-  if (!images || images.length === 0) return null;
+  if (!gallery || (gallery as any).enabled === false || !images || images.length === 0) return null;
 
   return (
     <section id="image-gallery" className="py-14 sm:py-20 lg:py-24 bg-[#F8FAFC] relative border-b border-slate-200 overflow-hidden">
