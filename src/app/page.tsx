@@ -80,9 +80,53 @@ const timelineMilestones = [
 export default function HomePage() {
   const { config } = useSiteConfig();
   const [inquirySubmitted, setInquirySubmitted] = useState(false);
+  const [homeInquiry, setHomeInquiry] = useState({
+    organization: "",
+    name: "",
+    phone: "",
+    sector: "Generex Power (Industrial Generators)",
+  });
+  const [homeInquiryLoading, setHomeInquiryLoading] = useState(false);
+  const [homeInquiryError, setHomeInquiryError] = useState("");
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
   const [isHeroMuted, setIsHeroMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleHomeInquirySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setHomeInquiryLoading(true);
+    setHomeInquiryError("");
+    try {
+      const res = await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: homeInquiry.name,
+          organization: homeInquiry.organization,
+          email: "info@bhuiyangroup-bd.com",
+          phone: homeInquiry.phone,
+          concern: homeInquiry.sector,
+          subject: `${homeInquiry.sector} - Corporate Inquiry`,
+          message: `Inquiry submitted via homepage portal.\nOrganization: ${homeInquiry.organization}\nContact Person: ${homeInquiry.name}\nPhone: ${homeInquiry.phone}\nSector: ${homeInquiry.sector}`,
+        }),
+      });
+      if (!res.ok) {
+        throw new Error("Failed to submit inquiry");
+      }
+      setInquirySubmitted(true);
+      setHomeInquiry({
+        organization: "",
+        name: "",
+        phone: "",
+        sector: "Generex Power (Industrial Generators)",
+      });
+    } catch (err) {
+      console.error(err);
+      setHomeInquiryError("Failed to submit inquiry. Please try again or call directly.");
+    } finally {
+      setHomeInquiryLoading(false);
+    }
+  };
 
   useEffect(() => {
     const isSoundOn = (config?.hero as any)?.videoSound === "sound";
@@ -629,10 +673,7 @@ export default function HomePage() {
                   </div>
                 ) : (
                   <form
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      setInquirySubmitted(true);
-                    }}
+                    onSubmit={handleHomeInquirySubmit}
                     className="space-y-4 text-xs"
                   >
                     <div>
@@ -642,6 +683,8 @@ export default function HomePage() {
                       <input
                         type="text"
                         required
+                        value={homeInquiry.organization}
+                        onChange={(e) => setHomeInquiry({ ...homeInquiry, organization: e.target.value })}
                         placeholder="e.g. Apex Textiles / Square Hospital"
                         className="w-full px-3.5 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] text-slate-900 bg-white text-sm"
                       />
@@ -655,6 +698,8 @@ export default function HomePage() {
                         <input
                           type="text"
                           required
+                          value={homeInquiry.name}
+                          onChange={(e) => setHomeInquiry({ ...homeInquiry, name: e.target.value })}
                           placeholder="Your Name"
                           className="w-full px-3.5 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] text-slate-900 bg-white text-sm"
                         />
@@ -666,6 +711,8 @@ export default function HomePage() {
                         <input
                           type="tel"
                           required
+                          value={homeInquiry.phone}
+                          onChange={(e) => setHomeInquiry({ ...homeInquiry, phone: e.target.value })}
                           placeholder="+880 1..."
                           className="w-full px-3.5 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] text-slate-900 bg-white text-sm"
                         />
@@ -678,31 +725,39 @@ export default function HomePage() {
                       </label>
                       <select
                         className="w-full px-3.5 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0F2557] text-slate-900 bg-white text-sm"
-                        defaultValue="generex-power"
+                        value={homeInquiry.sector}
+                        onChange={(e) => setHomeInquiry({ ...homeInquiry, sector: e.target.value })}
                       >
-                        <option value="generex-power">
+                        <option value="Generex Power (Industrial Generators)">
                           Generex Power (Industrial Generators)
                         </option>
-                        <option value="radial-renewable-technology">
+                        <option value="Radial Renewable Technology (Solar EPC)">
                           Radial Renewable Technology (Solar EPC)
                         </option>
-                        <option value="glory-energy-engineering">
+                        <option value="Glory Energy Engineering (Water Pumps)">
                           Glory Energy Engineering (Water Pumps)
                         </option>
-                        <option value="radial-power-engineering">
+                        <option value="Radial Power & Engineering (Substations)">
                           Radial Power & Engineering (Substations)
                         </option>
-                        <option value="infant-zone">
+                        <option value="Infant Zone (Mother & Child Care)">
                           Infant Zone (Mother & Child Care)
                         </option>
                       </select>
                     </div>
 
+                    {homeInquiryError && (
+                      <p className="text-xs font-semibold text-rose-600">
+                        {homeInquiryError}
+                      </p>
+                    )}
+
                     <button
                       type="submit"
-                      className="w-full py-3.5 rounded-lg bg-[#F37021] hover:bg-[#DE5F12] text-white font-bold text-sm tracking-wide shadow-md transition-all active:scale-98"
+                      disabled={homeInquiryLoading}
+                      className="w-full py-3.5 rounded-lg bg-[#F37021] hover:bg-[#DE5F12] text-white font-bold text-sm tracking-wide shadow-md transition-all active:scale-98 disabled:opacity-50 cursor-pointer"
                     >
-                      Submit Corporate Inquiry
+                      {homeInquiryLoading ? "Submitting Inquiry..." : "Submit Corporate Inquiry"}
                     </button>
                   </form>
                 )}

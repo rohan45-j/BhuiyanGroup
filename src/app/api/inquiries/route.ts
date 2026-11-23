@@ -66,7 +66,13 @@ export async function POST(request: Request) {
       const configPath = path.join(process.cwd(), "src", "data", "siteConfig.json");
       if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
-        if (config?.smtp?.enabled && config.smtp?.host && config.smtp?.user && config.smtp?.pass) {
+        const hasCredentials = Boolean(
+          config?.smtp?.host?.trim() &&
+          config?.smtp?.user?.trim() &&
+          config?.smtp?.pass?.trim()
+        );
+
+        if (hasCredentials) {
           const nodemailer = await import("nodemailer");
           const transporter = nodemailer.createTransport({
             host: config.smtp.host.trim(),

@@ -336,7 +336,19 @@ export default function AdminPage() {
       });
       const data = await res.json();
       if (data.success) {
-        setSmtpTestResult({ success: true, message: data.message });
+        setSmtpTestResult({
+          success: true,
+          message: `${data.message} • SMTP configuration automatically enabled and saved!`,
+        });
+        const autoEnabled = {
+          ...config,
+          smtp: {
+            ...smtpData,
+            enabled: true,
+          },
+        };
+        updateSection("smtp" as any, autoEnabled.smtp);
+        await saveChanges(autoEnabled);
       } else {
         setSmtpTestResult({ success: false, message: data.error || "Connection test failed." });
       }
