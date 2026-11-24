@@ -52,6 +52,10 @@ import {
   X,
   Volume2,
   VolumeX,
+  Calendar,
+  Filter,
+  Search,
+  Clock,
 } from "lucide-react";
 import { useSiteConfig, SiteConfigType } from "@/context/SiteConfigContext";
 import HeroImageSlider from "@/components/ui/HeroImageSlider";
@@ -249,6 +253,11 @@ export default function AdminPage() {
   const [inquiries, setInquiries] = useState<any[]>([]);
   const [inquiriesLoading, setInquiriesLoading] = useState(false);
   const [inquiryFilter, setInquiryFilter] = useState<"all" | "unread" | "read">("all");
+  const [inquiryDatePreset, setInquiryDatePreset] = useState<"all" | "today" | "yesterday" | "last7" | "last30" | "thisMonth" | "custom">("all");
+  const [inquiryStartDate, setInquiryStartDate] = useState<string>("");
+  const [inquiryEndDate, setInquiryEndDate] = useState<string>("");
+  const [inquirySearch, setInquirySearch] = useState<string>("");
+  const [inquiryConcernFilter, setInquiryConcernFilter] = useState<string>("all");
 
   // SMTP Test State
   const [smtpTesting, setSmtpTesting] = useState(false);
@@ -408,10 +417,75 @@ export default function AdminPage() {
     }
   };
 
-  const handleExportCSV = () => {
-    if (inquiries.length === 0) return;
+  const filteredInquiries = React.useMemo(() => {
+    return inquiries.filter((inq) => {
+      // 1. Status Filter
+      if (inquiryFilter === "unread" && inq.status !== "unread") return false;
+      if (inquiryFilter === "read" && inq.status !== "read") return false;
+
+      // 2. Subsidiary Focus Filter
+      if (inquiryConcernFilter !== "all" && inq.concern !== inquiryConcernFilter) {
+        return false;
+      }
+
+      // 3. Keyword Search
+      if (inquirySearch.trim()) {
+        const query = inquirySearch.toLowerCase();
+        const text = `${inq.name || ""} ${inq.organization || ""} ${inq.email || ""} ${inq.phone || ""} ${inq.subject || ""} ${inq.message || ""} ${inq.concern || ""}`.toLowerCase();
+        if (!text.includes(query)) return false;
+      }
+
+      // 4. Date Filtering
+      if (inq.createdAt) {
+        const itemDate = new Date(inq.createdAt);
+        const itemTime = itemDate.getTime();
+        const now = new Date();
+
+        if (inquiryDatePreset === "today") {
+          const isToday =
+            itemDate.getFullYear() === now.getFullYear() &&
+            itemDate.getMonth() === now.getMonth() &&
+            itemDate.getDate() === now.getDate();
+          if (!isToday) return false;
+        } else if (inquiryDatePreset === "yesterday") {
+          const yesterday = new Date(now);
+          yesterday.setDate(now.getDate() - 1);
+          const isYesterday =
+            itemDate.getFullYear() === yesterday.getFullYear() &&
+            itemDate.getMonth() === yesterday.getMonth() &&
+            itemDate.getDate() === yesterday.getDate();
+          if (!isYesterday) return false;
+        } else if (inquiryDatePreset === "last7") {
+          const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+          if (itemTime < sevenDaysAgo) return false;
+        } else if (inquiryDatePreset === "last30") {
+          const thirtyDaysAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
+          if (itemTime < thirtyDaysAgo) return false;
+        } else if (inquiryDatePreset === "thisMonth") {
+          const isThisMonth =
+            itemDate.getFullYear() === now.getFullYear() &&
+            itemDate.getMonth() === now.getMonth();
+          if (!isThisMonth) return false;
+        } else if (inquiryDatePreset === "custom" || inquiryStartDate || inquiryEndDate) {
+          if (inquiryStartDate) {
+            const start = new Date(inquiryStartDate + "T00:00:00").getTime();
+            if (itemTime < start) return false;
+          }
+          if (inquiryEndDate) {
+            const end = new Date(inquiryEndDate + "T23:59:59.999").getTime();
+            if (itemTime > end) return false;
+          }
+        }
+      }
+
+      return true;
+    });
+  }, [inquiries, inquiryFilter, inquiryDatePreset, inquiryStartDate, inquiryEndDate, inquirySearch, inquiryConcernFilter]);
+
+  const handleExportCSV = (exportList = filteredInquiries) => {
+    if (exportList.length === 0) return;
     const headers = ["ID", "Name", "Organization", "Email", "Phone", "Subject", "Subsidiary", "Message", "Status", "Date"];
-    const rows = inquiries.map((i) => [
+    const rows = exportList.map((i) => [
       i.id,
       `"${(i.name || "").replace(/"/g, '""')}"`,
       `"${(i.organization || "").replace(/"/g, '""')}"`,
@@ -971,183 +1045,354 @@ export default function AdminPage() {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2.5">
+                <div className="flex flex-wrap items-center gap-2">
                   <button
                     onClick={fetchInquiries}
                     disabled={inquiriesLoading}
                     className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer"
+                    title="Reload latest inquiries from server"
                   >
                     <RefreshCw className={`w-3.5 h-3.5 ${inquiriesLoading ? "animate-spin" : ""}`} />
                     <span>Refresh</span>
                   </button>
 
                   <button
-                    onClick={handleExportCSV}
-                    disabled={inquiries.length === 0}
+                    onClick={() => handleExportCSV(filteredInquiries)}
+                    disabled={filteredInquiries.length === 0}
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#0F2557] hover:bg-[#153478] text-white font-bold text-xs shadow-sm transition-all cursor-pointer disabled:opacity-50"
+                    title="Export filtered inquiries to CSV"
                   >
                     <Download className="w-3.5 h-3.5 text-[#F37021]" />
-                    <span>Export CSV ({inquiries.length})</span>
+                    <span>Export CSV ({filteredInquiries.length})</span>
                   </button>
+
+                  {filteredInquiries.length < inquiries.length && (
+                    <button
+                      onClick={() => handleExportCSV(inquiries)}
+                      className="inline-flex items-center gap-1 px-2.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold text-xs transition-colors cursor-pointer"
+                      title="Export all unfiltered inquiries"
+                    >
+                      <span>Export All ({inquiries.length})</span>
+                    </button>
+                  )}
                 </div>
               </div>
 
-              {/* Filter Pills */}
-              <div className="flex items-center gap-2 border-b border-slate-100 pb-4 text-xs font-bold">
-                <button
-                  onClick={() => setInquiryFilter("all")}
-                  className={`px-3.5 py-1.5 rounded-xl transition-all cursor-pointer ${
-                    inquiryFilter === "all"
-                      ? "bg-[#0F2557] text-white shadow-xs"
-                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                  }`}
-                >
-                  All Inquiries ({inquiries.length})
-                </button>
-                <button
-                  onClick={() => setInquiryFilter("unread")}
-                  className={`px-3.5 py-1.5 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
-                    inquiryFilter === "unread"
-                      ? "bg-[#F37021] text-white shadow-xs"
-                      : "bg-orange-50 text-[#F37021] hover:bg-orange-100"
-                  }`}
-                >
-                  <span className="w-2 h-2 rounded-full bg-current animate-ping" />
-                  <span>Unread Only ({inquiries.filter((i) => i.status === "unread").length})</span>
-                </button>
-                <button
-                  onClick={() => setInquiryFilter("read")}
-                  className={`px-3.5 py-1.5 rounded-xl transition-all cursor-pointer ${
-                    inquiryFilter === "read"
-                      ? "bg-slate-800 text-white shadow-xs"
-                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                  }`}
-                >
-                  Responded / Read ({inquiries.filter((i) => i.status === "read").length})
-                </button>
-              </div>
+              {/* FILTER & SEARCH CONTROL HUB */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+                {/* Row 1: Status Tabs & Keyword Search */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                  {/* Status Pills */}
+                  <div className="flex flex-wrap items-center gap-1.5 text-xs font-bold">
+                    <button
+                      onClick={() => setInquiryFilter("all")}
+                      className={`px-3.5 py-1.5 rounded-xl transition-all cursor-pointer ${
+                        inquiryFilter === "all"
+                          ? "bg-[#0F2557] text-white shadow-xs"
+                          : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-100"
+                      }`}
+                    >
+                      All Inquiries ({inquiries.length})
+                    </button>
+                    <button
+                      onClick={() => setInquiryFilter("unread")}
+                      className={`px-3.5 py-1.5 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
+                        inquiryFilter === "unread"
+                          ? "bg-[#F37021] text-white shadow-xs"
+                          : "bg-orange-50 text-[#F37021] border border-orange-200 hover:bg-orange-100"
+                      }`}
+                    >
+                      <span className="w-2 h-2 rounded-full bg-current animate-ping" />
+                      <span>Unread Only ({inquiries.filter((i) => i.status === "unread").length})</span>
+                    </button>
+                    <button
+                      onClick={() => setInquiryFilter("read")}
+                      className={`px-3.5 py-1.5 rounded-xl transition-all cursor-pointer ${
+                        inquiryFilter === "read"
+                          ? "bg-slate-800 text-white shadow-xs"
+                          : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-100"
+                      }`}
+                    >
+                      Responded / Read ({inquiries.filter((i) => i.status === "read").length})
+                    </button>
+                  </div>
 
-              {/* Inquiry Cards List */}
-              <div className="space-y-4 max-h-[calc(100vh-280px)] overflow-y-auto pr-2 overscroll-contain">
-                {inquiries
-                  .filter((inq) => {
-                    if (inquiryFilter === "unread") return inq.status === "unread";
-                    if (inquiryFilter === "read") return inq.status === "read";
-                    return true;
-                  })
-                  .map((inq) => {
-                    const isUnread = inq.status === "unread";
-                    const formattedDate = inq.createdAt
-                      ? new Date(inq.createdAt).toLocaleString("en-US", {
-                          dateStyle: "medium",
-                          timeStyle: "short",
-                        })
-                      : "Recent";
+                  {/* Keyword Search Input */}
+                  <div className="relative min-w-[240px] sm:min-w-[300px]">
+                    <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <input
+                      type="text"
+                      value={inquirySearch}
+                      onChange={(e) => setInquirySearch(e.target.value)}
+                      placeholder="Search client, company, phone, email, keyword..."
+                      className="w-full pl-9 pr-8 py-1.5 rounded-xl border border-slate-300 text-xs text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-[#0F2557]/20"
+                    />
+                    {inquirySearch && (
+                      <button
+                        onClick={() => setInquirySearch("")}
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
+                </div>
 
-                    return (
-                      <div
-                        key={inq.id}
-                        className={`p-5 sm:p-6 rounded-2xl border transition-all ${
-                          isUnread
-                            ? "bg-white border-[#F37021]/50 shadow-md ring-2 ring-[#F37021]/10"
-                            : "bg-slate-50/70 border-slate-200"
+                {/* Row 2: Date Filtering Bar & Subsidiary Filter */}
+                <div className="pt-3 border-t border-slate-200/70 flex flex-col lg:flex-row lg:items-center justify-between gap-3 text-xs">
+                  {/* Date Presets */}
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1 mr-1">
+                      <Calendar className="w-3.5 h-3.5 text-[#F37021]" />
+                      <span>Date Filter:</span>
+                    </span>
+
+                    {[
+                      { id: "all", label: "All Time" },
+                      { id: "today", label: "Today" },
+                      { id: "yesterday", label: "Yesterday" },
+                      { id: "last7", label: "Last 7 Days" },
+                      { id: "last30", label: "Last 30 Days" },
+                      { id: "thisMonth", label: "This Month" },
+                      { id: "custom", label: "Custom Range" },
+                    ].map((preset) => (
+                      <button
+                        key={preset.id}
+                        onClick={() => {
+                          setInquiryDatePreset(preset.id as any);
+                          if (preset.id !== "custom") {
+                            setInquiryStartDate("");
+                            setInquiryEndDate("");
+                          }
+                        }}
+                        className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                          inquiryDatePreset === preset.id
+                            ? "bg-[#0F2557] text-white shadow-2xs"
+                            : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-100"
                         }`}
                       >
-                        {/* Header Details */}
-                        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-slate-200/60">
-                          <div className="space-y-1">
-                            <div className="flex items-center gap-2 flex-wrap">
-                              <h3 className="font-bold text-base text-slate-900">
-                                {inq.name}
-                              </h3>
-                              {inq.organization && (
-                                <span className="text-xs font-semibold text-slate-600 bg-slate-200/60 px-2 py-0.5 rounded-md">
-                                  {inq.organization}
-                                </span>
-                              )}
-                              <span
-                                className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full ${
-                                  isUnread
-                                    ? "bg-[#FFF4EC] text-[#F37021] border border-[#F37021]/30"
-                                    : "bg-slate-200 text-slate-600"
-                                }`}
-                              >
-                                {isUnread ? "New Inquiry" : "Responded"}
+                        {preset.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Subsidiary Selector */}
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                      Subsidiary:
+                    </span>
+                    <select
+                      value={inquiryConcernFilter}
+                      onChange={(e) => setInquiryConcernFilter(e.target.value)}
+                      className="px-2.5 py-1 rounded-lg border border-slate-300 text-xs font-medium text-slate-800 bg-white focus:outline-none"
+                    >
+                      <option value="all">All Subsidiaries</option>
+                      <option value="Bhuiyan Group Corporate">Bhuiyan Group Corporate</option>
+                      {config.sisterConcerns.map((sc) => (
+                        <option key={sc.id || sc.slug} value={sc.name}>
+                          {sc.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Custom Date Range Pickers (shown if custom or any date selected) */}
+                <div className="pt-3 border-t border-slate-200/70 flex flex-wrap items-center justify-between gap-3 text-xs">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <div className="flex items-center gap-1.5">
+                      <label className="text-[11px] font-bold text-slate-600">From:</label>
+                      <input
+                        type="date"
+                        value={inquiryStartDate}
+                        onChange={(e) => {
+                          setInquiryStartDate(e.target.value);
+                          setInquiryDatePreset("custom");
+                        }}
+                        className="px-2.5 py-1 rounded-lg border border-slate-300 text-xs text-slate-900 bg-white"
+                      />
+                    </div>
+
+                    <div className="flex items-center gap-1.5">
+                      <label className="text-[11px] font-bold text-slate-600">To:</label>
+                      <input
+                        type="date"
+                        value={inquiryEndDate}
+                        onChange={(e) => {
+                          setInquiryEndDate(e.target.value);
+                          setInquiryDatePreset("custom");
+                        }}
+                        className="px-2.5 py-1 rounded-lg border border-slate-300 text-xs text-slate-900 bg-white"
+                      />
+                    </div>
+
+                    {(inquiryDatePreset !== "all" || inquiryStartDate || inquiryEndDate || inquirySearch || inquiryConcernFilter !== "all" || inquiryFilter !== "all") && (
+                      <button
+                        onClick={() => {
+                          setInquiryDatePreset("all");
+                          setInquiryStartDate("");
+                          setInquiryEndDate("");
+                          setInquirySearch("");
+                          setInquiryConcernFilter("all");
+                          setInquiryFilter("all");
+                        }}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 font-bold border border-red-200/80 transition-colors cursor-pointer"
+                        title="Reset all active filters"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                        <span>Reset All Filters</span>
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Active Filter Metrics */}
+                  <div className="text-[11px] text-slate-500 font-medium">
+                    Showing <strong className="text-slate-900 font-bold">{filteredInquiries.length}</strong> of <strong className="text-slate-900 font-bold">{inquiries.length}</strong> total inquiries
+                  </div>
+                </div>
+              </div>
+
+              {/* INQUIRY CARDS LIST */}
+              <div className="space-y-4 max-h-[calc(100vh-280px)] overflow-y-auto pr-2 overscroll-contain">
+                {filteredInquiries.map((inq) => {
+                  const isUnread = inq.status === "unread";
+                  const formattedDate = inq.createdAt
+                    ? new Date(inq.createdAt).toLocaleString("en-US", {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                      })
+                    : "Recent";
+
+                  return (
+                    <div
+                      key={inq.id}
+                      className={`p-5 sm:p-6 rounded-2xl border transition-all ${
+                        isUnread
+                          ? "bg-white border-[#F37021]/50 shadow-md ring-2 ring-[#F37021]/10"
+                          : "bg-slate-50/70 border-slate-200"
+                      }`}
+                    >
+                      {/* Header Details */}
+                      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-slate-200/60">
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <h3 className="font-bold text-base text-slate-900">
+                              {inq.name}
+                            </h3>
+                            {inq.organization && (
+                              <span className="text-xs font-semibold text-slate-600 bg-slate-200/60 px-2 py-0.5 rounded-md">
+                                {inq.organization}
                               </span>
-                            </div>
-                            <p className="text-xs text-[#0F2557] font-bold">
-                              Subsidiary Focus: {inq.concern || "General Bhuiyan Group"}
-                            </p>
+                            )}
+                            <span
+                              className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full ${
+                                isUnread
+                                  ? "bg-[#FFF4EC] text-[#F37021] border border-[#F37021]/30"
+                                  : "bg-slate-200 text-slate-600"
+                              }`}
+                            >
+                              {isUnread ? "New Inquiry" : "Responded"}
+                            </span>
                           </div>
-
-                          <div className="text-xs text-slate-400 font-mono sm:text-right shrink-0">
-                            {formattedDate}
-                          </div>
-                        </div>
-
-                        {/* Subject & Message */}
-                        <div className="py-3.5 space-y-1.5">
-                          <h4 className="font-bold text-sm text-slate-900">
-                            {inq.subject}
-                          </h4>
-                          <p className="text-xs sm:text-sm text-slate-700 whitespace-pre-wrap leading-relaxed bg-white/70 p-3.5 rounded-xl border border-slate-200/50">
-                            {inq.message}
+                          <p className="text-xs text-[#0F2557] font-bold">
+                            Subsidiary Focus: {inq.concern || "General Bhuiyan Group"}
                           </p>
                         </div>
 
-                        {/* Action Toolbar */}
-                        <div className="pt-3 border-t border-slate-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-                          <div className="flex flex-wrap items-center gap-3">
-                            {inq.phone && (
-                              <a
-                                href={`tel:${inq.phone}`}
-                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold border border-emerald-200/80 transition-colors"
-                              >
-                                <PhoneCall className="w-3.5 h-3.5 text-emerald-600" />
-                                <span>{inq.phone}</span>
-                              </a>
-                            )}
-                            {inq.email && (
-                              <a
-                                href={`mailto:${inq.email}?subject=RE: ${encodeURIComponent(inq.subject || "Bhuiyan Group Inquiry")}`}
-                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-800 font-bold border border-blue-200/80 transition-colors"
-                              >
-                                <Mail className="w-3.5 h-3.5 text-blue-600" />
-                                <span>{inq.email}</span>
-                              </a>
-                            )}
-                          </div>
-
-                          <div className="flex items-center gap-2">
-                            <button
-                              onClick={() => handleToggleInquiryStatus(inq.id, inq.status)}
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-200/70 hover:bg-slate-300 text-slate-700 font-bold transition-colors cursor-pointer"
-                            >
-                              <CheckCheck className="w-3.5 h-3.5 text-slate-600" />
-                              <span>{isUnread ? "Mark as Read" : "Mark as Unread"}</span>
-                            </button>
-
-                            <button
-                              onClick={() => handleDeleteInquiry(inq.id)}
-                              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-200 transition-colors cursor-pointer"
-                              title="Delete inquiry"
-                            >
-                              <Trash2 className="w-3.5 h-3.5" />
-                              <span>Delete</span>
-                            </button>
-                          </div>
+                        <div className="text-xs text-slate-500 font-mono sm:text-right shrink-0 flex items-center gap-1.5">
+                          <Clock className="w-3.5 h-3.5 text-slate-400" />
+                          <span>{formattedDate}</span>
                         </div>
                       </div>
-                    );
-                  })}
 
-                {inquiries.length === 0 && (
-                  <div className="py-16 text-center text-slate-400 space-y-2">
+                      {/* Subject & Message */}
+                      <div className="py-3.5 space-y-1.5">
+                        <h4 className="font-bold text-sm text-slate-900">
+                          {inq.subject}
+                        </h4>
+                        <p className="text-xs sm:text-sm text-slate-700 whitespace-pre-wrap leading-relaxed bg-white/70 p-3.5 rounded-xl border border-slate-200/50">
+                          {inq.message}
+                        </p>
+                      </div>
+
+                      {/* Action Toolbar */}
+                      <div className="pt-3 border-t border-slate-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                        <div className="flex flex-wrap items-center gap-3">
+                          {inq.phone && (
+                            <a
+                              href={`tel:${inq.phone}`}
+                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold border border-emerald-200/80 transition-colors"
+                            >
+                              <PhoneCall className="w-3.5 h-3.5 text-emerald-600" />
+                              <span>{inq.phone}</span>
+                            </a>
+                          )}
+                          {inq.email && (
+                            <a
+                              href={`mailto:${inq.email}?subject=RE: ${encodeURIComponent(inq.subject || "Bhuiyan Group Inquiry")}`}
+                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-800 font-bold border border-blue-200/80 transition-colors"
+                            >
+                              <Mail className="w-3.5 h-3.5 text-blue-600" />
+                              <span>{inq.email}</span>
+                            </a>
+                          )}
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => handleToggleInquiryStatus(inq.id, inq.status)}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-200/70 hover:bg-slate-300 text-slate-700 font-bold transition-colors cursor-pointer"
+                          >
+                            <CheckCheck className="w-3.5 h-3.5 text-slate-600" />
+                            <span>{isUnread ? "Mark as Read" : "Mark as Unread"}</span>
+                          </button>
+
+                          <button
+                            onClick={() => handleDeleteInquiry(inq.id)}
+                            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-200 transition-colors cursor-pointer"
+                            title="Delete inquiry"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                            <span>Delete</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+
+                {filteredInquiries.length === 0 && (
+                  <div className="py-16 text-center text-slate-400 space-y-3 bg-slate-50/50 rounded-2xl border border-dashed border-slate-300">
                     <Inbox className="w-12 h-12 mx-auto text-slate-300" />
-                    <h4 className="font-bold text-slate-700 text-base">No Inquiries Found</h4>
-                    <p className="text-xs">
-                      When prospective clients submit inquiries or quote requests, they will appear here in real-time.
-                    </p>
+                    {inquiries.length === 0 ? (
+                      <>
+                        <h4 className="font-bold text-slate-700 text-base">No Inquiries Found</h4>
+                        <p className="text-xs max-w-md mx-auto">
+                          When prospective clients submit inquiries or quote requests on the website, they will appear here in real-time.
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <h4 className="font-bold text-slate-700 text-base">No Inquiries Match the Selected Filter</h4>
+                        <p className="text-xs max-w-md mx-auto text-slate-500">
+                          Try selecting a broader date range or clearing your search keywords to view other leads.
+                        </p>
+                        <button
+                          onClick={() => {
+                            setInquiryDatePreset("all");
+                            setInquiryStartDate("");
+                            setInquiryEndDate("");
+                            setInquirySearch("");
+                            setInquiryConcernFilter("all");
+                            setInquiryFilter("all");
+                          }}
+                          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#0F2557] hover:bg-[#153478] text-white font-bold text-xs shadow-sm transition-all cursor-pointer"
+                        >
+                          <RefreshCw className="w-3.5 h-3.5 text-[#F37021]" />
+                          <span>Reset All Filters ({inquiries.length} total available)</span>
+                        </button>
+                      </>
+                    )}
                   </div>
                 )}
               </div>
@@ -6313,7 +6558,11 @@ export default function AdminPage() {
                     className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 font-mono text-slate-900 bg-white"
                   />
                   <p className="text-[11px] text-slate-500">
-                    For Gmail, create a 16-character App Password at myaccount.google.com/apppasswords
+                    For cPanel email accounts or Gmail 16-character App Password.
+                  </p>
+                  <p className="text-[11px] text-emerald-700 font-semibold flex items-center gap-1">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Saved securely in server runtime data (isolated from git and GitGuardian).</span>
                   </p>
                 </div>
 

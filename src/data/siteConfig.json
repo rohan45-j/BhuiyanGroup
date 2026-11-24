@@ -70,7 +70,7 @@
     "port": "465",
     "secure": true,
     "user": "info@bhuiyangroup-bd.com",
-    "pass": "info@bhuiyangroup12345",
+    "pass": "",
     "fromEmail": "info@bhuiyangroup-bd.com",
     "fromName": "Bhuiyan Group Inquiries",
     "receiverEmail": "info@bhuiyangroup-bd.com"

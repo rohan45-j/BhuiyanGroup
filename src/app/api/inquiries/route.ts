@@ -15,7 +15,7 @@ function resolveDataPath(filename: string): string {
   return candidates[0];
 }
 
-import { getRuntimeInquiries, saveRuntimeInquiries } from "@/lib/runtimeConfig";
+import { getRuntimeInquiries, saveRuntimeInquiries, getMergedSiteConfig } from "@/lib/runtimeConfig";
 
 function readInquiries() {
   return getRuntimeInquiries();
@@ -61,32 +61,31 @@ export async function POST(request: Request) {
 
     // Attempt SMTP Notification if configured
     try {
-      const configPath = resolveDataPath("siteConfig.json");
-      if (fs.existsSync(configPath)) {
-        const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
-        const hasCredentials = Boolean(
-          config?.smtp?.host?.trim() &&
-          config?.smtp?.user?.trim() &&
-          config?.smtp?.pass?.trim()
-        );
+      const config = getMergedSiteConfig();
+      const smtpPass = (process.env.SMTP_PASSWORD || process.env.SMTP_PASS || config?.smtp?.pass || "").trim();
+      const hasCredentials = Boolean(
+        config?.smtp?.host?.trim() &&
+        config?.smtp?.user?.trim() &&
+        smtpPass
+      );
 
-        if (hasCredentials) {
-          const nodemailer = await import("nodemailer");
-          const port = Number(config.smtp.port) || 587;
-          const isSecure = Boolean(config.smtp.secure) || port === 465;
+      if (hasCredentials) {
+        const nodemailer = await import("nodemailer");
+        const port = Number(config.smtp.port) || 587;
+        const isSecure = Boolean(config.smtp.secure) || port === 465;
 
-          const transporter = nodemailer.createTransport({
-            host: config.smtp.host.trim(),
-            port: port,
-            secure: isSecure,
-            auth: {
-              user: config.smtp.user.trim(),
-              pass: config.smtp.pass.trim(),
-            },
-            tls: { rejectUnauthorized: false },
-            connectionTimeout: 12000,
-            greetingTimeout: 12000,
-          });
+        const transporter = nodemailer.createTransport({
+          host: config.smtp.host.trim(),
+          port: port,
+          secure: isSecure,
+          auth: {
+            user: config.smtp.user.trim(),
+            pass: smtpPass,
+          },
+          tls: { rejectUnauthorized: false },
+          connectionTimeout: 12000,
+          greetingTimeout: 12000,
+        });
 
           const recipient = config.smtp.receiverEmail || config.general?.email || config.smtp.user;
           const sender = `"${config.smtp.fromName || "Bhuiyan Group Inquiries"}" <${config.smtp.fromEmail || config.smtp.user}>`;
@@ -121,12 +120,9 @@ export async function POST(request: Request) {
             console.error("[SMTP] Error sending notification email:", mailErr);
           }
         } else {
-          console.log("[SMTP] Automated forwarding skipped - SMTP credentials incomplete in siteConfig.json");
+          console.log("[SMTP] Automated forwarding skipped - SMTP credentials incomplete in siteConfig");
         }
-      } else {
-        console.warn(`[SMTP] configPath not found: ${configPath}`);
-      }
-    } catch (e) {
+      } catch (e) {
       console.error("[SMTP] Check failed:", e);
     }
 

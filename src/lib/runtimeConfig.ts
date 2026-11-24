@@ -130,17 +130,43 @@ export function saveRuntimeConfig(updatedConfig: any): boolean {
  */
 export function getRuntimeInquiries(): any[] {
   try {
-    const runtimePath = resolveExistingDataPath("inquiries.runtime.json");
-    if (runtimePath) {
-      return JSON.parse(fs.readFileSync(runtimePath, "utf-8"));
-    }
+    const listMap = new Map<string, any>();
 
+    // 1. Load base inquiries.json
     const basePath = resolveExistingDataPath("inquiries.json");
     if (basePath) {
-      return JSON.parse(fs.readFileSync(basePath, "utf-8"));
+      try {
+        const base = JSON.parse(fs.readFileSync(basePath, "utf-8"));
+        if (Array.isArray(base)) {
+          base.forEach((item) => {
+            if (item && item.id) listMap.set(item.id, item);
+          });
+        }
+      } catch {}
     }
 
-    return [];
+    // 2. Load runtime inquiries.runtime.json (updates or newly submitted items)
+    const runtimePath = resolveExistingDataPath("inquiries.runtime.json");
+    if (runtimePath) {
+      try {
+        const runtime = JSON.parse(fs.readFileSync(runtimePath, "utf-8"));
+        if (Array.isArray(runtime)) {
+          runtime.forEach((item) => {
+            if (item && item.id) listMap.set(item.id, item);
+          });
+        }
+      } catch {}
+    }
+
+    const merged = Array.from(listMap.values());
+    // Sort descending by date (newest first)
+    merged.sort((a, b) => {
+      const timeA = new Date(a.createdAt || 0).getTime();
+      const timeB = new Date(b.createdAt || 0).getTime();
+      return timeB - timeA;
+    });
+
+    return merged;
   } catch (error) {
     console.error("getRuntimeInquiries error:", error);
     return [];
