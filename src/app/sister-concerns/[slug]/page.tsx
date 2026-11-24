@@ -17,6 +17,7 @@ import {
   Calendar,
   Sparkles,
   Shield,
+  Globe,
 } from "lucide-react";
 import fs from "fs";
 import path from "path";
@@ -100,8 +101,6 @@ export async function generateMetadata({
     description: concern.description,
   };
 }
-
-export const instant = false;
 
 export default async function SisterConcernPage({
   params,
@@ -308,6 +307,23 @@ export default async function SisterConcernPage({
                     <p>{concern.contactInfo?.office || "Bhuiyan Corporate Tower, Gulshan-1, Dhaka"}</p>
                   </div>
                 </div>
+
+                {concern.contactInfo?.website && (
+                  <div className="flex items-start gap-3">
+                    <Globe className="w-4 h-4 text-[#F37021] shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-white">Website</p>
+                      <a
+                        href={concern.contactInfo.website.startsWith("http") ? concern.contactInfo.website : `https://${concern.contactInfo.website}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-orange-400 hover:underline break-all"
+                      >
+                        {concern.contactInfo.website}
+                      </a>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <Link

@@ -3066,20 +3066,21 @@ export default function AdminPage() {
 
                           <div>
                             <label className="block font-bold text-slate-700 mb-1">
-                              Founded Year
+                              Established Year <span className="text-[#F37021] font-semibold">(Profile Badge)</span>
                             </label>
                             <input
                               type="text"
-                              value={sc.foundedYear}
+                              value={sc.foundedYear || ""}
                               onChange={(e) => updateConcern({ foundedYear: e.target.value })}
-                              placeholder="e.g. 2012"
-                              className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900"
+                              placeholder="e.g. 2019"
+                              className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 font-semibold"
                             />
+                            <p className="text-[10px] text-slate-500 mt-0.5">Renders &quot;Established {sc.foundedYear || "2019"}&quot;</p>
                           </div>
                         </div>
 
                         {/* Sector, Slug & Icon */}
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                           <div className="sm:col-span-2">
                             <label className="block font-bold text-slate-700 mb-1">
                               Industry Sector / Domain
@@ -3104,6 +3105,23 @@ export default function AdminPage() {
                               placeholder="e.g. generex-power"
                               className="w-full px-3 py-2 rounded-lg border border-slate-300 font-mono text-slate-900"
                             />
+                          </div>
+
+                          <div>
+                            <label className="block font-bold text-slate-700 mb-1">
+                              Subsidiary Icon
+                            </label>
+                            <select
+                              value={sc.iconName || "Zap"}
+                              onChange={(e) => updateConcern({ iconName: e.target.value })}
+                              className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 bg-white"
+                            >
+                              <option value="Zap">⚡ Zap (Power / Substation)</option>
+                              <option value="SunMedium">☀️ SunMedium (Solar / Renewables)</option>
+                              <option value="Droplets">💧 Droplets (Pumps / Water Systems)</option>
+                              <option value="Cpu">🖥️ Cpu (Electro-Mechanical / Controls)</option>
+                              <option value="HeartHandshake">🤝 HeartHandshake (Baby Care / Retail)</option>
+                            </select>
                           </div>
                         </div>
 
@@ -3179,7 +3197,7 @@ export default function AdminPage() {
                           <strong className="block text-slate-800">
                             Subsidiary Contact Information
                           </strong>
-                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                          <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
                             <div>
                               <label className="block text-[11px] text-slate-600 mb-1">
                                 Phone
@@ -3228,6 +3246,203 @@ export default function AdminPage() {
                                 className="w-full px-2.5 py-1.5 rounded border border-slate-300 text-slate-900 bg-white"
                               />
                             </div>
+                            <div>
+                              <label className="block text-[11px] text-slate-600 mb-1">
+                                Website URL
+                              </label>
+                              <input
+                                type="text"
+                                value={(sc.contactInfo as any)?.website || ""}
+                                onChange={(e) =>
+                                  updateConcern({
+                                    contactInfo: { ...(sc.contactInfo || {}), website: e.target.value } as any,
+                                  })
+                                }
+                                placeholder="https://infantzone.com.bd"
+                                className="w-full px-2.5 py-1.5 rounded border border-slate-300 text-slate-900 bg-white"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Profile Metric Counters (Key Statistics) */}
+                        <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-2">
+                            <div>
+                              <strong className="block text-slate-800 text-xs sm:text-sm flex items-center gap-2">
+                                <Sparkles className="w-4 h-4 text-[#F37021]" />
+                                <span>Profile Metric Counters / Key Stats ({(sc.stats || []).length})</span>
+                              </strong>
+                              <p className="text-[11px] text-slate-500 mt-0.5">
+                                Prominent metric cards displayed below the header on this subsidiary&apos;s page (e.g. &quot;250,000+ Happy Parents Served&quot;, &quot;120+ SKUs Certified Safe Products&quot;, &quot;400+ Stores Retail Partner Outlets&quot;).
+                              </p>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const currentStats = sc.stats || [];
+                                const newStat = { label: "New Metric Label", value: "100+" };
+                                updateConcern({ stats: [...currentStats, newStat] });
+                              }}
+                              className="px-3 py-1.5 rounded-lg bg-[#0F2557] hover:bg-[#1A3978] text-white text-xs font-bold cursor-pointer flex items-center gap-1.5 shrink-0"
+                            >
+                              <Plus className="w-3.5 h-3.5 text-orange-400" />
+                              <span>+ Add Stat Counter</span>
+                            </button>
+                          </div>
+
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            {(sc.stats || []).map((stat: { label: string; value: string }, stIdx: number) => (
+                              <div
+                                key={stIdx}
+                                className="p-3 bg-white rounded-xl border border-slate-200 shadow-2xs space-y-2 relative group"
+                              >
+                                <div className="flex items-center justify-between">
+                                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                                    Metric Card #{stIdx + 1}
+                                  </span>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      const updatedStats = (sc.stats || []).filter((_, idx) => idx !== stIdx);
+                                      updateConcern({ stats: updatedStats });
+                                    }}
+                                    className="p-1 rounded text-red-500 hover:bg-red-50 transition-colors"
+                                    title="Remove this stat"
+                                  >
+                                    <Trash2 className="w-3.5 h-3.5" />
+                                  </button>
+                                </div>
+                                <div>
+                                  <label className="block text-[10px] font-bold text-slate-600 mb-0.5">
+                                    Counter Number / Value
+                                  </label>
+                                  <input
+                                    type="text"
+                                    value={stat.value}
+                                    onChange={(e) => {
+                                      const updatedStats = [...(sc.stats || [])];
+                                      updatedStats[stIdx] = { ...stat, value: e.target.value };
+                                      updateConcern({ stats: updatedStats });
+                                    }}
+                                    placeholder="e.g. 250,000+ or 120+ SKUs"
+                                    className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-slate-900 font-black text-sm bg-slate-50/50"
+                                  />
+                                </div>
+                                <div>
+                                  <label className="block text-[10px] font-bold text-slate-600 mb-0.5">
+                                    Label / Description
+                                  </label>
+                                  <input
+                                    type="text"
+                                    value={stat.label}
+                                    onChange={(e) => {
+                                      const updatedStats = [...(sc.stats || [])];
+                                      updatedStats[stIdx] = { ...stat, label: e.target.value };
+                                      updateConcern({ stats: updatedStats });
+                                    }}
+                                    placeholder="e.g. HAPPY PARENTS SERVED"
+                                    className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-slate-900 text-xs bg-slate-50/50"
+                                  />
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Engineering & Operational Capabilities (Numbered 01, 02, 03 Cards) */}
+                        <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-2">
+                            <div>
+                              <strong className="block text-slate-800 text-xs sm:text-sm flex items-center gap-2">
+                                <Award className="w-4 h-4 text-[#F37021]" />
+                                <span>Engineering & Operational Capabilities ({(sc.capabilities || []).length})</span>
+                              </strong>
+                              <p className="text-[11px] text-slate-500 mt-0.5">
+                                Numbered capability cards (01, 02, 03...) displayed on the subsidiary details page under &quot;Engineering & Operational Capabilities&quot;.
+                              </p>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const currentCaps = sc.capabilities || [];
+                                const newCap = {
+                                  title: "New Operational Capability",
+                                  description: "Describe the specialized engineering, manufacturing, logistics, or quality assurance capability."
+                                };
+                                updateConcern({ capabilities: [...currentCaps, newCap] });
+                              }}
+                              className="px-3 py-1.5 rounded-lg bg-[#F37021] hover:bg-[#DE5F12] text-white text-xs font-bold cursor-pointer flex items-center gap-1.5 shrink-0 shadow-sm"
+                            >
+                              <Plus className="w-3.5 h-3.5" />
+                              <span>+ Add Capability Card</span>
+                            </button>
+                          </div>
+
+                          <div className="space-y-3">
+                            {(sc.capabilities || []).map((cap: { title: string; description: string }, cIdx: number) => (
+                              <div
+                                key={cIdx}
+                                className="p-3.5 bg-white rounded-xl border border-slate-200 shadow-2xs space-y-2 relative"
+                              >
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-2">
+                                    <span className="w-6 h-6 rounded-lg bg-[#FFF4EC] text-[#F37021] font-black text-xs flex items-center justify-center">
+                                      0{cIdx + 1}
+                                    </span>
+                                    <span className="text-xs font-bold text-slate-700">
+                                      Capability Card #{cIdx + 1}
+                                    </span>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      const updatedCaps = (sc.capabilities || []).filter((_, idx) => idx !== cIdx);
+                                      updateConcern({ capabilities: updatedCaps });
+                                    }}
+                                    className="p-1 rounded text-red-500 hover:bg-red-50 transition-colors"
+                                    title="Remove this capability"
+                                  >
+                                    <Trash2 className="w-3.5 h-3.5" />
+                                  </button>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                  <div>
+                                    <label className="block text-[10px] font-bold text-slate-600 mb-0.5">
+                                      Capability Title
+                                    </label>
+                                    <input
+                                      type="text"
+                                      value={cap.title}
+                                      onChange={(e) => {
+                                        const updatedCaps = [...(sc.capabilities || [])];
+                                        updatedCaps[cIdx] = { ...cap, title: e.target.value };
+                                        updateConcern({ capabilities: updatedCaps });
+                                      }}
+                                      placeholder="e.g. Strict Safety & Material Testing"
+                                      className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-slate-900 font-bold text-xs bg-slate-50/50"
+                                    />
+                                  </div>
+                                  <div className="sm:col-span-2">
+                                    <label className="block text-[10px] font-bold text-slate-600 mb-0.5">
+                                      Detailed Explanation
+                                    </label>
+                                    <textarea
+                                      rows={2}
+                                      value={cap.description}
+                                      onChange={(e) => {
+                                        const updatedCaps = [...(sc.capabilities || [])];
+                                        updatedCaps[cIdx] = { ...cap, description: e.target.value };
+                                        updateConcern({ capabilities: updatedCaps });
+                                      }}
+                                      placeholder="e.g. Every product batch complies with EU Directive and FDA standards..."
+                                      className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-slate-900 text-xs bg-slate-50/50"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
                           </div>
                         </div>
 

@@ -18,15 +18,26 @@ export default function HeroImageSlider({
   autoSlideInterval = 5,
   hasAnyTextContent = false,
 }: HeroImageSliderProps) {
-  const validImages = images.filter((img) => Boolean(img && img.trim()));
+  const [brokenUrls, setBrokenUrls] = useState<Record<string, boolean>>({});
+
+  const validImages = images.filter(
+    (img) => Boolean(img && img.trim() && !brokenUrls[img])
+  );
   const slideList =
     validImages.length > 0
       ? validImages
-      : ["/img/bhuiyan-group-logo-horizontal.png"];
+      : ["/uploads/hero-image-whatsapp-image-2026-11-19-at-10-49-56-pm-1795193648639.jpeg"];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
   const total = slideList.length;
+
+  // Ensure currentIndex stays within bounds if slideList shrinks
+  useEffect(() => {
+    if (currentIndex >= total && total > 0) {
+      setCurrentIndex(0);
+    }
+  }, [total, currentIndex]);
 
   const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % total);
@@ -59,6 +70,8 @@ export default function HeroImageSlider({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [total, prevSlide, nextSlide]);
 
+  const currentImgSrc = slideList[currentIndex] || slideList[0];
+
   return (
     <div
       className={`relative w-full overflow-hidden select-none bg-[#0A1B40] ${
@@ -72,7 +85,7 @@ export default function HeroImageSlider({
       {/* Slides with Smooth Crossfade Animation */}
       <AnimatePresence mode="sync" initial={false}>
         <motion.div
-          key={currentIndex}
+          key={currentImgSrc}
           initial={{ opacity: 0, scale: 1.01 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
@@ -82,7 +95,7 @@ export default function HeroImageSlider({
           {/* Ambient blurred backdrop on mobile so 100% of any aspect-ratio image fits cleanly without black bars */}
           <div className="absolute inset-0 w-full h-full overflow-hidden sm:hidden pointer-events-none" aria-hidden="true">
             <Image
-              src={slideList[currentIndex]}
+              src={currentImgSrc}
               alt=""
               fill
               className="w-full h-full object-cover blur-2xl opacity-40 scale-125"
@@ -93,13 +106,18 @@ export default function HeroImageSlider({
 
           {/* Main Hero Slide Image: object-contain on mobile ensures 100% full visibility of the entire image on ANY mobile device, and object-cover on sm+ desktop/tablet */}
           <Image
-            src={slideList[currentIndex]}
+            src={currentImgSrc}
             alt={`${alt} - Slide ${currentIndex + 1}`}
             fill
             className="w-full h-full object-contain sm:object-cover object-center filter brightness-[0.98] contrast-[1.02]"
             priority
             sizes="100vw"
             unoptimized
+            onError={() => {
+              if (currentImgSrc) {
+                setBrokenUrls((prev) => ({ ...prev, [currentImgSrc]: true }));
+              }
+            }}
           />
         </motion.div>
       </AnimatePresence>
