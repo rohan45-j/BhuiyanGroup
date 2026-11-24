@@ -56,6 +56,7 @@ import {
   Filter,
   Search,
   Clock,
+  Target,
 } from "lucide-react";
 import { useSiteConfig, SiteConfigType } from "@/context/SiteConfigContext";
 import HeroImageSlider from "@/components/ui/HeroImageSlider";
@@ -66,6 +67,7 @@ type AdminTab =
   | "theme"
   | "branding"
   | "general"
+  | "about"
   | "hero"
   | "concerns"
   | "projects"
@@ -832,6 +834,7 @@ export default function AdminPage() {
               { id: "theme", label: "Theme & Color Codes", icon: Palette },
               { id: "branding", label: "Logos, Brochure & Media", icon: ImageIcon },
               { id: "general", label: "Company Information", icon: Building },
+              { id: "about", label: "About Page Content", icon: FileText },
               { id: "hero", label: "Hero Video & Headlines", icon: Sparkles },
               { id: "concerns", label: `Sister Concerns (${config.sisterConcerns?.length || 0})`, icon: Zap },
               { id: "projects", label: `Projects & Credentials (${((config as any).projects || []).length})`, icon: FolderKanban },
@@ -1007,6 +1010,15 @@ export default function AdminPage() {
                     <Building className="w-5 h-5 text-[#F37021]" />
                     <strong className="block text-slate-900">Corporate Details</strong>
                     <span className="text-slate-500 text-[11px]">Hotlines & Address</span>
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab("about")}
+                    className="p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-[#0F2557] text-left space-y-1 transition-all"
+                  >
+                    <FileText className="w-5 h-5 text-[#F37021]" />
+                    <strong className="block text-slate-900">About Page Content</strong>
+                    <span className="text-slate-500 text-[11px]">Story, Metrics & Principles</span>
                   </button>
 
                   <button
@@ -2055,6 +2067,527 @@ export default function AdminPage() {
                   </div>
                 </div>
               </div>
+            </div>
+          )}
+
+          {/* TAB: ABOUT PAGE MANAGEMENT */}
+          {activeTab === "about" && (
+            <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-8 animate-in fade-in">
+              {/* Header with Title and Live Link */}
+              <div className="border-b border-slate-100 pb-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#F37021]">
+                      Public Narrative & Heritage
+                    </span>
+                    <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-[#0F2557] text-white">
+                      Live Dynamic Page
+                    </span>
+                  </div>
+                  <h2 className="text-2xl font-black text-[#0F2557] mt-1 flex items-center gap-2">
+                    <FileText className="w-6 h-6 text-[#F37021]" />
+                    <span>About Page Management</span>
+                  </h2>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Customize every section of the <code className="font-mono text-slate-700 bg-slate-100 px-1 py-0.5 rounded">/about</code> page including page headers, corporate story, metric highlights, core principles, mission and vision.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Link
+                    href="/about"
+                    target="_blank"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs border border-slate-200 transition-colors"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5 text-[#F37021]" />
+                    <span>View /about Page</span>
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={handleSave}
+                    disabled={isSaving}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#F37021] hover:bg-[#DE5F12] text-white font-bold text-xs shadow-md shadow-[#F37021]/30 transition-all cursor-pointer disabled:opacity-50"
+                  >
+                    <Save className="w-3.5 h-3.5" />
+                    <span>{isSaving ? "Saving..." : "Save Changes"}</span>
+                  </button>
+                </div>
+              </div>
+
+              {(() => {
+                const aboutData = (config as any).about || {};
+                const updateAbout = (fields: any) => {
+                  const updated = {
+                    ...aboutData,
+                    ...fields,
+                  };
+                  updateSection("about" as any, updated);
+                };
+
+                const highlights = aboutData.highlights || [
+                  { value: "350+ MW", label: "Installed Capacity", description: "Standby & renewable solar" },
+                  { value: "1,200+", label: "Industrial Clients", description: "Textiles, pharma & commercial" }
+                ];
+
+                const principles = aboutData.principles || [
+                  { title: "Engineering Excellence", description: "Continuous upgrade of testing equipment, computer modeling, and diagnostic tools." },
+                  { title: "Safety & Compliance First", description: "Zero-compromise protocols aligned with BNBC, NFPA, and international IEC directives." },
+                  { title: "Long-Term Partnerships", description: "Proactive 24/7 post-commissioning maintenance and OEM spare parts availability." }
+                ];
+
+                return (
+                  <div className="space-y-8 text-xs">
+                    {/* SECTION 1: Page Header & Subtitle */}
+                    <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200 space-y-4">
+                      <div className="border-b border-slate-200/80 pb-2">
+                        <strong className="block text-slate-900 text-sm font-bold flex items-center gap-2">
+                          <Sparkles className="w-4 h-4 text-[#F37021]" />
+                          <span>Page Header & Top Banner</span>
+                        </strong>
+                        <p className="text-[11px] text-slate-500 mt-0.5">
+                          Top dark hero banner displayed at the head of the About Us page.
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                          <label className="block font-bold text-slate-700 mb-1">
+                            Header Badge Text
+                          </label>
+                          <input
+                            type="text"
+                            value={aboutData.headerBadge ?? "Corporate Profile"}
+                            onChange={(e) => updateAbout({ headerBadge: e.target.value })}
+                            placeholder="Corporate Profile"
+                            className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 bg-white"
+                          />
+                        </div>
+
+                        <div className="sm:col-span-2">
+                          <label className="block font-bold text-slate-700 mb-1">
+                            Main Page Title (H1)
+                          </label>
+                          <input
+                            type="text"
+                            value={aboutData.title ?? "About Bhuiyan Group"}
+                            onChange={(e) => updateAbout({ title: e.target.value })}
+                            placeholder="About Bhuiyan Group"
+                            className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 font-bold bg-white"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">
+                          Subtitle / Hero Description
+                        </label>
+                        <textarea
+                          rows={2}
+                          value={aboutData.subtitle ?? "Over a decade of leadership in power infrastructure, clean renewable energy, fluid mechanics, and clinical mother-child care in Bangladesh."}
+                          onChange={(e) => updateAbout({ subtitle: e.target.value })}
+                          placeholder="Over a decade of leadership in power infrastructure..."
+                          className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 bg-white leading-relaxed"
+                        />
+                      </div>
+                    </div>
+
+                    {/* SECTION 2: Corporate Story & Image */}
+                    <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200 space-y-4">
+                      <div className="border-b border-slate-200/80 pb-2">
+                        <strong className="block text-slate-900 text-sm font-bold flex items-center gap-2">
+                          <Building className="w-4 h-4 text-[#F37021]" />
+                          <span>Corporate Story & Heritage Overview</span>
+                        </strong>
+                        <p className="text-[11px] text-slate-500 mt-0.5">
+                          Main narrative content detailing Bhuiyan Group&apos;s history, growth, and industrial capacity.
+                        </p>
+                      </div>
+
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">
+                          Story Section Heading
+                        </label>
+                        <input
+                          type="text"
+                          value={aboutData.storyHeading ?? "Building the Industrial Engine of Bangladesh"}
+                          onChange={(e) => updateAbout({ storyHeading: e.target.value })}
+                          placeholder="Building the Industrial Engine of Bangladesh"
+                          className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 font-bold text-sm bg-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">
+                          Story Paragraph 1 (Executive Summary)
+                        </label>
+                        <textarea
+                          rows={3}
+                          value={aboutData.storyParagraph1 ?? config.general.overview}
+                          onChange={(e) => updateAbout({ storyParagraph1: e.target.value })}
+                          placeholder="Established as a cornerstone of Bangladeshi industrial growth..."
+                          className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 bg-white leading-relaxed"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">
+                          Story Paragraph 2 (Heritage & Corporate Ethos)
+                        </label>
+                        <textarea
+                          rows={3}
+                          value={aboutData.storyParagraph2 ?? "From our beginnings in electro-mechanical power distribution, Bhuiyan Group has diversified into five autonomous corporate concerns. We operate with a unified ethos: uncompromised technical integrity, strict adherence to global safety benchmarks, and responsive customer-first field support."}
+                          onChange={(e) => updateAbout({ storyParagraph2: e.target.value })}
+                          placeholder="From our beginnings in electro-mechanical power distribution..."
+                          className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 bg-white leading-relaxed"
+                        />
+                      </div>
+
+                      {/* Optional Story Feature Image */}
+                      <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-3">
+                        <FileUploader
+                          label="About Story Feature Image (Optional)"
+                          description="Display high-resolution corporate headquarters, industrial facility, or engineering operations photo."
+                          recommendedRatio="16:9 Landscape"
+                          recommendedSize="1200 × 675 px (JPG/PNG)"
+                          value={aboutData.storyImage || ""}
+                          onChange={(url) => updateAbout({ storyImage: url })}
+                          category="about-story"
+                          accept="image/*"
+                        />
+                        <div className="flex items-center gap-3">
+                          <label className="text-slate-600 font-bold shrink-0">
+                            Or Image URL:
+                          </label>
+                          <input
+                            type="text"
+                            value={aboutData.storyImage || ""}
+                            onChange={(e) => updateAbout({ storyImage: e.target.value })}
+                            placeholder="/img/bhuiyan-group-hero-banner.jpg"
+                            className="w-full px-3 py-1.5 rounded-lg border border-slate-300 font-mono text-xs text-slate-900 bg-slate-50/50"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* SECTION 3: Key Stat Highlights / Metric Cards */}
+                    <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200 space-y-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200/80 pb-2">
+                        <div>
+                          <strong className="block text-slate-900 text-sm font-bold flex items-center gap-2">
+                            <Sliders className="w-4 h-4 text-[#F37021]" />
+                            <span>About Page Metric Highlights ({highlights.length})</span>
+                          </strong>
+                          <p className="text-[11px] text-slate-500 mt-0.5">
+                            Key numerical achievements displayed as prominent cards in the Story section (e.g. &quot;350+ MW Installed Capacity&quot;, &quot;1,200+ Industrial Clients&quot;).
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newHighlight = {
+                              value: "500+",
+                              label: "Completed Deployments",
+                              description: "Across industrial sectors"
+                            };
+                            updateAbout({ highlights: [...highlights, newHighlight] });
+                          }}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0F2557] hover:bg-[#1A3978] text-white text-xs font-bold cursor-pointer shrink-0 shadow-xs"
+                        >
+                          <Plus className="w-3.5 h-3.5 text-orange-400" />
+                          <span>+ Add Stat Highlight</span>
+                        </button>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                        {highlights.map((h: any, hIdx: number) => (
+                          <div
+                            key={hIdx}
+                            className="p-3.5 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-2 relative"
+                          >
+                            <div className="flex items-center justify-between">
+                              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                                Metric #{hIdx + 1}
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const updated = highlights.filter((_: any, idx: number) => idx !== hIdx);
+                                  updateAbout({ highlights: updated });
+                                }}
+                                className="p-1 rounded text-red-500 hover:bg-red-50 transition-colors"
+                                title="Remove this metric"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+
+                            <div>
+                              <label className="block text-[10px] font-bold text-slate-600 mb-0.5">
+                                Counter Value (Number / MW)
+                              </label>
+                              <input
+                                type="text"
+                                value={h.value}
+                                onChange={(e) => {
+                                  const updated = [...highlights];
+                                  updated[hIdx] = { ...h, value: e.target.value };
+                                  updateAbout({ highlights: updated });
+                                }}
+                                placeholder="350+ MW"
+                                className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-slate-900 font-black text-sm bg-slate-50/50"
+                              />
+                            </div>
+
+                            <div>
+                              <label className="block text-[10px] font-bold text-slate-600 mb-0.5">
+                                Metric Label
+                              </label>
+                              <input
+                                type="text"
+                                value={h.label}
+                                onChange={(e) => {
+                                  const updated = [...highlights];
+                                  updated[hIdx] = { ...h, label: e.target.value };
+                                  updateAbout({ highlights: updated });
+                                }}
+                                placeholder="Installed Capacity"
+                                className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-slate-900 font-bold text-xs bg-slate-50/50"
+                              />
+                            </div>
+
+                            <div>
+                              <label className="block text-[10px] font-bold text-slate-600 mb-0.5">
+                                Subtitle / Description
+                              </label>
+                              <input
+                                type="text"
+                                value={h.description || ""}
+                                onChange={(e) => {
+                                  const updated = [...highlights];
+                                  updated[hIdx] = { ...h, description: e.target.value };
+                                  updateAbout({ highlights: updated });
+                                }}
+                                placeholder="Standby & renewable solar"
+                                className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-slate-900 text-xs bg-slate-50/50"
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* SECTION 4: Core Principles Cards */}
+                    <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200 space-y-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200/80 pb-2">
+                        <div>
+                          <strong className="block text-slate-900 text-sm font-bold flex items-center gap-2">
+                            <ShieldCheck className="w-4 h-4 text-[#F37021]" />
+                            <span>Core Principles Cards ({principles.length})</span>
+                          </strong>
+                          <p className="text-[11px] text-slate-500 mt-0.5">
+                            Displayed on the right column of the About Us page under &quot;Our Core Principles&quot;.
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newPrinciple = {
+                              title: "New Corporate Principle",
+                              description: "Describe the foundational value, compliance directive, or technical standard."
+                            };
+                            updateAbout({ principles: [...principles, newPrinciple] });
+                          }}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F37021] hover:bg-[#DE5F12] text-white text-xs font-bold cursor-pointer shrink-0 shadow-xs"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                          <span>+ Add Principle Card</span>
+                        </button>
+                      </div>
+
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">
+                          Principles Section Title
+                        </label>
+                        <input
+                          type="text"
+                          value={aboutData.principlesHeading ?? "Our Core Principles"}
+                          onChange={(e) => updateAbout({ principlesHeading: e.target.value })}
+                          placeholder="Our Core Principles"
+                          className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 font-bold bg-white"
+                        />
+                      </div>
+
+                      <div className="space-y-3">
+                        {principles.map((pr: any, prIdx: number) => (
+                          <div
+                            key={prIdx}
+                            className="p-4 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-2 relative"
+                          >
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                                <CheckCircle2 className="w-4 h-4 text-[#F37021]" />
+                                <span>Principle #{prIdx + 1}</span>
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const updated = principles.filter((_: any, idx: number) => idx !== prIdx);
+                                  updateAbout({ principles: updated });
+                                }}
+                                className="p-1 rounded text-red-500 hover:bg-red-50 transition-colors"
+                                title="Remove this principle"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                              <div>
+                                <label className="block text-[10px] font-bold text-slate-600 mb-0.5">
+                                  Principle Name
+                                </label>
+                                <input
+                                  type="text"
+                                  value={pr.title}
+                                  onChange={(e) => {
+                                    const updated = [...principles];
+                                    updated[prIdx] = { ...pr, title: e.target.value };
+                                    updateAbout({ principles: updated });
+                                  }}
+                                  placeholder="e.g. Engineering Excellence"
+                                  className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-slate-900 font-bold text-xs bg-slate-50/50"
+                                />
+                              </div>
+                              <div className="sm:col-span-2">
+                                <label className="block text-[10px] font-bold text-slate-600 mb-0.5">
+                                  Principle Description
+                                </label>
+                                <textarea
+                                  rows={2}
+                                  value={pr.description}
+                                  onChange={(e) => {
+                                    const updated = [...principles];
+                                    updated[prIdx] = { ...pr, description: e.target.value };
+                                    updateAbout({ principles: updated });
+                                  }}
+                                  placeholder="Zero-compromise protocols aligned with..."
+                                  className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-slate-900 text-xs bg-slate-50/50"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* SECTION 5: Corporate Vision & Mission Cards */}
+                    <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200 space-y-4">
+                      <div className="border-b border-slate-200/80 pb-2">
+                        <strong className="block text-slate-900 text-sm font-bold flex items-center gap-2">
+                          <Target className="w-4 h-4 text-[#F37021]" />
+                          <span>Corporate Vision & Mission Cards</span>
+                        </strong>
+                        <p className="text-[11px] text-slate-500 mt-0.5">
+                          The two featured full-width cards displayed at the bottom of the About Us page.
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Vision Card Editor */}
+                        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-3">
+                          <span className="text-xs font-bold text-[#F37021] flex items-center gap-1.5">
+                            <Target className="w-4 h-4" />
+                            <span>Corporate Vision Card</span>
+                          </span>
+
+                          <div>
+                            <label className="block font-bold text-slate-700 mb-1">
+                              Card Title
+                            </label>
+                            <input
+                              type="text"
+                              value={aboutData.visionHeading ?? "Corporate Vision"}
+                              onChange={(e) => updateAbout({ visionHeading: e.target.value })}
+                              placeholder="Corporate Vision"
+                              className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 font-bold bg-slate-50/50"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block font-bold text-slate-700 mb-1">
+                              Vision Statement Text
+                            </label>
+                            <textarea
+                              rows={4}
+                              value={aboutData.visionText ?? config.general.vision}
+                              onChange={(e) => updateAbout({ visionText: e.target.value })}
+                              placeholder="To be the premier diversified industrial and engineering conglomerate..."
+                              className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 bg-slate-50/50 leading-relaxed"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Mission Card Editor */}
+                        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-3">
+                          <span className="text-xs font-bold text-sky-600 flex items-center gap-1.5">
+                            <Award className="w-4 h-4" />
+                            <span>Corporate Mission Card</span>
+                          </span>
+
+                          <div>
+                            <label className="block font-bold text-slate-700 mb-1">
+                              Card Title
+                            </label>
+                            <input
+                              type="text"
+                              value={aboutData.missionHeading ?? "Corporate Mission"}
+                              onChange={(e) => updateAbout({ missionHeading: e.target.value })}
+                              placeholder="Corporate Mission"
+                              className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 font-bold bg-slate-50/50"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block font-bold text-slate-700 mb-1">
+                              Mission Statement Text
+                            </label>
+                            <textarea
+                              rows={4}
+                              value={aboutData.missionText ?? config.general.mission}
+                              onChange={(e) => updateAbout({ missionText: e.target.value })}
+                              placeholder="Empower industries and communities across Bangladesh..."
+                              className="w-full px-3 py-2 rounded-lg border border-slate-300 text-slate-900 bg-slate-50/50 leading-relaxed"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bottom Save Bar */}
+                    <div className="p-4 rounded-xl bg-gradient-to-r from-orange-50/60 to-slate-50 border border-orange-200/80 flex items-center justify-between gap-4">
+                      <div>
+                        <strong className="block text-slate-900 font-bold text-xs">
+                          Ready to apply updates to /about?
+                        </strong>
+                        <p className="text-[11px] text-slate-500">
+                          Clicking save persists these settings instantly across the live website.
+                        </p>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={handleSave}
+                        disabled={isSaving}
+                        className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#F37021] hover:bg-[#DE5F12] text-white font-bold text-xs shadow-md shadow-[#F37021]/30 transition-all cursor-pointer disabled:opacity-50 shrink-0"
+                      >
+                        <Save className="w-4 h-4" />
+                        <span>{isSaving ? "Saving..." : "Save About Page"}</span>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           )}
 

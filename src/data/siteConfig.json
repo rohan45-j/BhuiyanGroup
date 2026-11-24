@@ -37,6 +37,46 @@
     "country": "Bangladesh",
     "workingHours": "Saturday - Thursday: 9:00 AM - 6:00 PM (BST)"
   },
+  "about": {
+    "headerBadge": "Corporate Profile",
+    "title": "About Bhuiyan Group",
+    "subtitle": "Over a decade of leadership in power infrastructure, clean renewable energy, fluid mechanics, and clinical mother-child care in Bangladesh.",
+    "storyHeading": "Building the Industrial Engine of Bangladesh",
+    "storyParagraph1": "Established as a cornerstone of Bangladeshi industrial growth, Bhuiyan Group (BG) operates across five strategic sectors: heavy power generation, renewable solar technology, electro-mechanical substation engineering, industrial water pump systems, and certified infant care essentials. With an established footprint across Dhaka, Chittagong, and major industrial hubs, Bhuiyan Group combines deep engineering expertise with steadfast corporate integrity.",
+    "storyParagraph2": "From our beginnings in electro-mechanical power distribution, Bhuiyan Group has diversified into five autonomous corporate concerns. We operate with a unified ethos: uncompromised technical integrity, strict adherence to global safety benchmarks, and responsive customer-first field support.",
+    "storyImage": "/img/bhuiyan-group-hero-banner.jpg",
+    "highlights": [
+      {
+        "value": "350+ MW",
+        "label": "Installed Capacity",
+        "description": "Standby & renewable solar"
+      },
+      {
+        "value": "1,200+",
+        "label": "Industrial Clients",
+        "description": "Textiles, pharma & commercial"
+      }
+    ],
+    "principlesHeading": "Our Core Principles",
+    "principles": [
+      {
+        "title": "Engineering Excellence",
+        "description": "Continuous upgrade of testing equipment, computer modeling, and diagnostic tools."
+      },
+      {
+        "title": "Safety & Compliance First",
+        "description": "Zero-compromise protocols aligned with BNBC, NFPA, and international IEC directives."
+      },
+      {
+        "title": "Long-Term Partnerships",
+        "description": "Proactive 24/7 post-commissioning maintenance and OEM spare parts availability."
+      }
+    ],
+    "visionHeading": "Corporate Vision",
+    "visionText": "To be the premier diversified industrial and engineering conglomerate in Bangladesh, delivering sustainable power, clean water, renewable energy, and world-class products that drive national economic self-reliance.",
+    "missionHeading": "Corporate Mission",
+    "missionText": "Empower industries and communities across Bangladesh through relentless engineering excellence, turnkey power generation, green energy adoption, resilient electro-mechanical infrastructure, and high-standard consumer products."
+  },
   "hero": {
     "backgroundType": "image",
     "videoUrl": "https://login.bitopibd.com/uploads/sewing_factory_in_klaten_1080p_2025_08_05_00_15_26_utc_170318d437.mp4",
