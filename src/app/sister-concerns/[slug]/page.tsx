@@ -19,47 +19,54 @@ import {
   Shield,
   Globe,
 } from "lucide-react";
-import fs from "fs";
-import path from "path";
 import { companyData } from "@/data/companyData";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
 import SisterConcernPhotoGallery from "@/components/ui/SisterConcernPhotoGallery";
 import SisterConcernVideoGallery from "@/components/ui/SisterConcernVideoGallery";
 import { getMergedSiteConfig } from "@/lib/runtimeConfig";
 
+
 function getSisterConcerns() {
   try {
     const data = getMergedSiteConfig();
     if (data.sisterConcerns && data.sisterConcerns.length > 0) {
-        return data.sisterConcerns.map((sc: any) => {
-          const base =
-            companyData.sisterConcerns.find(
-              (b) => b.slug === sc.slug || b.id === sc.id
-            ) || ({} as any);
-          return {
-            ...base,
-            ...sc,
-            capabilities:
-              sc.capabilities && sc.capabilities.length > 0
-                ? sc.capabilities
-                : base.capabilities || [],
-            keySpecialties:
-              sc.keySpecialties && sc.keySpecialties.length > 0
-                ? sc.keySpecialties
-                : base.keySpecialties || [],
-            stats:
-              sc.stats && sc.stats.length > 0
-                ? sc.stats
-                : base.stats || [],
-            contactInfo: {
-              ...(base.contactInfo || {}),
-              ...(sc.contactInfo || {}),
-            },
-            galleryImages: sc.galleryImages || base.galleryImages || [],
-            galleryVideos: sc.galleryVideos || base.galleryVideos || [],
-          };
-        });
-      }
+      return data.sisterConcerns.map((sc: any) => {
+        const base =
+          companyData.sisterConcerns.find(
+            (b) => b.slug === sc.slug || b.id === sc.id
+          ) || ({} as any);
+        return {
+          ...base,
+          ...sc,
+          name: sc.name || base.name || "Sister Concern",
+          shortName: sc.shortName || base.shortName || sc.name || "Subsidiary",
+          tagline: sc.tagline || base.tagline || "Engineering & Industrial Solutions",
+          sector: sc.sector || base.sector || "Industrial Infrastructure",
+          foundedYear: sc.foundedYear || base.foundedYear || new Date().getFullYear().toString(),
+          capabilities:
+            sc.capabilities && sc.capabilities.length > 0
+              ? sc.capabilities
+              : base.capabilities || [],
+          keySpecialties:
+            sc.keySpecialties && sc.keySpecialties.length > 0
+              ? sc.keySpecialties
+              : base.keySpecialties || [],
+          stats:
+            sc.stats && sc.stats.length > 0
+              ? sc.stats
+              : base.stats || [],
+          contactInfo: {
+            phone: "+880 1711-000000",
+            email: "info@bhuiyangroup.com.bd",
+            office: "Bhuiyan Corporate Tower, Dhaka",
+            ...(base.contactInfo || {}),
+            ...(sc.contactInfo || {}),
+          },
+          galleryImages: sc.galleryImages || base.galleryImages || [],
+          galleryVideos: sc.galleryVideos || base.galleryVideos || [],
+        };
+      });
+    }
   } catch (e) {
     console.warn("Falling back to static companyData", e);
   }
@@ -98,7 +105,7 @@ export async function generateMetadata({
 
   return {
     title: `${concern.name} | Bhuiyan Group Bangladesh`,
-    description: concern.description,
+    description: concern.description || concern.tagline || "",
   };
 }
 
@@ -129,7 +136,7 @@ export default async function SisterConcernPage({
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <Link
-            href="/#sister-concerns"
+            href="/sister-concerns"
             className="inline-flex items-center gap-2 text-xs font-semibold text-slate-300 hover:text-white mb-6 group transition-colors"
           >
             <ArrowLeft className="w-4 h-4 text-[#F37021] group-hover:-translate-x-1 transition-transform" />
@@ -161,7 +168,7 @@ export default async function SisterConcernPage({
               </p>
             </div>
 
-            <div className="w-24 h-24 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-2xl sm:rounded-3xl bg-white p-3 sm:p-4 shadow-2xl border border-white/30 flex items-center justify-center shrink-0 self-start md:self-auto group hover:scale-105 transition-all">
+            <div className="w-24 h-24 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-2xl sm:rounded-3xl bg-white p-3 sm:p-4 shadow-2xl border border-white/30 flex items-center justify-center shrink-0 self-start md:self-auto group hover:scale-105 transition-all overflow-hidden">
               {concern.logo ? (
                 <div className="relative w-full h-full flex items-center justify-center">
                   <Image
@@ -170,6 +177,7 @@ export default async function SisterConcernPage({
                     fill
                     className="object-contain p-1"
                     priority
+                    unoptimized
                   />
                 </div>
               ) : (
@@ -184,16 +192,16 @@ export default async function SisterConcernPage({
       {concern.stats && concern.stats.length > 0 && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 sm:-mt-12 relative z-20">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 bg-white rounded-xl sm:rounded-2xl p-4 sm:p-8 border border-slate-200 shadow-xl">
-            {concern.stats.map((st: { label: string; value: string }, i: number) => (
+            {concern.stats.map((st: { label?: string; value?: string }, i: number) => (
               <div
                 key={i}
                 className="text-center sm:text-left sm:border-r border-slate-100 last:border-r-0 p-2"
               >
                 <div className="text-2xl sm:text-4xl font-black text-[#0F2557]">
-                  <AnimatedCounter value={st.value} />
+                  <AnimatedCounter value={st?.value || ""} />
                 </div>
                 <div className="text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">
-                  {st.label}
+                  {st?.label || ""}
                 </div>
               </div>
             ))}
@@ -213,7 +221,7 @@ export default async function SisterConcernPage({
                 <span>Company Overview & Industry Role</span>
               </h2>
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                {concern.longDescription || concern.description}
+                {concern.longDescription || concern.description || concern.tagline}
               </p>
             </div>
 
@@ -224,24 +232,30 @@ export default async function SisterConcernPage({
                   Engineering & Operational Capabilities
                 </h2>
                 <div className="grid grid-cols-1 gap-4">
-                  {concern.capabilities.map((cap: { title: string; description: string }, idx: number) => (
-                    <div
-                      key={idx}
-                      className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4 hover:border-[#0F2557]/40 card-hover-glow transition-all"
-                    >
-                      <div className="w-9 h-9 rounded-xl bg-[#FFF4EC] text-[#F37021] flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
-                        0{idx + 1}
+                  {concern.capabilities.map((cap: any, idx: number) => {
+                    const title = typeof cap === "string" ? cap : cap?.title || `Capability 0${idx + 1}`;
+                    const desc = typeof cap === "string" ? "" : cap?.description || "";
+                    return (
+                      <div
+                        key={idx}
+                        className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4 hover:border-[#0F2557]/40 card-hover-glow transition-all"
+                      >
+                        <div className="w-9 h-9 rounded-xl bg-[#FFF4EC] text-[#F37021] flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
+                          0{idx + 1}
+                        </div>
+                        <div>
+                          <h3 className="text-base font-bold text-slate-900">
+                            {title}
+                          </h3>
+                          {desc && (
+                            <p className="text-sm text-slate-600 mt-1 leading-relaxed">
+                              {desc}
+                            </p>
+                          )}
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-base font-bold text-slate-900">
-                          {cap.title}
-                        </h3>
-                        <p className="text-sm text-slate-600 mt-1 leading-relaxed">
-                          {cap.description}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -253,15 +267,18 @@ export default async function SisterConcernPage({
                   Key Technical Specialties & Offerings
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {concern.keySpecialties.map((spec: string, idx: number) => (
-                    <div
-                      key={idx}
-                      className="flex items-start gap-2.5 text-sm text-slate-700 bg-slate-50 p-3.5 rounded-xl border border-slate-100 hover:border-[#F37021]/30 transition-colors"
-                    >
-                      <CheckCircle2 className="w-4 h-4 text-[#F37021] shrink-0 mt-0.5" />
-                      <span>{spec}</span>
-                    </div>
-                  ))}
+                  {concern.keySpecialties.map((spec: any, idx: number) => {
+                    const text = typeof spec === "string" ? spec : spec?.title || spec?.label || String(spec || "");
+                    return (
+                      <div
+                        key={idx}
+                        className="flex items-start gap-2.5 text-sm text-slate-700 bg-slate-50 p-3.5 rounded-xl border border-slate-100 hover:border-[#F37021]/30 transition-colors"
+                      >
+                        <CheckCircle2 className="w-4 h-4 text-[#F37021] shrink-0 mt-0.5" />
+                        <span>{text}</span>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -308,7 +325,7 @@ export default async function SisterConcernPage({
                   </div>
                 </div>
 
-                {concern.contactInfo?.website && (
+                {concern.contactInfo?.website && typeof concern.contactInfo.website === "string" && concern.contactInfo.website.trim() !== "" && (
                   <div className="flex items-start gap-3">
                     <Globe className="w-4 h-4 text-[#F37021] shrink-0 mt-0.5" />
                     <div>
@@ -344,16 +361,16 @@ export default async function SisterConcernPage({
               <div className="space-y-2">
                 {otherConcerns.map((item: any) => (
                   <Link
-                    key={item.id}
+                    key={item.id || item.slug}
                     href={`/sister-concerns/${item.slug}`}
                     className="flex items-center justify-between p-3.5 rounded-xl hover:bg-slate-50 transition-colors group text-sm border border-transparent hover:border-slate-200"
                   >
                     <div>
                       <span className="font-bold text-slate-800 group-hover:text-[#0F2557] block">
-                        {item.name}
+                        {item.name || item.shortName}
                       </span>
                       <span className="text-[11px] text-slate-400">
-                        {item.sector}
+                        {item.sector || ""}
                       </span>
                     </div>
                     <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#F37021] group-hover:translate-x-1 transition-all" />

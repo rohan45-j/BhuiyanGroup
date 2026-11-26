@@ -275,7 +275,7 @@ export default function InteractiveConcernShowcase() {
                         <span>Core Operational Capabilities</span>
                       </span>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-1.5">
-                        {concern.keySpecialties.slice(0, 4).map((spec, i) => (
+                        {(concern.keySpecialties || []).slice(0, 4).map((spec, i) => (
                           <div
                             key={i}
                             className={`items-start gap-1.5 p-1.5 sm:p-2 rounded-lg bg-slate-50 border border-slate-200/70 hover:bg-white hover:border-[#0F2557]/20 transition-all text-[11px] text-slate-700 font-medium ${

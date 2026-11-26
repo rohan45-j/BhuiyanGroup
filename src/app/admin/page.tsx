@@ -100,7 +100,12 @@ function FileUploader({
 }) {
   const [uploading, setUploading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [hasImgError, setHasImgError] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setHasImgError(false);
+  }, [value]);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -210,8 +215,18 @@ function FileUploader({
                 controls
                 className="max-h-full max-w-full rounded object-contain"
               />
+            ) : hasImgError ? (
+              <div className="flex flex-col items-center justify-center p-2 text-center text-slate-400">
+                <AlertCircle className="w-5 h-5 text-amber-400 mb-0.5" />
+                <span className="text-[10px] text-slate-300">Image not found on disk</span>
+              </div>
             ) : (
-              <img src={value} alt="Preview" className="max-h-full max-w-full object-contain" />
+              <img
+                src={value}
+                alt="Preview"
+                className="max-h-full max-w-full object-contain"
+                onError={() => setHasImgError(true)}
+              />
             )}
           </div>
         </div>

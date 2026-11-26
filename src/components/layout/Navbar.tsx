@@ -282,6 +282,7 @@ export default function Navbar() {
                                     alt={concern.name}
                                     fill
                                     className="object-contain"
+                                    unoptimized
                                   />
                                 </div>
                               ) : (
@@ -459,6 +460,7 @@ export default function Navbar() {
                                   alt={concern.name}
                                   fill
                                   className="object-contain"
+                                  unoptimized
                                 />
                               </div>
                             ) : (

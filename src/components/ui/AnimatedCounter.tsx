@@ -4,20 +4,22 @@ import React, { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 
 interface AnimatedCounterProps {
-  value: string;
+  value?: string;
   className?: string;
 }
 
-export default function AnimatedCounter({ value, className = "" }: AnimatedCounterProps) {
+export default function AnimatedCounter({ value = "", className = "" }: AnimatedCounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
   
+  const safeValue = typeof value === "string" ? value : String(value || "");
+
   // Extract number and suffix (e.g. "350+ MW" -> number: 350, suffix: "+ MW")
-  const match = value.match(/([\d,.]+)/);
+  const match = safeValue.match(/([\d,.]+)/);
   const rawNumber = match ? parseFloat(match[0].replace(/,/g, "")) : 0;
-  const isDecimal = value.includes(".");
-  const prefix = value.substring(0, value.indexOf(match ? match[0] : ""));
-  const suffix = match ? value.substring(value.indexOf(match[0]) + match[0].length) : value;
+  const isDecimal = safeValue.includes(".");
+  const prefix = match ? safeValue.substring(0, safeValue.indexOf(match[0])) : "";
+  const suffix = match ? safeValue.substring(safeValue.indexOf(match[0]) + match[0].length) : safeValue;
 
   const [count, setCount] = useState(0);
 
@@ -50,7 +52,7 @@ export default function AnimatedCounter({ value, className = "" }: AnimatedCount
   return (
     <span ref={ref} className={className}>
       {prefix}
-      {isInView ? formattedCount : "0"}
+      {isInView ? formattedCount : (match ? "0" : "")}
       {suffix}
     </span>
   );
