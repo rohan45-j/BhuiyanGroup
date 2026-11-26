@@ -157,11 +157,6 @@ export default function Navbar() {
               <FileText className="w-3.5 h-3.5 text-[#F37021]" />
               <span>Company Brochure</span>
             </button>
-            <span className="text-white/20">•</span>
-            <span className="flex items-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>ISO 9001:2015 Certified</span>
-            </span>
           </div>
         </div>
       </div>
@@ -262,7 +257,7 @@ export default function Navbar() {
                           Bhuiyan Group Subsidiaries
                         </span>
                         <span className="text-[11px] font-bold text-[#F37021] bg-[#FFF4EC] px-2.5 py-0.5 rounded-full">
-                          5 Strategic Concerns
+                          {sisterConcerns.length} Strategic Concerns
                         </span>
                       </div>
 
@@ -433,7 +428,7 @@ export default function Navbar() {
                     <span className="flex items-center gap-2">
                       <span>Sister Concerns</span>
                       <span className="text-[11px] font-bold text-[#F37021] bg-[#FFF4EC] px-2 py-0.5 rounded-full">
-                        5
+                        {sisterConcerns.length}
                       </span>
                     </span>
                     <ChevronDown

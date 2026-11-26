@@ -100,6 +100,7 @@ function FileUploader({
 }) {
   const [uploading, setUploading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
   const [hasImgError, setHasImgError] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -112,6 +113,7 @@ function FileUploader({
     if (!file) return;
     setUploading(true);
     setErrorMsg(null);
+    setUploadSuccess(false);
     const formData = new FormData();
     formData.append("file", file);
     formData.append("category", category);
@@ -123,6 +125,9 @@ function FileUploader({
       const data = await res.json();
       if (data.success && data.url) {
         onChange(data.url);
+        setHasImgError(false);
+        setUploadSuccess(true);
+        setTimeout(() => setUploadSuccess(false), 3000);
       } else {
         setErrorMsg(data.error || "Upload failed");
       }
@@ -130,6 +135,9 @@ function FileUploader({
       setErrorMsg("Network error during file upload");
     } finally {
       setUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     }
   };
 
@@ -158,6 +166,12 @@ function FileUploader({
             {recommendedSize && (
               <span className="text-[10px] bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded-full border border-emerald-200/80">
                 Size: {recommendedSize}
+              </span>
+            )}
+            {uploadSuccess && (
+              <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full border border-emerald-300 flex items-center gap-1 animate-pulse">
+                <Check className="w-3 h-3 text-emerald-700" />
+                <span>Uploaded Successfully!</span>
               </span>
             )}
           </div>

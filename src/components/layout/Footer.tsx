@@ -65,20 +65,13 @@ export default function Footer() {
             <p className="text-slate-300 text-sm leading-relaxed pr-2">
               {corporateInfo.overview}
             </p>
-
-            <div className="pt-2 flex flex-col gap-2">
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-200 bg-white/5 border border-white/10 rounded-lg p-2.5 w-fit">
-                <Shield className="w-4 h-4 text-[#F37021]" />
-                <span>ISO 9001:2015 Compliant Quality & Safety Frameworks</span>
-              </div>
-            </div>
           </div>
 
           {/* Sister Concerns Column */}
           <div className="lg:col-span-3 space-y-4">
             <h3 className="text-white font-bold text-base tracking-wide uppercase border-b border-white/15 pb-2.5 flex items-center justify-between">
               <span>Sister Concerns</span>
-              <span className="text-[#F37021] text-xs font-normal">5 Entities</span>
+              <span className="text-[#F37021] text-xs font-normal">{sisterConcerns.length} Entities</span>
             </h3>
             <ul className="space-y-2.5">
               {sisterConcerns.map((concern) => (
