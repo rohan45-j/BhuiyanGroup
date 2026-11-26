@@ -1,8 +1,16 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { isRequestAuthorized } from "@/lib/auth";
 
 export async function POST(request: Request) {
   try {
+    if (!isRequestAuthorized(request)) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized: Administrator access required." },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json();
     const { host, port, secure, user, pass, fromEmail, fromName, receiverEmail } = body;
 

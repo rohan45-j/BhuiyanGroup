@@ -118,8 +118,13 @@ function FileUploader({
     formData.append("file", file);
     formData.append("category", category);
     try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("bg_admin_token") : null;
+      const headers: Record<string, string> = {};
+      if (token) headers["Authorization"] = `Bearer ${token}`;
+
       const res = await fetch("/api/admin/upload", {
         method: "POST",
+        headers,
         body: formData,
       });
       const data = await res.json();
@@ -269,6 +274,7 @@ export default function AdminPage() {
   const [loginPassword, setLoginPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loginError, setLoginError] = useState<string | null>(null);
+  const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
 
   const [activeTab, setActiveTab] = useState<AdminTab>("dashboard");
   const [selectedConcernIndex, setSelectedConcernIndex] = useState(0);
@@ -370,9 +376,13 @@ export default function AdminPage() {
     setSmtpTestResult(null);
     try {
       const smtpData = (config as any).smtp || {};
+      const token = typeof window !== "undefined" ? localStorage.getItem("bg_admin_token") : null;
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Bearer ${token}`;
+
       const res = await fetch("/api/admin/test-smtp", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify(smtpData),
       });
       const data = await res.json();
@@ -404,7 +414,11 @@ export default function AdminPage() {
   const fetchInquiries = async () => {
     try {
       setInquiriesLoading(true);
-      const res = await fetch("/api/inquiries", { cache: "no-store" });
+      const token = typeof window !== "undefined" ? localStorage.getItem("bg_admin_token") : null;
+      const headers: Record<string, string> = {};
+      if (token) headers["Authorization"] = `Bearer ${token}`;
+
+      const res = await fetch("/api/inquiries", { cache: "no-store", headers });
       if (res.ok) {
         const data = await res.json();
         setInquiries(data);
@@ -419,9 +433,13 @@ export default function AdminPage() {
   const handleToggleInquiryStatus = async (id: string, currentStatus: string) => {
     const newStatus = currentStatus === "unread" ? "read" : "unread";
     try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("bg_admin_token") : null;
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Bearer ${token}`;
+
       const res = await fetch("/api/inquiries", {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({ id, status: newStatus }),
       });
       if (res.ok) {
@@ -437,8 +455,13 @@ export default function AdminPage() {
   const handleDeleteInquiry = async (id: string) => {
     if (!confirm("Are you sure you want to permanently delete this corporate inquiry?")) return;
     try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("bg_admin_token") : null;
+      const headers: Record<string, string> = {};
+      if (token) headers["Authorization"] = `Bearer ${token}`;
+
       const res = await fetch(`/api/inquiries?id=${id}`, {
         method: "DELETE",
+        headers,
       });
       if (res.ok) {
         setInquiries((prev) => prev.filter((inq) => inq.id !== id));
@@ -543,36 +566,98 @@ export default function AdminPage() {
   useEffect(() => {
     try {
       const savedAuth = localStorage.getItem("bg_admin_authenticated");
+      const token = localStorage.getItem("bg_admin_token");
       if (savedAuth === "true") {
         setIsAuthenticated(true);
         fetchInquiries();
+        // If authenticated flag is true but token missing (legacy session), request fresh token
+        if (!token) {
+          const u = (config as any)?.adminAuth?.username || "admin";
+          const p = (config as any)?.adminAuth?.password || "password123";
+          fetch("/api/admin/auth", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username: u, password: p }),
+          })
+            .then((r) => r.json())
+            .then((d) => {
+              if (d?.token) {
+                localStorage.setItem("bg_admin_token", d.token);
+              }
+            })
+            .catch(() => {});
+        }
       }
     } catch (e) {
       console.warn("Storage check", e);
     } finally {
       setAuthChecked(true);
     }
-  }, []);
+  }, [config]);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError(null);
-    const expectedUser = (config as any)?.adminAuth?.username || "admin";
-    const expectedPass = (config as any)?.adminAuth?.password || "password123";
+    setIsLoggingIn(true);
 
-    if (loginUsername.trim() === expectedUser && loginPassword === expectedPass) {
-      try {
-        localStorage.setItem("bg_admin_authenticated", "true");
-      } catch {}
-      setIsAuthenticated(true);
-    } else {
-      setLoginError("Invalid Administrator Username or Password. Please check credentials.");
+    const user = loginUsername.trim();
+    const pass = loginPassword;
+
+    try {
+      // 1. Authorize with backend route to issue cryptographic session token
+      const res = await fetch("/api/admin/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: user, password: pass }),
+      });
+      const data = await res.json().catch(() => null);
+
+      if (res.ok && data?.success && data?.token) {
+        try {
+          localStorage.setItem("bg_admin_token", data.token);
+          localStorage.setItem("bg_admin_authenticated", "true");
+        } catch {}
+        setIsAuthenticated(true);
+        fetchInquiries();
+        return;
+      }
+
+      // 2. Fallback check against loaded config
+      const expectedUser = (config as any)?.adminAuth?.username || "admin";
+      const expectedPass = (config as any)?.adminAuth?.password;
+      if (expectedPass && user === expectedUser && pass === expectedPass) {
+        try {
+          localStorage.setItem("bg_admin_authenticated", "true");
+        } catch {}
+        setIsAuthenticated(true);
+        fetchInquiries();
+        return;
+      }
+
+      setLoginError(data?.error || "Invalid Administrator Username or Password. Please check credentials.");
+    } catch {
+      // Offline fallback
+      const expectedUser = (config as any)?.adminAuth?.username || "admin";
+      const expectedPass = (config as any)?.adminAuth?.password || "password123";
+      if (user === expectedUser && pass === expectedPass) {
+        try {
+          localStorage.setItem("bg_admin_authenticated", "true");
+        } catch {}
+        setIsAuthenticated(true);
+        fetchInquiries();
+      } else {
+        setLoginError("Network connection error. Could not verify administrator credentials.");
+      }
+    } finally {
+      setIsLoggingIn(false);
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     try {
+      await fetch("/api/admin/auth", { method: "DELETE" }).catch(() => {});
       localStorage.removeItem("bg_admin_authenticated");
+      localStorage.removeItem("bg_admin_token");
     } catch {}
     setIsAuthenticated(false);
     setLoginUsername("");
@@ -693,10 +778,11 @@ export default function AdminPage() {
 
             <button
               type="submit"
-              className="w-full py-3.5 rounded-xl bg-[#0F2557] hover:bg-[#1A3978] text-white font-bold text-sm tracking-wide shadow-lg shadow-[#0F2557]/30 hover:shadow-xl transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 mt-2"
+              disabled={isLoggingIn}
+              className="w-full py-3.5 rounded-xl bg-[#0F2557] hover:bg-[#1A3978] disabled:opacity-60 text-white font-bold text-sm tracking-wide shadow-lg shadow-[#0F2557]/30 hover:shadow-xl transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 mt-2"
             >
               <ShieldCheck className="w-4 h-4 text-orange-400" />
-              <span>Authorize & Enter Console</span>
+              <span>{isLoggingIn ? "Verifying..." : "Authorize & Enter Console"}</span>
             </button>
           </form>
 

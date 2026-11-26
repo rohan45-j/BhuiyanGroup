@@ -46,12 +46,17 @@ export function SiteConfigProvider({ children }: { children: React.ReactNode }) 
 
     async function loadConfig() {
       try {
+        const token = typeof window !== "undefined" ? localStorage.getItem("bg_admin_token") : null;
+        const reqHeaders: Record<string, string> = {
+          "Cache-Control": "no-cache",
+          Pragma: "no-cache",
+        };
+        if (token) {
+          reqHeaders["Authorization"] = `Bearer ${token}`;
+        }
         const res = await fetch(`/api/admin/settings?_t=${Date.now()}`, {
           cache: "no-store",
-          headers: {
-            "Cache-Control": "no-cache",
-            Pragma: "no-cache",
-          },
+          headers: reqHeaders,
         });
         if (res.ok) {
           const data = await res.json();
@@ -196,9 +201,14 @@ export function SiteConfigProvider({ children }: { children: React.ReactNode }) 
     }
 
     try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("bg_admin_token") : null;
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
       const res = await fetch("/api/admin/settings", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify(toSave).replace(/\bsystem\s*\(/gi, "System - ("),
       });
       if (res.ok) {

@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import fs from "fs";
 import path from "path";
 import { getMergedSiteConfig, saveRuntimeConfig } from "@/lib/runtimeConfig";
+import { isRequestAuthorized } from "@/lib/auth";
 
 const noCacheHeaders = {
   "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",
@@ -10,9 +11,26 @@ const noCacheHeaders = {
   Expires: "0",
 };
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     const config = getMergedSiteConfig();
+    const isAuth = isRequestAuthorized(request);
+
+    // If request is from an unauthenticated public visitor, redact sensitive credentials!
+    if (!isAuth) {
+      const sanitized = JSON.parse(JSON.stringify(config));
+      if (sanitized.adminAuth) {
+        sanitized.adminAuth.password = "";
+      }
+      if (sanitized.smtp) {
+        sanitized.smtp.pass = "";
+      }
+      return NextResponse.json(sanitized, {
+        headers: noCacheHeaders,
+      });
+    }
+
+    // Authenticated admin gets full config
     return NextResponse.json(config, {
       headers: noCacheHeaders,
     });
@@ -27,12 +45,40 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    // Verify admin authorization
+    const isAuth = isRequestAuthorized(request);
+    if (!isAuth) {
+      return NextResponse.json(
+        { error: "Unauthorized: Please log in as administrator to save configuration" },
+        { status: 401, headers: noCacheHeaders }
+      );
+    }
+
     const updatedConfig = await request.json();
     if (!updatedConfig || typeof updatedConfig !== "object") {
       return NextResponse.json(
         { error: "Invalid configuration payload" },
         { status: 400, headers: noCacheHeaders }
       );
+    }
+
+    // Preserve existing SMTP password if not sent or empty
+    const currentConfig = getMergedSiteConfig();
+    if (
+      (!updatedConfig.smtp?.pass || updatedConfig.smtp?.pass.trim() === "") &&
+      currentConfig.smtp?.pass
+    ) {
+      if (!updatedConfig.smtp) updatedConfig.smtp = {};
+      updatedConfig.smtp.pass = currentConfig.smtp.pass;
+    }
+
+    // Preserve existing admin password if not changed
+    if (
+      (!updatedConfig.adminAuth?.password || updatedConfig.adminAuth?.password.trim() === "") &&
+      (currentConfig as any).adminAuth?.password
+    ) {
+      if (!updatedConfig.adminAuth) updatedConfig.adminAuth = {};
+      updatedConfig.adminAuth.password = (currentConfig as any).adminAuth.password;
     }
 
     // 1. Save to persistent runtime config (siteConfig.runtime.json)
@@ -42,8 +88,12 @@ export async function POST(request: Request) {
       console.warn("Could not save to runtime config file, continuing...");
     }
 
-    // 2. Also try updating base siteConfig.json if writable
+    // 2. Also try updating base siteConfig.json if writable (scrubbing sensitive password for git safety)
     try {
+      const sanitizedForGit = JSON.parse(JSON.stringify(updatedConfig));
+      if (sanitizedForGit.smtp) {
+        sanitizedForGit.smtp.pass = "";
+      }
       const candidates = [
         path.join(process.cwd(), "src", "data", "siteConfig.json"),
         path.join(process.cwd(), "bhuiyangroup-bd", "src", "data", "siteConfig.json"),
@@ -51,7 +101,7 @@ export async function POST(request: Request) {
       for (const targetFile of candidates) {
         if (fs.existsSync(path.dirname(targetFile))) {
           try {
-            fs.writeFileSync(targetFile, JSON.stringify(updatedConfig, null, 2), "utf-8");
+            fs.writeFileSync(targetFile, JSON.stringify(sanitizedForGit, null, 2), "utf-8");
           } catch {}
         }
       }
