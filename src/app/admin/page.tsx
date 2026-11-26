@@ -3684,10 +3684,10 @@ export default function AdminPage() {
                 <div className="space-y-6 text-xs">
                   {(() => {
                     const sc = config.sisterConcerns[selectedConcernIndex];
-                    const updateConcern = (fields: Partial<typeof sc>) => {
-                      const updated = [...config.sisterConcerns];
+                    const updateConcern = (fields: Record<string, any>) => {
+                      const updated: any[] = [...config.sisterConcerns];
                       updated[selectedConcernIndex] = { ...sc, ...fields };
-                      updateSection("sisterConcerns", updated);
+                      updateSection("sisterConcerns", updated as any);
                     };
 
                     return (
@@ -5872,10 +5872,10 @@ export default function AdminPage() {
 
                 {config.sisterConcerns[selectedConcernIndex] && (() => {
                   const sc = config.sisterConcerns[selectedConcernIndex];
-                  const updateConcern = (fields: Partial<typeof sc>) => {
-                    const updated = [...config.sisterConcerns];
+                  const updateConcern = (fields: Record<string, any>) => {
+                    const updated: any[] = [...config.sisterConcerns];
                     updated[selectedConcernIndex] = { ...sc, ...fields };
-                    updateSection("sisterConcerns", updated);
+                    updateSection("sisterConcerns", updated as any);
                   };
 
                   return (
